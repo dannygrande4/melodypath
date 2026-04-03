@@ -16,8 +16,15 @@ export class PitchDetector {
   async start(callback: PitchCallback): Promise<void> {
     this.callback = callback
 
-    // Use default audio constraints — let the browser/phone optimize
-    this.stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+    // Disable noise gate and auto gain — phones aggressively filter "non-voice" audio
+    this.stream = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        echoCancellation: false,
+        noiseSuppression: false,
+        autoGainControl: false,
+      },
+      video: false,
+    })
     this.audioContext = new AudioContext({ sampleRate: this.sampleRate })
 
     this.analyser = this.audioContext.createAnalyser()
