@@ -44,7 +44,7 @@ interface PlayChallengeProps {
 export default function PlayChallenge({ challenge, onComplete, showReference = true }: PlayChallengeProps) {
   const { ensureAudio } = useAudioInit()
   const engine = useAudioStore((s) => s.engine)
-  const { listening, currentPitch, confirmedNote, holdProgress, start, stop } = usePitchListener({ holdTime: 700 })
+  const { listening, currentPitch, confirmedNote, holdProgress, micLevel, start, stop } = usePitchListener({ holdTime: 700 })
 
   const [started, setStarted] = useState(false)
   const [result, setResult] = useState<'correct' | 'wrong' | null>(null)
@@ -253,8 +253,32 @@ export default function PlayChallenge({ challenge, onComplete, showReference = t
           </>
         )}
         {started && !result && (
-          <div className="text-sm text-surface-400 animate-pulse">
-            🎤 Listening — play the {challenge.type === 'chord' ? 'chord' : 'note'} on your instrument...
+          <div className="space-y-3 w-full max-w-xs mx-auto">
+            <div className="text-sm text-surface-400 text-center animate-pulse">
+              🎤 Listening — play the {challenge.type === 'chord' ? 'chord' : 'note'} on your instrument...
+            </div>
+            {/* Mic level meter */}
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-surface-400 w-6">Mic</span>
+                <div className="flex-1 bg-surface-100 rounded-full h-3 overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all duration-100 ${
+                      micLevel > 0.5 ? 'bg-timing-perfect' :
+                      micLevel > 0.15 ? 'bg-timing-good' :
+                      micLevel > 0.05 ? 'bg-primary-400' :
+                      'bg-surface-300'
+                    }`}
+                    style={{ width: `${Math.max(2, micLevel * 100)}%` }}
+                  />
+                </div>
+              </div>
+              {micLevel < 0.03 && (
+                <div className="text-[10px] text-red-500 text-center">
+                  No sound detected — check mic permissions or play louder
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

@@ -93,6 +93,23 @@ export class PitchDetector {
     }
   }
 
+  /**
+   * Get the current audio input level (0-1).
+   * Useful for showing a mic level meter.
+   */
+  getLevel(): number {
+    if (!this.analyser) return 0
+    const buffer = new Float32Array(this.analyser.fftSize)
+    this.analyser.getFloatTimeDomainData(buffer)
+    let sum = 0
+    for (let i = 0; i < buffer.length; i++) {
+      sum += buffer[i] * buffer[i]
+    }
+    const rms = Math.sqrt(sum / buffer.length)
+    // Normalize: typical mic RMS is 0-0.3, map to 0-1
+    return Math.min(1, rms * 5)
+  }
+
   stop(): void {
     if (this.animationFrame !== null) {
       cancelAnimationFrame(this.animationFrame)

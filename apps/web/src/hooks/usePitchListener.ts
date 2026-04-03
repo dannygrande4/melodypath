@@ -3,27 +3,21 @@ import { PitchDetector } from '@melodypath/audio-engine'
 import type { PitchResult } from '@melodypath/shared-types'
 
 interface PitchListenerOptions {
-  /** How long to hold a note before confirming (ms) */
   holdTime?: number
-  /** Auto-start listening */
   autoStart?: boolean
 }
 
 interface PitchListenerState {
   listening: boolean
   currentPitch: PitchResult | null
-  /** The confirmed note (held long enough) */
   confirmedNote: string | null
-  /** How long the current note has been held (0-1 progress toward holdTime) */
   holdProgress: number
+  /** Mic input level 0-1 */
+  micLevel: number
   start: () => Promise<void>
   stop: () => void
 }
 
-/**
- * Hook that listens to mic input and confirms a note once held steady.
- * Used for "play this note" challenges.
- */
 export function usePitchListener(options: PitchListenerOptions = {}): PitchListenerState {
   const { holdTime = 600, autoStart = false } = options
 
@@ -31,11 +25,13 @@ export function usePitchListener(options: PitchListenerOptions = {}): PitchListe
   const [currentPitch, setCurrentPitch] = useState<PitchResult | null>(null)
   const [confirmedNote, setConfirmedNote] = useState<string | null>(null)
   const [holdProgress, setHoldProgress] = useState(0)
+  const [micLevel, setMicLevel] = useState(0)
 
   const detectorRef = useRef<PitchDetector | null>(null)
   const currentNoteRef = useRef<string | null>(null)
   const noteStartRef = useRef(0)
   const historyRef = useRef<PitchResult[]>([])
+  const levelIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const processResults = useCallback((result: PitchResult | null) => {
     if (!result) {
@@ -45,7 +41,6 @@ export function usePitchListener(options: PitchListenerOptions = {}): PitchListe
       return
     }
 
-    // Rolling average for stability
     historyRef.current.push(result)
     if (historyRef.current.length > 6) historyRef.current.shift()
 
@@ -65,7 +60,6 @@ export function usePitchListener(options: PitchListenerOptions = {}): PitchListe
       return
     }
 
-    // Average the matching readings
     const matching = recent.filter((r) => r.note === dominant)
     const avgPitch: PitchResult = {
       note: dominant,
@@ -75,7 +69,6 @@ export function usePitchListener(options: PitchListenerOptions = {}): PitchListe
     }
     setCurrentPitch(avgPitch)
 
-    // Track hold duration
     if (currentNoteRef.current !== dominant) {
       currentNoteRef.current = dominant
       noteStartRef.current = Date.now()
@@ -98,30 +91,38 @@ export function usePitchListener(options: PitchListenerOptions = {}): PitchListe
     setListening(true)
     setConfirmedNote(null)
     setHoldProgress(0)
+    setMicLevel(0)
     historyRef.current = []
     currentNoteRef.current = null
     await detector.start(processResults)
+
+    // Poll mic level every 100ms
+    levelIntervalRef.current = setInterval(() => {
+      if (detectorRef.current) {
+        setMicLevel(detectorRef.current.getLevel())
+      }
+    }, 100)
   }, [processResults])
 
   const stop = useCallback(() => {
     detectorRef.current?.stop()
     detectorRef.current = null
+    if (levelIntervalRef.current) {
+      clearInterval(levelIntervalRef.current)
+      levelIntervalRef.current = null
+    }
     setListening(false)
     setCurrentPitch(null)
     setHoldProgress(0)
-  }, [])
-
-  // Reset confirmed note when caller reads it
-  const resetConfirmed = useCallback(() => {
-    setConfirmedNote(null)
-    setHoldProgress(0)
-    currentNoteRef.current = null
-    noteStartRef.current = 0
+    setMicLevel(0)
   }, [])
 
   useEffect(() => {
     if (autoStart) start()
-    return () => { detectorRef.current?.stop() }
+    return () => {
+      detectorRef.current?.stop()
+      if (levelIntervalRef.current) clearInterval(levelIntervalRef.current)
+    }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
@@ -129,6 +130,7 @@ export function usePitchListener(options: PitchListenerOptions = {}): PitchListe
     currentPitch,
     confirmedNote,
     holdProgress,
+    micLevel,
     start,
     stop,
   }
