@@ -32,17 +32,20 @@ export class PitchDetector {
     this.audioContext = new AudioContext({ sampleRate: this.sampleRate })
 
     this.analyser = this.audioContext.createAnalyser()
-    // Larger FFT for better low-frequency resolution
-    // 4096 at 44100 Hz gives us resolution down to ~10 Hz
     this.analyser.fftSize = 4096
-    this.analyser.smoothingTimeConstant = 0.3
+    this.analyser.smoothingTimeConstant = 0.1  // less smoothing = more responsive
 
     const source = this.audioContext.createMediaStreamSource(this.stream)
-    source.connect(this.analyser)
+
+    // Boost the mic signal before analysis — phone mics are quiet
+    const gainNode = this.audioContext.createGain()
+    gainNode.gain.value = 4.0  // 4x amplification
+    source.connect(gainNode)
+    gainNode.connect(this.analyser)
 
     this.detect = YIN({
       sampleRate: this.sampleRate,
-      threshold: 0.15,  // more sensitive (default is 0.2)
+      threshold: 0.3,  // slightly relaxed — lower = pickier, higher = more permissive
     })
     this.loop()
   }
