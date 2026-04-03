@@ -15,7 +15,7 @@ export class PitchDetector {
   private animationFrame: number | null = null
   private detect: ((buffer: Float32Array) => number | null) | null = null
   private callback: PitchCallback | null = null
-  private readonly confidenceThreshold = 0.15  // minimal — accept anything plausible
+  private readonly confidenceThreshold = 0.01  // essentially disabled — accept any detection
   private readonly sampleRate = 44100
 
   async start(callback: PitchCallback): Promise<void> {
@@ -39,7 +39,7 @@ export class PitchDetector {
 
     // Boost the mic signal before analysis — phone mics are quiet
     const gainNode = this.audioContext.createGain()
-    gainNode.gain.value = 4.0  // 4x amplification
+    gainNode.gain.value = 10.0  // 10x amplification for phone mics
     source.connect(gainNode)
     gainNode.connect(this.analyser)
 
@@ -58,15 +58,10 @@ export class PitchDetector {
 
     const frequency = this.detect(buffer)
 
-    // Guitar range: low E2 = 82 Hz, high E6 = 1318 Hz
-    // Allow down to 60 Hz to catch slightly flat low E
-    if (frequency && frequency > 60 && frequency < 2000) {
+    // Accept any frequency the detector returns (20 Hz to 5000 Hz)
+    if (frequency && frequency > 20 && frequency < 5000) {
       const result = this.frequencyToPitchResult(frequency)
-      if (result.confidence >= this.confidenceThreshold) {
-        this.callback?.(result)
-      } else {
-        this.callback?.(null)
-      }
+      this.callback?.(result)  // skip confidence check — let the UI handle filtering
     } else {
       this.callback?.(null)
     }
