@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS custom properties (design tokens) ───────────────────────────────── */
+
+:root {
+  /* Default: adult mode */
+  --base-font-size: 16px;
+  --line-height: 1.5;
+  --border-radius: 0.5rem;
+  --transition-speed: 200ms;
+
+  /* Semantic colors (overridden per age mode) */
+  --color-bg: theme('colors.surface.50');
+  --color-surface: #ffffff;
+  --color-border: theme('colors.surface.200');
+  --color-text: theme('colors.surface.900');
+  --color-text-muted: theme('colors.surface.800');
+  --color-primary: theme('colors.primary.500');
+  --color-primary-dark: theme('colors.primary.700');
+  --color-accent: theme('colors.accent.500');
+}
+
+/* Kids mode overrides */
+[data-age-mode='kids'] {
+  --base-font-size: 18px;
+  --border-radius: 1rem;
+  --color-primary: theme('colors.kids.blue');
+  --color-accent: theme('colors.kids.yellow');
+}
+
+/* Accessible mode overrides */
+[data-age-mode='accessible'] {
+  --base-font-size: 20px;
+  --line-height: 1.7;
+}
+
+/* ── Base styles ─────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--base-font-size);
+  line-height: var(--line-height);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+[data-reduced-motion='true'] *,
+[data-reduced-motion='true'] *::before,
+[data-reduced-motion='true'] *::after {
+  animation-duration: 0.01ms !important;
+  transition-duration: 0.01ms !important;
+}

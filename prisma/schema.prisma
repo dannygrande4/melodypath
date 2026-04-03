@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AgeGroup {
+  KIDS
+  ADULT
+  SENIOR
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum InstrumentType {
+  PIANO
+  GUITAR
+  GENERAL
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  age_group     AgeGroup       @default(ADULT)
+  instrument    InstrumentType @default(PIANO)
+  skill_level   SkillLevel     @default(BEGINNER)
+  xp            Int            @default(0)
+  level         Int            @default(1)
+  streak_days   Int            @default(0)
+  last_practice DateTime?
+  settings      Json           @default("{}")
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+
+  lesson_progress LessonProgress[]
+  song_attempts   SongAttempt[]
+  achievements    UserAchievement[]
+
+  @@map("users")
+}
+
+model Song {
+  id        String   @id @default(cuid())
+  title     String
+  artist    String
+  bpm       Int
+  key       String
+  difficulty Int     // 1–5
+  genre     String
+  concepts  String[] // e.g. ["pentatonic", "12-bar-blues"]
+  midi_url  String
+  audio_url String
+  published Boolean  @default(false)
+  created_at DateTime @default(now())
+
+  attempts  SongAttempt[]
+
+  @@map("songs")
+}
+
+model Lesson {
+  id               String     @id @default(cuid())
+  module           String
+  title            String
+  level            SkillLevel
+  concepts         String[]
+  xp_reward        Int
+  order            Int
+  content_url      String     // JSON lesson definition in Supabase storage
+  prerequisite_ids String[]   @default([])
+  published        Boolean    @default(false)
+  created_at       DateTime   @default(now())
+
+  progress LessonProgress[]
+
+  @@map("lessons")
+}
+
+model LessonProgress {
+  id           String    @id @default(cuid())
+  user_id      String
+  lesson_id    String
+  completed    Boolean   @default(false)
+  score        Int?
+  attempts     Int       @default(0)
+  completed_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  user   User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lesson_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, lesson_id])
+  @@map("lesson_progress")
+}
+
+model SongAttempt {
+  id           String   @id @default(cuid())
+  user_id      String
+  song_id      String
+  difficulty   Int
+  score        Int
+  accuracy     Float    // 0.0–1.0
+  grade        String   // S, A, B, C, D
+  note_results Json     // TimingGrade[] stored as JSON
+  completed_at DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  song Song @relation(fields: [song_id], references: [id], onDelete: Cascade)
+
+  @@map("song_attempts")
+}
+
+model Achievement {
+  id          String @id @default(cuid())
+  badge_id    String @unique
+  name        String
+  description String
+  icon_url    String
+
+  users UserAchievement[]
+
+  @@map("achievements")
+}
+
+model UserAchievement {
+  user_id        String
+  achievement_id String
+  earned_at      DateTime @default(now())
+
+  user        User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievement_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, achievement_id])
+  @@map("user_achievements")
+}

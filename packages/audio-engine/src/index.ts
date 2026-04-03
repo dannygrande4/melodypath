@@ -1,0 +1,6 @@
+export { AudioEngine } from './AudioEngine.js'
+export { MIDIManager } from './MIDIManager.js'
+export { PitchDetector } from './PitchDetector.js'
+export type { SupportedInstrument } from './AudioEngine.js'
+export type { MIDINoteCallback, MIDINoteOffCallback } from './MIDIManager.js'
+export type { PitchCallback } from './PitchDetector.js'

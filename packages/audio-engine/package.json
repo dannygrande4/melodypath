@@ -1,0 +1,22 @@
+{
+  "name": "@melodypath/audio-engine",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "tone": "^15.1.22",
+    "pitchfinder": "^2.0.4",
+    "@melodypath/music-theory": "workspace:*",
+    "@melodypath/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "tone": ">=14"
+  }
+}
