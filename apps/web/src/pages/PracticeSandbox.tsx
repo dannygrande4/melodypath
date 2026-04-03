@@ -3,6 +3,8 @@ import { useAudioInit } from '@/hooks/useAudioInit'
 import { useAudioStore } from '@/stores/audioStore'
 import PianoKeyboard from '@/components/Piano/PianoKeyboard'
 import Tuner from '@/components/Tuner/Tuner'
+import BackingTrackPlayer from '@/components/Practice/BackingTrackPlayer'
+import AudioRecorder from '@/components/Practice/AudioRecorder'
 import InfoTooltip from '@/components/ui/InfoTooltip'
 
 const INSTRUMENTS = [
@@ -235,6 +237,12 @@ export default function PracticeSandbox() {
 
       {/* Tuner */}
       <Tuner />
+
+      {/* Backing tracks */}
+      <BackingTrackPlayer />
+
+      {/* Audio recorder */}
+      <AudioRecorder />
 
       {/* Free play piano */}
       <div>
