@@ -1,4 +1,4 @@
-import { YIN } from 'pitchfinder'
+import { YIN, AMDF } from 'pitchfinder'
 import { noteToFrequency, midiToNote } from '@melodypath/music-theory'
 import type { PitchResult } from '@melodypath/shared-types'
 
@@ -21,13 +21,17 @@ export class PitchDetector {
     this.audioContext = new AudioContext({ sampleRate: this.sampleRate })
 
     this.analyser = this.audioContext.createAnalyser()
-    this.analyser.fftSize = 2048
+    this.analyser.fftSize = 4096  // larger buffer for guitar harmonics
 
     const source = this.audioContext.createMediaStreamSource(this.stream)
     source.connect(this.analyser)
 
-    // Default YIN settings — they worked before
-    this.detect = YIN({ sampleRate: this.sampleRate })
+    // Use both YIN and AMDF — take the one that returns a result
+    const yin = YIN({ sampleRate: this.sampleRate })
+    const amdf = AMDF({ sampleRate: this.sampleRate })
+    this.detect = (buf: Float32Array) => {
+      return yin(buf) ?? amdf(buf)
+    }
     this.loop()
   }
 
