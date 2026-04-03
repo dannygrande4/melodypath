@@ -15,7 +15,7 @@ export class PitchDetector {
   private animationFrame: number | null = null
   private detect: ((buffer: Float32Array) => number | null) | null = null
   private callback: PitchCallback | null = null
-  private readonly confidenceThreshold = 0.5  // lowered for acoustic mic pickup
+  private readonly confidenceThreshold = 0.3  // very low for phone mic pickup
   private readonly sampleRate = 44100
 
   async start(callback: PitchCallback): Promise<void> {
@@ -106,8 +106,8 @@ export class PitchDetector {
       sum += buffer[i] * buffer[i]
     }
     const rms = Math.sqrt(sum / buffer.length)
-    // Normalize: typical mic RMS is 0-0.3, map to 0-1
-    return Math.min(1, rms * 5)
+    // Amplify heavily — phone mics have very low raw levels
+    return Math.min(1, rms * 30)
   }
 
   stop(): void {
