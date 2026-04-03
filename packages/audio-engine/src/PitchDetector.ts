@@ -4,10 +4,6 @@ import type { PitchResult } from '@melodypath/shared-types'
 
 export type PitchCallback = (result: PitchResult | null) => void
 
-/**
- * Real-time pitch detection from microphone using pitchfinder (YIN algorithm).
- * Tuned for guitar: handles low E (82 Hz) through high frets.
- */
 export class PitchDetector {
   private audioContext: AudioContext | null = null
   private analyser: AnalyserNode | null = null
@@ -15,38 +11,23 @@ export class PitchDetector {
   private animationFrame: number | null = null
   private detect: ((buffer: Float32Array) => number | null) | null = null
   private callback: PitchCallback | null = null
-  private readonly confidenceThreshold = 0.01  // essentially disabled — accept any detection
   private readonly sampleRate = 44100
 
   async start(callback: PitchCallback): Promise<void> {
     this.callback = callback
 
-    this.stream = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        echoCancellation: false,   // disable — interferes with pitch detection
-        noiseSuppression: false,   // disable — can filter out guitar signal
-        autoGainControl: true,     // keep — helps with quiet acoustic guitars
-      },
-      video: false,
-    })
+    // Use default audio constraints — let the browser/phone optimize
+    this.stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
     this.audioContext = new AudioContext({ sampleRate: this.sampleRate })
 
     this.analyser = this.audioContext.createAnalyser()
-    this.analyser.fftSize = 4096
-    this.analyser.smoothingTimeConstant = 0.1  // less smoothing = more responsive
+    this.analyser.fftSize = 2048
 
     const source = this.audioContext.createMediaStreamSource(this.stream)
+    source.connect(this.analyser)
 
-    // Boost the mic signal before analysis — phone mics are quiet
-    const gainNode = this.audioContext.createGain()
-    gainNode.gain.value = 2.0  // gentle boost — too much causes clipping which breaks YIN
-    source.connect(gainNode)
-    gainNode.connect(this.analyser)
-
-    this.detect = YIN({
-      sampleRate: this.sampleRate,
-      threshold: 0.1,  // low = pickier but more accurate. Was 0.3 which was too permissive
-    })
+    // Default YIN settings — they worked before
+    this.detect = YIN({ sampleRate: this.sampleRate })
     this.loop()
   }
 
@@ -58,10 +39,9 @@ export class PitchDetector {
 
     const frequency = this.detect(buffer)
 
-    // Accept any frequency the detector returns (20 Hz to 5000 Hz)
-    if (frequency && frequency > 20 && frequency < 5000) {
+    if (frequency && frequency > 50 && frequency < 5000) {
       const result = this.frequencyToPitchResult(frequency)
-      this.callback?.(result)  // skip confidence check — let the UI handle filtering
+      this.callback?.(result)
     } else {
       this.callback?.(null)
     }
@@ -73,11 +53,8 @@ export class PitchDetector {
     const midiFloat = 69 + 12 * Math.log2(frequency / 440)
     const midiRounded = Math.round(midiFloat)
     const cents = Math.round((midiFloat - midiRounded) * 100)
-
     const confidence = 1 - Math.abs(cents) / 50
-
     const note = midiToNote(midiRounded)
-
     const expectedFreq = noteToFrequency(note)
     const freqConfidence = expectedFreq
       ? 1 - Math.abs(frequency - expectedFreq) / expectedFreq
@@ -91,10 +68,6 @@ export class PitchDetector {
     }
   }
 
-  /**
-   * Get the current audio input level (0-1).
-   * Useful for showing a mic level meter.
-   */
   getLevel(): number {
     if (!this.analyser) return 0
     const buffer = new Float32Array(this.analyser.fftSize)
@@ -104,7 +77,6 @@ export class PitchDetector {
       sum += buffer[i] * buffer[i]
     }
     const rms = Math.sqrt(sum / buffer.length)
-    // Amplify aggressively for phone mics
     return Math.min(1, rms * 100)
   }
 
