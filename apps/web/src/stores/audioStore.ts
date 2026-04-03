@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { AudioEngine, MIDIManager } from '@melodypath/audio-engine'
+import { AudioEngine, MIDIManager, type SupportedInstrument } from '@melodypath/audio-engine'
 
 interface AudioState {
   engine: AudioEngine
@@ -7,13 +7,14 @@ interface AudioState {
   initialized: boolean
   volume: number
   bpm: number
+  instrument: SupportedInstrument
   midiInputs: string[]
   activeMidiInput: string | null
 
-  // Actions
   init: () => Promise<void>
   setVolume: (db: number) => void
   setBpm: (bpm: number) => void
+  setInstrument: (instrument: SupportedInstrument) => void
   connectMIDI: () => Promise<void>
   selectMidiInput: (name: string) => void
 }
@@ -24,8 +25,9 @@ export const useAudioStore = create<AudioState>()((set, get) => ({
   engine,
   midiManager: null,
   initialized: false,
-  volume: 0,     // dB, 0 = unity gain
+  volume: 0,
   bpm: 120,
+  instrument: 'piano',
   midiInputs: [],
   activeMidiInput: null,
 
@@ -43,6 +45,11 @@ export const useAudioStore = create<AudioState>()((set, get) => ({
   setBpm: (bpm) => {
     engine.setBpm(bpm)
     set({ bpm })
+  },
+
+  setInstrument: (instrument) => {
+    engine.setInstrument(instrument)
+    set({ instrument })
   },
 
   connectMIDI: async () => {

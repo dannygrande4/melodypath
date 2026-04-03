@@ -7,8 +7,16 @@ const NUM_LANES = 4
 const LANE_COLORS = ['#4f6ef7', '#22c55e', '#f59e0b', '#a855f7']
 const LANE_KEYS = ['d', 'f', 'j', 'k']
 const HIT_LINE_Y_RATIO = 0.85  // 85% down the canvas
-const NOTE_TRAVEL_TIME = 2.0   // seconds for a note to travel from top to hit line
-const TIMING = { PERFECT: 0.04, GOOD: 0.08, OK: 0.15 } // seconds
+const TIMING = { PERFECT: 0.06, GOOD: 0.12, OK: 0.20 } // seconds — more forgiving
+
+/**
+ * Note travel time scales with BPM:
+ * - Slow songs (80 BPM): notes fall slower (3s travel) — more time to react
+ * - Fast songs (160 BPM): notes fall faster (1.5s travel) — less clutter
+ */
+function getTravelTime(bpm: number): number {
+  return Math.max(1.2, Math.min(3.0, 240 / bpm))
+}
 
 interface NoteHighwayProps {
   notes: NoteEvent[]
@@ -169,7 +177,8 @@ export default function NoteHighway({
     for (let i = 0; i < notes.length; i++) {
       const note = notes[i]
       const timeUntilHit = note.time - currentTime
-      const progress = 1 - timeUntilHit / NOTE_TRAVEL_TIME
+      const travelTime = getTravelTime(bpm)
+      const progress = 1 - timeUntilHit / travelTime
 
       // Only draw notes in view
       if (progress < -0.1 || progress > 1.3) continue

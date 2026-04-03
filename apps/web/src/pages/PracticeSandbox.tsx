@@ -5,9 +5,17 @@ import PianoKeyboard from '@/components/Piano/PianoKeyboard'
 import Tuner from '@/components/Tuner/Tuner'
 import InfoTooltip from '@/components/ui/InfoTooltip'
 
+const INSTRUMENTS = [
+  { value: 'piano' as const, icon: '🎹', label: 'Piano' },
+  { value: 'guitar' as const, icon: '🎸', label: 'Guitar' },
+  { value: 'synth' as const, icon: '🎵', label: 'Synth' },
+]
+
 export default function PracticeSandbox() {
   const { ensureAudio } = useAudioInit()
   const engine = useAudioStore((s) => s.engine)
+  const currentInstrument = useAudioStore((s) => s.instrument)
+  const setInstrument = useAudioStore((s) => s.setInstrument)
 
   const [bpm, setBpm] = useState(120)
   const [metronomeOn, setMetronomeOn] = useState(false)
@@ -81,11 +89,18 @@ export default function PracticeSandbox() {
   const handleNotePlay = useCallback(
     async (note: string) => {
       await ensureAudio()
-      engine.playNote(note, '8n')
-      setActiveNotes([note])
-      setTimeout(() => setActiveNotes([]), 300)
+      engine.noteOn(note)
+      setActiveNotes((prev) => [...prev.filter((n) => n !== note), note])
     },
     [ensureAudio, engine],
+  )
+
+  const handleNoteRelease = useCallback(
+    (note: string) => {
+      engine.noteOff(note)
+      setActiveNotes((prev) => prev.filter((n) => n !== note))
+    },
+    [engine],
   )
 
   return (
@@ -194,6 +209,30 @@ export default function PracticeSandbox() {
         </div>
       </div>
 
+      {/* Instrument selector */}
+      <div className="bg-white rounded-xl border border-surface-200 p-6">
+        <h2 className="flex items-center text-lg font-bold text-surface-900 mb-3">
+          Instrument Sound
+          <InfoTooltip text="Choose which instrument sound to use. Piano uses realistic acoustic samples, Guitar uses nylon guitar, Synth uses a soft synthesizer." />
+        </h2>
+        <div className="flex gap-2">
+          {INSTRUMENTS.map((inst) => (
+            <button
+              key={inst.value}
+              onClick={async () => { await ensureAudio(); setInstrument(inst.value) }}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
+                currentInstrument === inst.value
+                  ? 'border-primary-400 bg-primary-50 text-primary-700'
+                  : 'border-surface-200 hover:bg-surface-50 text-surface-600'
+              }`}
+            >
+              <span className="text-xl">{inst.icon}</span>
+              {inst.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Tuner */}
       <Tuner />
 
@@ -206,6 +245,7 @@ export default function PracticeSandbox() {
             octaves={3}
             activeNotes={activeNotes}
             onNotePlay={handleNotePlay}
+            onNoteRelease={handleNoteRelease}
             showLabels
           />
         </div>

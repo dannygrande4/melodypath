@@ -16,6 +16,7 @@ const ChordExplorer = lazy(() => import('@/pages/ChordExplorer'))
 const ScaleExplorer = lazy(() => import('@/pages/ScaleExplorer'))
 const EarTraining = lazy(() => import('@/pages/EarTraining'))
 const PracticeSandbox = lazy(() => import('@/pages/PracticeSandbox'))
+const Resources = lazy(() => import('@/pages/Resources'))
 const Profile = lazy(() => import('@/pages/Profile'))
 const Settings = lazy(() => import('@/pages/Settings'))
 
@@ -58,6 +59,7 @@ export default function App() {
         <Route path="/explore/chords" element={<ChordExplorer />} />
         <Route path="/explore/scales" element={<ScaleExplorer />} />
         <Route path="/ear-training" element={<EarTraining />} />
+        <Route path="/resources" element={<Resources />} />
         <Route path="/practice" element={<PracticeSandbox />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />

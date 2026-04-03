@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { User, SkillLevel, InstrumentType, AgeGroup } from '@melodypath/shared-types'
+import { syncXP } from '@/lib/apiSync'
 
 // XP thresholds per level (level 1 → 2 needs 100 XP, etc.)
 const XP_PER_LEVEL = (level: number) => Math.floor(100 * Math.pow(1.2, level - 1))
@@ -84,6 +85,9 @@ export const useUserStore = create<UserState>()(
           level: newLevel,
           pendingLevelUp: newLevel > level ? { newLevel, timestamp: Date.now() } : null,
         })
+
+        // Sync to backend (debounced, fire-and-forget)
+        syncXP(amount)
       },
 
       clearLevelUp: () => set({ pendingLevelUp: null }),

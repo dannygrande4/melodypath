@@ -8,10 +8,11 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "tone": "^15.1.22",
-    "pitchfinder": "^2.0.4",
     "@melodypath/music-theory": "workspace:*",
-    "@melodypath/shared-types": "workspace:*"
+    "@melodypath/shared-types": "workspace:*",
+    "pitchfinder": "^2.0.4",
+    "soundfont-player": "^0.12.0",
+    "tone": "^15.1.22"
   },
   "devDependencies": {
     "typescript": "^5.8.3"
