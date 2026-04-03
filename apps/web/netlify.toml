@@ -1,0 +1,8 @@
+[build]
+  command = "cd ../.. && pnpm install && pnpm --filter @melodypath/web build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/music/*"
+  to = "/music/index.html"
+  status = 200
