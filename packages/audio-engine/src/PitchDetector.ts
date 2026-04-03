@@ -39,13 +39,13 @@ export class PitchDetector {
 
     // Boost the mic signal before analysis — phone mics are quiet
     const gainNode = this.audioContext.createGain()
-    gainNode.gain.value = 10.0  // 10x amplification for phone mics
+    gainNode.gain.value = 2.0  // gentle boost — too much causes clipping which breaks YIN
     source.connect(gainNode)
     gainNode.connect(this.analyser)
 
     this.detect = YIN({
       sampleRate: this.sampleRate,
-      threshold: 0.3,  // slightly relaxed — lower = pickier, higher = more permissive
+      threshold: 0.1,  // low = pickier but more accurate. Was 0.3 which was too permissive
     })
     this.loop()
   }
