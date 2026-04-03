@@ -35,39 +35,20 @@ export function usePitchListener(options: PitchListenerOptions = {}): PitchListe
 
   const processResults = useCallback((result: PitchResult | null) => {
     if (!result) {
-      currentNoteRef.current = null
-      setHoldProgress(0)
-      setCurrentPitch(null)
+      // Only clear after a pause — don't clear on every null frame
+      historyRef.current = []
       return
     }
 
+    // Show ANY detection immediately — no smoothing filter
+    setCurrentPitch(result)
+
+    // Track history for hold confirmation only
     historyRef.current.push(result)
-    if (historyRef.current.length > 6) historyRef.current.shift()
+    if (historyRef.current.length > 10) historyRef.current.shift()
 
-    const recent = historyRef.current.slice(-4)
-    const counts: Record<string, number> = {}
-    for (const r of recent) counts[r.note] = (counts[r.note] ?? 0) + 1
-
-    let dominant: string | null = null
-    let maxCount = 0
-    for (const [note, count] of Object.entries(counts)) {
-      if (count > maxCount) { dominant = note; maxCount = count }
-    }
-
-    if (!dominant || maxCount < 2) {
-      currentNoteRef.current = null
-      setHoldProgress(0)
-      return
-    }
-
-    const matching = recent.filter((r) => r.note === dominant)
-    const avgPitch: PitchResult = {
-      note: dominant,
-      frequency: matching.reduce((s, r) => s + r.frequency, 0) / matching.length,
-      cents: Math.round(matching.reduce((s, r) => s + r.cents, 0) / matching.length),
-      confidence: matching.reduce((s, r) => s + r.confidence, 0) / matching.length,
-    }
-    setCurrentPitch(avgPitch)
+    // Use the most recent note for hold tracking
+    const dominant = result.note
 
     if (currentNoteRef.current !== dominant) {
       currentNoteRef.current = dominant
