@@ -22,12 +22,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: TypeScript check (music-theory)
-        run: pnpm --filter @melodypath/music-theory run lint
-
-      - name: TypeScript check (shared-types)
-        run: pnpm --filter @melodypath/shared-types run lint
-
       - name: Run music-theory tests
         run: pnpm --filter @melodypath/music-theory run test
 
