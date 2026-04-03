@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from 'react'
 import PianoKeyboard, { type HighlightedNote, type NoteRole } from '@/components/Piano/PianoKeyboard'
 import GuitarFretboard from '@/components/Guitar/GuitarFretboard'
-import { chordShapeToFretNotes, getAvailableChordShapes } from '@/lib/chordShapes'
+import { getChordVoicings, voicingToFretNotes } from '@/lib/chordShapes'
 import { useAudioInit } from '@/hooks/useAudioInit'
 import { useAudioStore } from '@/stores/audioStore'
 import InfoTooltip from '@/components/ui/InfoTooltip'
@@ -40,8 +40,9 @@ export default function ChordExplorer() {
 
   // Guitar display mode
   const [guitarLabelMode, setGuitarLabelMode] = useState<'notes' | 'fingers'>('fingers')
+  const [voicingIndex, setVoicingIndex] = useState(0)
 
-  // Build the chord name for display and guitar lookup
+  // Build the chord name for display
   const chordName = useMemo(() => {
     if (chordType === 'major') return root
     if (chordType === 'minor') return `${root}m`
@@ -67,19 +68,30 @@ export default function ChordExplorer() {
     })
   }, [chordInfo, chordNotesWithOctave, mode, tryItNotes])
 
-  // Guitar notes
-  const guitarShapeKey = useMemo(() => {
-    const shapes = getAvailableChordShapes()
-    if (shapes.includes(chordName)) return chordName
-    // fallback for minor chords with 'm' suffix
-    if (chordType === 'minor' && shapes.includes(`${root}m`)) return `${root}m`
-    return null
-  }, [chordName, root, chordType])
+  // Guitar voicings
+  const voicings = useMemo(() => {
+    return getChordVoicings(root, chordType)
+  }, [root, chordType])
+
+  // Reset voicing index when chord changes
+  const safeVoicingIndex = voicingIndex >= voicings.length ? 0 : voicingIndex
+  const currentVoicing = voicings[safeVoicingIndex]
 
   const guitarNotes = useMemo(() => {
-    if (mode === 'tryit' || !guitarShapeKey) return []
-    return chordShapeToFretNotes(guitarShapeKey)
-  }, [guitarShapeKey, mode])
+    if (mode === 'tryit' || !currentVoicing) return []
+    return voicingToFretNotes(currentVoicing, root, chordType)
+  }, [currentVoicing, mode, root, chordType])
+
+  // Compute the fret range to display for the current voicing
+  const guitarFrets = useMemo(() => {
+    if (!currentVoicing) return { count: 5, startFret: 0 }
+    const playedFrets = currentVoicing.frets.filter((f) => f > 0)
+    if (playedFrets.length === 0) return { count: 5, startFret: 0 }
+    const maxFret = Math.max(...playedFrets)
+    if (maxFret <= 5) return { count: 5, startFret: 0 }
+    const minFret = Math.min(...playedFrets)
+    return { count: Math.max(5, maxFret - minFret + 3), startFret: Math.max(0, minFret - 1) }
+  }, [currentVoicing])
 
   // ─── Handlers ───────────────────────────────────────────────────────────
 
@@ -173,7 +185,7 @@ export default function ChordExplorer() {
               {ROOTS.map((r) => (
                 <button
                   key={r}
-                  onClick={() => setRoot(r)}
+                  onClick={() => { setRoot(r); setVoicingIndex(0) }}
                   className={`w-9 h-9 text-sm font-medium rounded-lg transition-colors ${
                     r === root
                       ? 'bg-primary-600 text-white'
@@ -193,7 +205,7 @@ export default function ChordExplorer() {
               {CHORD_TYPES.map((ct) => (
                 <button
                   key={ct.value}
-                  onClick={() => setChordType(ct.value)}
+                  onClick={() => { setChordType(ct.value); setVoicingIndex(0) }}
                   className={`px-3 h-9 text-sm font-medium rounded-lg transition-colors ${
                     ct.value === chordType
                       ? 'bg-primary-600 text-white'
@@ -317,41 +329,63 @@ export default function ChordExplorer() {
       {/* Guitar */}
       {mode === 'explore' && (
         <div>
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
             <h2 className="flex items-center text-sm font-semibold text-surface-500">
               Guitar
-              <InfoTooltip text="The dots show where to place your fingers on the fretboard. Toggle between seeing finger numbers (1=index, 2=middle, 3=ring, 4=pinky) or the actual note names." />
-              {!guitarShapeKey && (
-                <span className="ml-2 text-xs font-normal text-surface-400">(no shape for this chord yet)</span>
-              )}
+              <InfoTooltip text="The dots show where to place your fingers on the fretboard. Toggle between seeing finger numbers (1=index, 2=middle, 3=ring, 4=pinky) or the actual note names. Use the voicing selector to see different positions on the neck." />
             </h2>
-            {/* Fingers / Notes toggle */}
-            <div className="flex bg-surface-100 rounded-lg p-0.5">
-              <button
-                onClick={() => setGuitarLabelMode('fingers')}
-                className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-                  guitarLabelMode === 'fingers'
-                    ? 'bg-white text-surface-900 shadow-sm'
-                    : 'text-surface-500'
-                }`}
-              >
-                Fingers
-              </button>
-              <button
-                onClick={() => setGuitarLabelMode('notes')}
-                className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-                  guitarLabelMode === 'notes'
-                    ? 'bg-white text-surface-900 shadow-sm'
-                    : 'text-surface-500'
-                }`}
-              >
-                Notes
-              </button>
+            <div className="flex items-center gap-2">
+              {/* Voicing selector */}
+              {voicings.length > 1 && (
+                <div className="flex items-center gap-1">
+                  <span className="text-xs text-surface-400 mr-1">Voicing:</span>
+                  {voicings.map((v, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setVoicingIndex(i)}
+                      className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
+                        safeVoicingIndex === i
+                          ? 'bg-primary-600 text-white'
+                          : 'bg-white border border-surface-200 text-surface-600 hover:bg-surface-50'
+                      }`}
+                      title={v.label}
+                    >
+                      {v.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+              {voicings.length === 1 && currentVoicing && (
+                <span className="text-xs text-surface-400">{currentVoicing.label}</span>
+              )}
+              {/* Fingers / Notes toggle */}
+              <div className="flex bg-surface-100 rounded-lg p-0.5">
+                <button
+                  onClick={() => setGuitarLabelMode('fingers')}
+                  className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
+                    guitarLabelMode === 'fingers'
+                      ? 'bg-white text-surface-900 shadow-sm'
+                      : 'text-surface-500'
+                  }`}
+                >
+                  Fingers
+                </button>
+                <button
+                  onClick={() => setGuitarLabelMode('notes')}
+                  className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
+                    guitarLabelMode === 'notes'
+                      ? 'bg-white text-surface-900 shadow-sm'
+                      : 'text-surface-500'
+                  }`}
+                >
+                  Notes
+                </button>
+              </div>
             </div>
           </div>
           <div className="bg-white rounded-xl border border-surface-200 p-4">
             <GuitarFretboard
-              frets={5}
+              frets={guitarFrets.count}
               notes={guitarNotes}
               activeNotes={activeNotes}
               onNotePlay={handleGuitarNote}
