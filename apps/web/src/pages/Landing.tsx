@@ -4,7 +4,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-accent-500/10 flex flex-col">
       {/* Nav */}
-      <header className="flex items-center justify-between px-8 py-5">
+      <header className="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5">
         <div className="flex items-center gap-2">
           <span className="text-3xl">🎵</span>
           <span className="text-xl font-bold text-primary-700">MelodyPath</span>
@@ -23,7 +23,7 @@ export default function Landing() {
           Learn music<br />
           <span className="text-primary-600">your way.</span>
         </h1>
-        <p className="text-xl text-surface-600 max-w-2xl mb-10">
+        <p className="text-lg sm:text-xl text-surface-600 max-w-2xl mb-10">
           From your very first chord to jazz improvisation — MelodyPath meets you
           where you are. Play songs, train your ear, and grow at your own pace.
         </p>

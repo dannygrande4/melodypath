@@ -264,7 +264,7 @@ export default function EarTraining() {
   // ─── Render ─────────────────────────────────────────────────────────────
 
   return (
-    <div className="p-6 max-w-3xl mx-auto space-y-6">
+    <div className="p-4 sm:p-6 max-w-3xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-surface-900">Ear Training</h1>
         <p className="text-surface-500 text-sm mt-1">
@@ -273,8 +273,8 @@ export default function EarTraining() {
       </div>
 
       {/* Exercise type toggle */}
-      <div className="flex items-center gap-3">
-        <div className="flex bg-surface-100 rounded-lg p-1">
+      <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex flex-wrap bg-surface-100 rounded-lg p-1 gap-0.5">
         {(['intervals', 'chords', 'melody', 'rhythm'] as const).map((type) => (
           <button
             key={type}
@@ -284,7 +284,7 @@ export default function EarTraining() {
               setFeedback(null)
               setScore({ correct: 0, total: 0 })
             }}
-            className={`px-5 py-2 text-sm font-medium rounded-md transition-colors capitalize ${
+            className={`px-3 sm:px-5 py-2 text-sm font-medium rounded-md transition-colors capitalize ${
               exerciseType === type
                 ? 'bg-white text-surface-900 shadow-sm'
                 : 'text-surface-500'

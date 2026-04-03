@@ -177,40 +177,40 @@ export default function PlayGame() {
   return (
     <div className="min-h-screen bg-surface-900 text-white flex flex-col">
       {/* Top HUD */}
-      <div className="flex items-center justify-between px-6 py-3 bg-surface-900/80 border-b border-surface-800">
-        <div>
-          <div className="text-sm text-surface-400">{song.artist}</div>
-          <div className="font-bold">{song.title}</div>
+      <div className="flex items-center justify-between px-3 sm:px-6 py-2 sm:py-3 bg-surface-900/80 border-b border-surface-800">
+        <div className="min-w-0 mr-3">
+          <div className="text-xs sm:text-sm text-surface-400 truncate">{song.artist}</div>
+          <div className="font-bold text-sm sm:text-base truncate">{song.title}</div>
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 sm:gap-6 flex-shrink-0">
           <div className="text-center">
-            <div className="text-2xl font-extrabold tabular-nums">{score.toLocaleString()}</div>
-            <div className="text-xs text-surface-400">Score</div>
+            <div className="text-lg sm:text-2xl font-extrabold tabular-nums">{score.toLocaleString()}</div>
+            <div className="text-[10px] sm:text-xs text-surface-400">Score</div>
           </div>
           <div className="text-center">
-            <div className={`text-xl font-bold ${combo >= 10 ? 'text-accent-500' : ''}`}>
+            <div className={`text-base sm:text-xl font-bold ${combo >= 10 ? 'text-accent-500' : ''}`}>
               {combo}x
             </div>
-            <div className="text-xs text-surface-400">Combo</div>
+            <div className="text-[10px] sm:text-xs text-surface-400">Combo</div>
           </div>
           <div className="text-center">
-            <div className={`text-sm font-bold px-2 py-0.5 rounded ${
+            <div className={`text-xs sm:text-sm font-bold px-2 py-0.5 rounded ${
               multiplier >= 4 ? 'bg-accent-500' : multiplier >= 2 ? 'bg-primary-600' : 'bg-surface-700'
             }`}>
               {multiplier}x
             </div>
-            <div className="text-xs text-surface-400 mt-0.5">Multi</div>
+            <div className="text-[10px] sm:text-xs text-surface-400 mt-0.5">Multi</div>
           </div>
         </div>
       </div>
 
       {/* Main area */}
-      <div className="flex-1 flex items-center justify-center relative">
+      <div className="flex-1 flex items-center justify-center relative px-4">
         {/* Ready screen */}
         {gameState === 'ready' && (
-          <div className="text-center space-y-6">
-            <div className="text-4xl font-extrabold">{song.title}</div>
-            <div className="text-surface-400">{song.artist} · {song.bpm} BPM · {song.key}</div>
+          <div className="text-center space-y-4 sm:space-y-6 w-full max-w-lg">
+            <div className="text-2xl sm:text-4xl font-extrabold">{song.title}</div>
+            <div className="text-sm sm:text-base text-surface-400">{song.artist} · {song.bpm} BPM · {song.key}</div>
             <div className="flex gap-2 justify-center text-xs">
               {song.concepts.map((c) => (
                 <span key={c} className="px-2 py-1 bg-surface-800 rounded-md text-surface-300">{c}</span>
@@ -241,7 +241,7 @@ export default function PlayGame() {
 
         {/* Note highway */}
         {(gameState === 'playing') && (
-          <div className="relative">
+          <div className="relative w-full flex justify-center">
             <NoteHighway
               notes={notes}
               bpm={song.bpm}
@@ -268,8 +268,8 @@ export default function PlayGame() {
 
         {/* Results screen */}
         {gameState === 'results' && (
-          <div className="text-center space-y-6 max-w-md w-full">
-            <div className={`text-8xl font-extrabold ${
+          <div className="text-center space-y-4 sm:space-y-6 max-w-md w-full">
+            <div className={`text-6xl sm:text-8xl font-extrabold ${
               grade === 'S' ? 'text-accent-500' :
               grade === 'A' ? 'text-timing-perfect' :
               grade === 'B' ? 'text-timing-good' :
@@ -278,8 +278,8 @@ export default function PlayGame() {
             }`}>
               {grade}
             </div>
-            <div className="text-xl font-bold">{song.title}</div>
-            <div className="text-3xl font-extrabold">{score.toLocaleString()} pts</div>
+            <div className="text-lg sm:text-xl font-bold">{song.title}</div>
+            <div className="text-2xl sm:text-3xl font-extrabold">{score.toLocaleString()} pts</div>
 
             {/* Stats grid */}
             <div className="grid grid-cols-2 gap-3 text-left">

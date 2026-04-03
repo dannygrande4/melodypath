@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback, useState } from 'react'
 import type { NoteEvent, TimingGrade } from '@melodypath/shared-types'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -126,16 +126,16 @@ export default function NoteHighway({
     if (!ctx) return
 
     const dpr = window.devicePixelRatio || 1
-    canvas.width = width * dpr
-    canvas.height = height * dpr
+    canvas.width = displayWidth * dpr
+    canvas.height = displayHeight * dpr
     ctx.scale(dpr, dpr)
 
-    const laneWidth = width / NUM_LANES
-    const hitLineY = height * HIT_LINE_Y_RATIO
+    const laneWidth = displayWidth / NUM_LANES
+    const hitLineY = displayHeight * HIT_LINE_Y_RATIO
 
     // ── Background ─────────────────────────────────────────────────
     ctx.fillStyle = '#18181b'
-    ctx.fillRect(0, 0, width, height)
+    ctx.fillRect(0, 0, displayWidth, displayHeight)
 
     // Lane dividers
     for (let i = 1; i < NUM_LANES; i++) {
@@ -143,7 +143,7 @@ export default function NoteHighway({
       ctx.lineWidth = 1
       ctx.beginPath()
       ctx.moveTo(i * laneWidth, 0)
-      ctx.lineTo(i * laneWidth, height)
+      ctx.lineTo(i * laneWidth, displayHeight)
       ctx.stroke()
     }
 
@@ -152,7 +152,7 @@ export default function NoteHighway({
     ctx.lineWidth = 2
     ctx.beginPath()
     ctx.moveTo(0, hitLineY)
-    ctx.lineTo(width, hitLineY)
+    ctx.lineTo(displayWidth, hitLineY)
     ctx.stroke()
 
     // Hit zone glow
@@ -161,14 +161,14 @@ export default function NoteHighway({
     grad.addColorStop(0.5, 'rgba(255,255,255,0.05)')
     grad.addColorStop(1, 'rgba(255,255,255,0)')
     ctx.fillStyle = grad
-    ctx.fillRect(0, hitLineY - 30, width, 50)
+    ctx.fillRect(0, hitLineY - 30, displayWidth, 50)
 
     // Lane key labels
     ctx.fillStyle = '#52525b'
     ctx.font = 'bold 14px Inter, sans-serif'
     ctx.textAlign = 'center'
     for (let i = 0; i < NUM_LANES; i++) {
-      ctx.fillText(LANE_KEYS[i].toUpperCase(), (i + 0.5) * laneWidth, height - 12)
+      ctx.fillText(LANE_KEYS[i].toUpperCase(), (i + 0.5) * laneWidth, displayHeight - 12)
     }
 
     // ── Draw notes ─────────────────────────────────────────────────
@@ -254,15 +254,32 @@ export default function NoteHighway({
     flashesRef.current = flashesRef.current.filter((f) => (now - f.time) / 1000 < 0.5)
   })
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [containerWidth, setContainerWidth] = useState(width)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const observer = new ResizeObserver((entries) => {
+      const w = entries[0]?.contentRect.width
+      if (w) setContainerWidth(Math.min(w, width))
+    })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [width])
+
+  const displayWidth = containerWidth
+  const displayHeight = Math.round((height / width) * displayWidth)
+
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative w-full" style={{ maxWidth: width }}>
       <canvas
         ref={canvasRef}
-        style={{ width, height }}
+        style={{ width: displayWidth, height: displayHeight }}
         className="rounded-xl"
       />
       {/* Lane tap buttons for touch/click */}
-      <div className="absolute bottom-0 left-0 right-0 flex" style={{ height: height * 0.15 }}>
+      <div className="absolute bottom-0 left-0 right-0 flex" style={{ height: displayHeight * 0.2 }}>
         {Array.from({ length: NUM_LANES }, (_, i) => (
           <button
             key={i}

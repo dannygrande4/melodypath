@@ -28,7 +28,7 @@ export default function Settings() {
   const { volume, setVolume, midiInputs, activeMidiInput, connectMIDI, selectMidiInput, initialized } = useAudioStore()
 
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-8">
+    <div className="p-4 sm:p-6 max-w-2xl mx-auto space-y-6 sm:space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-surface-900">Settings</h1>
         <p className="text-surface-500 text-sm mt-1">Customize your MelodyPath experience</p>

@@ -34,7 +34,7 @@ export default function Profile() {
   )
 
   return (
-    <div className="p-6 max-w-3xl mx-auto space-y-8">
+    <div className="p-4 sm:p-6 max-w-3xl mx-auto space-y-6 sm:space-y-8">
       {/* Header card */}
       <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-6 text-white">
         <div className="flex items-center gap-4">

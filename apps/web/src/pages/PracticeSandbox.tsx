@@ -104,7 +104,7 @@ export default function PracticeSandbox() {
   )
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <div className="p-4 sm:p-6 max-w-4xl mx-auto space-y-6 sm:space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-surface-900">Practice</h1>
         <p className="text-surface-500 text-sm mt-1">
@@ -239,7 +239,7 @@ export default function PracticeSandbox() {
       {/* Free play piano */}
       <div>
         <h2 className="text-lg font-bold text-surface-900 mb-3">Free Play Piano</h2>
-        <div className="overflow-x-auto pb-2">
+        <div className="overflow-x-auto pb-2 hidden sm:block">
           <PianoKeyboard
             startOctave={3}
             octaves={3}
@@ -247,6 +247,17 @@ export default function PracticeSandbox() {
             onNotePlay={handleNotePlay}
             onNoteRelease={handleNoteRelease}
             showLabels
+          />
+        </div>
+        <div className="overflow-x-auto pb-2 sm:hidden">
+          <PianoKeyboard
+            startOctave={3}
+            octaves={2}
+            activeNotes={activeNotes}
+            onNotePlay={handleNotePlay}
+            onNoteRelease={handleNoteRelease}
+            showLabels
+            compact
           />
         </div>
       </div>

@@ -142,7 +142,7 @@ export default function ChordExplorer() {
   // ─── Render ─────────────────────────────────────────────────────────────
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-8">
+    <div className="p-4 sm:p-6 max-w-5xl mx-auto space-y-6 sm:space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
@@ -251,7 +251,7 @@ export default function ChordExplorer() {
 
       {/* Chord info card */}
       {mode === 'explore' && chordInfo && (
-        <div className="bg-white rounded-xl border border-surface-200 p-5 flex flex-wrap gap-8">
+        <div className="bg-white rounded-xl border border-surface-200 p-4 sm:p-5 flex flex-wrap gap-4 sm:gap-8">
           <div>
             <div className="text-xs text-surface-500 mb-1">Chord</div>
             <div className="text-3xl font-bold text-surface-900">{chordInfo.name || chordName}</div>
@@ -305,7 +305,8 @@ export default function ChordExplorer() {
       {/* Piano */}
       <div>
         <h2 className="text-sm font-semibold text-surface-500 mb-3">Piano</h2>
-        <div className="overflow-x-auto pb-2">
+        {/* Full piano on desktop, compact 2-octave on mobile */}
+        <div className="overflow-x-auto pb-2 hidden sm:block">
           <PianoKeyboard
             startOctave={3}
             octaves={3}
@@ -313,6 +314,17 @@ export default function ChordExplorer() {
             activeNotes={activeNotes}
             onNotePlay={handlePianoNote}
             showLabels
+          />
+        </div>
+        <div className="overflow-x-auto pb-2 sm:hidden">
+          <PianoKeyboard
+            startOctave={3}
+            octaves={2}
+            highlightedNotes={pianoHighlights}
+            activeNotes={activeNotes}
+            onNotePlay={handlePianoNote}
+            showLabels
+            compact
           />
         </div>
         {/* Legend */}
@@ -334,10 +346,10 @@ export default function ChordExplorer() {
               Guitar
               <InfoTooltip text="The dots show where to place your fingers on the fretboard. Toggle between seeing finger numbers (1=index, 2=middle, 3=ring, 4=pinky) or the actual note names. Use the voicing selector to see different positions on the neck." />
             </h2>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               {/* Voicing selector */}
               {voicings.length > 1 && (
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 flex-wrap">
                   <span className="text-xs text-surface-400 mr-1">Voicing:</span>
                   {voicings.map((v, i) => (
                     <button
@@ -383,7 +395,7 @@ export default function ChordExplorer() {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl border border-surface-200 p-4">
+          <div className="bg-white rounded-xl border border-surface-200 p-2 sm:p-4 overflow-x-auto">
             <GuitarFretboard
               frets={guitarFrets.count}
               notes={guitarNotes}
