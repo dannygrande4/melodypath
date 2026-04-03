@@ -19,6 +19,7 @@
     "eslint": "^10.1.0",
     "globals": "^17.4.0",
     "prettier": "^3.5.3",
+    "prisma": "6.19.3",
     "turbo": "^2.5.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.58.0"
@@ -30,5 +31,8 @@
       "esbuild",
       "prisma"
     ]
+  },
+  "dependencies": {
+    "@prisma/client": "6.19.3"
   }
 }

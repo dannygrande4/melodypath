@@ -9,6 +9,10 @@ pnpmfileChecksum: sha256-4CjT94qVdFopPwd1avJX9+EooH08elfi0a20YbbZK9k=
 importers:
 
   .:
+    dependencies:
+      '@prisma/client':
+        specifier: 6.19.3
+        version: 6.19.3(prisma@6.19.3(typescript@5.9.3))(typescript@5.9.3)
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -22,6 +26,9 @@ importers:
       prettier:
         specifier: ^3.5.3
         version: 3.8.1
+      prisma:
+        specifier: 6.19.3
+        version: 6.19.3(typescript@5.9.3)
       turbo:
         specifier: ^2.5.3
         version: 2.9.3
