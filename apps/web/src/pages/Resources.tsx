@@ -135,7 +135,8 @@ function TabNotation({ tab, label }: { tab: ScaleReference['tab']; label: string
         {/* Fret numbers */}
         {orderedNotes.map((note, i) => {
           const x = 30 + i * 26
-          const stringIdx = 6 - note.string // convert string number to visual index
+          // Tab: string 1 (high e) = top line (index 0), string 6 (low E) = bottom line (index 5)
+          const stringIdx = note.string - 1
           const y = 12 + stringIdx * 10
           return (
             <g key={i}>

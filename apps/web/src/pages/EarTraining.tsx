@@ -4,6 +4,7 @@ import { useAudioStore } from '@/stores/audioStore'
 import { useUserStore } from '@/stores/userStore'
 import { transposeNote, getChordNotes } from '@melodypath/music-theory'
 import InfoTooltip from '@/components/ui/InfoTooltip'
+import { useEarTrainingStore } from '@/stores/earTrainingStore'
 
 // ─── Exercise types ──────────────────────────────────────────────────────────
 
@@ -50,6 +51,7 @@ export default function EarTraining() {
   const { ensureAudio } = useAudioInit()
   const engine = useAudioStore((s) => s.engine)
   const addXP = useUserStore((s) => s.addXP)
+  const { recordAnswer, getDifficulty } = useEarTrainingStore()
 
   const [exerciseType, setExerciseType] = useState<ExerciseType>('intervals')
   const [score, setScore] = useState({ correct: 0, total: 0 })
@@ -232,11 +234,16 @@ export default function EarTraining() {
         correct: prev.correct + (correct ? 1 : 0),
         total: prev.total + 1,
       }))
-      if (correct) {
-        addXP(5)
+      if (correct) addXP(5)
+
+      // Track for adaptive difficulty
+      if (exerciseType === 'intervals') {
+        recordAnswer('interval', currentQ.answer, correct)
+      } else if (exerciseType === 'chords') {
+        recordAnswer('chord', currentQ.answer, correct)
       }
     },
-    [currentQ, addXP],
+    [currentQ, addXP, exerciseType, recordAnswer],
   )
 
   const replay = useCallback(() => {
@@ -316,6 +323,17 @@ export default function EarTraining() {
           </div>
         </div>
         <div className="text-sm font-bold text-surface-600">{accuracy}%</div>
+        {(exerciseType === 'intervals' || exerciseType === 'chords') && (
+          <div className={`text-xs font-bold px-2 py-1 rounded ${
+            getDifficulty(exerciseType === 'intervals' ? 'interval' : 'chord') === 'hard'
+              ? 'bg-red-100 text-red-700'
+              : getDifficulty(exerciseType === 'intervals' ? 'interval' : 'chord') === 'medium'
+                ? 'bg-yellow-100 text-yellow-700'
+                : 'bg-green-100 text-green-700'
+          }`}>
+            {getDifficulty(exerciseType === 'intervals' ? 'interval' : 'chord')}
+          </div>
+        )}
       </div>
 
       {/* Play / New buttons */}
