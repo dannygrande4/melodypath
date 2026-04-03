@@ -17,6 +17,7 @@ const ScaleExplorer = lazy(() => import('@/pages/ScaleExplorer'))
 const EarTraining = lazy(() => import('@/pages/EarTraining'))
 const PracticeSandbox = lazy(() => import('@/pages/PracticeSandbox'))
 const Resources = lazy(() => import('@/pages/Resources'))
+const SongImport = lazy(() => import('@/pages/SongImport'))
 const Profile = lazy(() => import('@/pages/Profile'))
 const Settings = lazy(() => import('@/pages/Settings'))
 
@@ -53,6 +54,7 @@ export default function App() {
       <Route element={<AppShell />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/play" element={<PlayBrowser />} />
+        <Route path="/play/import" element={<SongImport />} />
         <Route path="/play/:songId" element={<PlayGame />} />
         <Route path="/learn" element={<LearnDashboard />} />
         <Route path="/learn/:lessonId" element={<LessonPage />} />

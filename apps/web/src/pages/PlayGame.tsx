@@ -5,6 +5,8 @@ import { getSongById } from '@/lib/songLibrary'
 import { useAudioInit } from '@/hooks/useAudioInit'
 import { useAudioStore } from '@/stores/audioStore'
 import { useUserStore } from '@/stores/userStore'
+import { MIDIManager } from '@melodypath/audio-engine'
+import { useLeaderboardStore } from '@/stores/leaderboardStore'
 import type { TimingGrade, SongGrade, NoteEvent } from '@melodypath/shared-types'
 
 // ─── Scoring ─────────────────────────────────────────────────────────────────
@@ -52,6 +54,49 @@ export default function PlayGame() {
 
   const startTimeRef = useRef(0)
   const animFrameRef = useRef(0)
+
+  // MIDI input state
+  const [midiConnected, setMidiConnected] = useState(false)
+  const [midiLaneHit, setMidiLaneHit] = useState<number | null>(null)
+  const midiManagerRef = useRef<MIDIManager | null>(null)
+
+  // Connect MIDI on mount
+  useEffect(() => {
+    if (!engine.initialized) return
+
+    const manager = new MIDIManager(engine)
+    midiManagerRef.current = manager
+
+    manager.connect().then((inputs) => {
+      if (inputs.length > 0) {
+        manager.selectInput()
+        setMidiConnected(true)
+
+        // Map MIDI notes to lanes: divide the MIDI range into 4 zones
+        manager.setCallbacks(
+          (note) => {
+            // Map note name to lane: C/D = 0, E/F = 1, G/A = 2, B = 3
+            const pc = note.replace(/\d/, '')
+            const laneMap: Record<string, number> = {
+              'C': 0, 'C#': 0, 'D': 0, 'D#': 0,
+              'E': 1, 'F': 1, 'F#': 1,
+              'G': 2, 'G#': 2, 'A': 2, 'A#': 2,
+              'B': 3,
+            }
+            const lane = laneMap[pc] ?? 0
+            setMidiLaneHit(lane)
+            // Reset after a frame so next note triggers
+            setTimeout(() => setMidiLaneHit(null), 16)
+          },
+          () => {}, // noteOff — not needed for play mode
+        )
+      }
+    })
+
+    return () => {
+      manager.disconnect()
+    }
+  }, [engine, engine.initialized])
 
   // ─── Start game ─────────────────────────────────────────────────────
 
@@ -152,12 +197,18 @@ export default function PlayGame() {
   const okCount = results.filter((r) => r === 'OK').length
   const missCount = results.filter((r) => r === 'MISS').length
 
-  // Award XP on results
+  const addLeaderboardScore = useLeaderboardStore((s) => s.addScore)
+  const getTopScores = useLeaderboardStore((s) => s.getTopScores)
+  const [isNewHighScore, setIsNewHighScore] = useState(false)
+
+  // Award XP + record high score on results
   useEffect(() => {
-    if (gameState === 'results' && totalNotes > 0) {
+    if (gameState === 'results' && totalNotes > 0 && songId) {
       const xp = Math.round(accuracy * 50) + (grade === 'S' ? 50 : grade === 'A' ? 25 : 10)
       addXP(xp)
       recordPractice()
+      const isNew = addLeaderboardScore({ songId, score, accuracy, grade })
+      setIsNewHighScore(isNew)
     }
   }, [gameState]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -223,6 +274,16 @@ export default function PlayGame() {
               <kbd className="px-1.5 py-0.5 bg-surface-700 rounded text-white font-mono">K</kbd>{' '}
               to hit the notes, or tap the lanes
             </div>
+            {midiConnected && (
+              <div className="mt-2 px-3 py-1.5 bg-green-900/50 border border-green-700 rounded-lg text-green-400 text-sm font-medium inline-block">
+                🎹 MIDI device connected — play your instrument to hit notes!
+              </div>
+            )}
+            {!midiConnected && (
+              <div className="mt-2 text-xs text-surface-600">
+                Connect a MIDI keyboard or guitar interface to play with your instrument
+              </div>
+            )}
             <button
               onClick={startGame}
               className="px-10 py-4 bg-primary-600 text-white font-bold text-lg rounded-xl hover:bg-primary-700 transition-colors"
@@ -249,6 +310,7 @@ export default function PlayGame() {
               currentTime={currentTime}
               onNoteHit={handleNoteHit}
               onNoteMiss={handleNoteMiss}
+              externalLaneHit={midiLaneHit}
               width={500}
               height={550}
             />
@@ -310,6 +372,37 @@ export default function PlayGame() {
             </div>
 
             {/* Actions */}
+            {/* New high score banner */}
+            {isNewHighScore && (
+              <div className="bg-accent-500/20 border border-accent-500 rounded-lg p-3 text-accent-500 font-bold">
+                New High Score!
+              </div>
+            )}
+
+            {/* High scores */}
+            {songId && (() => {
+              const topScores = getTopScores(songId, 5)
+              return topScores.length > 1 ? (
+                <div className="text-left">
+                  <div className="text-xs text-surface-400 uppercase tracking-wider mb-2">High Scores</div>
+                  <div className="space-y-1">
+                    {topScores.map((s, i) => (
+                      <div key={i} className="flex justify-between text-sm bg-surface-800 rounded px-3 py-1.5">
+                        <span className="text-surface-300">#{i + 1}</span>
+                        <span className="font-bold">{s.score.toLocaleString()}</span>
+                        <span className="text-surface-400">{(s.accuracy * 100).toFixed(0)}%</span>
+                        <span className={
+                          s.grade === 'S' ? 'text-accent-500' :
+                          s.grade === 'A' ? 'text-timing-perfect' :
+                          'text-surface-400'
+                        }>{s.grade}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null
+            })()}
+
             <div className="flex gap-3 justify-center mt-6">
               <button
                 onClick={startGame}

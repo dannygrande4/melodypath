@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SONG_LIBRARY } from '@/lib/songLibrary'
+import { useLeaderboardStore } from '@/stores/leaderboardStore'
 
 const DIFFICULTY_LABELS = ['', 'Easy', 'Medium', 'Hard', 'Expert', 'Master']
 const DIFFICULTY_COLORS = ['', 'text-timing-perfect', 'text-timing-good', 'text-timing-ok', 'text-timing-miss', 'text-accent-500']
 
 export default function PlayBrowser() {
   const [filter, setFilter] = useState<number | null>(null)
+  const getBestScore = useLeaderboardStore((s) => s.getBestScore)
 
   const songs = filter
     ? SONG_LIBRARY.filter((s) => s.difficulty === filter)
@@ -19,6 +21,16 @@ export default function PlayBrowser() {
         <p className="text-surface-500 text-sm mt-1">
           Pick a song and play Guitar Hero-style — hit the falling notes in time!
         </p>
+      </div>
+
+      {/* Actions */}
+      <div className="flex gap-3">
+        <Link
+          to="/play/import"
+          className="px-4 py-2 bg-primary-600 text-white text-sm font-bold rounded-lg hover:bg-primary-700 transition-colors"
+        >
+          Import MIDI File
+        </Link>
       </div>
 
       {/* Difficulty filter */}
@@ -77,11 +89,24 @@ export default function PlayBrowser() {
               </div>
             </div>
 
-            {/* Meta */}
+            {/* Meta + best score */}
             <div className="text-right text-sm text-surface-400 flex-shrink-0">
               <div>{song.bpm} BPM</div>
               <div>Key: {song.key}</div>
-              <div className="text-xs">{song.genre}</div>
+              {(() => {
+                const best = getBestScore(song.id)
+                return best ? (
+                  <div className={`text-xs font-bold mt-1 ${
+                    best.grade === 'S' ? 'text-accent-500' :
+                    best.grade === 'A' ? 'text-timing-perfect' :
+                    'text-surface-400'
+                  }`}>
+                    Best: {best.grade} ({(best.accuracy * 100).toFixed(0)}%)
+                  </div>
+                ) : (
+                  <div className="text-xs">{song.genre}</div>
+                )
+              })()}
             </div>
 
             {/* Play arrow */}

@@ -25,6 +25,8 @@ interface NoteHighwayProps {
   currentTime: number   // seconds into the song
   onNoteHit: (index: number, grade: TimingGrade) => void
   onNoteMiss: (index: number) => void
+  /** External lane hit trigger (e.g. from MIDI input) */
+  externalLaneHit?: number | null
   width?: number
   height?: number
 }
@@ -37,6 +39,7 @@ export default function NoteHighway({
   currentTime,
   onNoteHit,
   onNoteMiss,
+  externalLaneHit,
   width = 600,
   height = 500,
 }: NoteHighwayProps) {
@@ -93,6 +96,14 @@ export default function NoteHighway({
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [tryHitLane])
+
+  // ─── External lane hit (MIDI input) ──────────────────────────────────
+
+  useEffect(() => {
+    if (externalLaneHit !== null && externalLaneHit !== undefined) {
+      tryHitLane(externalLaneHit)
+    }
+  }, [externalLaneHit, tryHitLane])
 
   // ─── Miss detection ─────────────────────────────────────────────────
 
