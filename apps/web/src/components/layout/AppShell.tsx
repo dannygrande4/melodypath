@@ -115,8 +115,10 @@ export default function AppShell() {
         <div className="flex items-center gap-2 px-4 py-4 border-b border-surface-200">
           <span className="text-2xl">🎵</span>
           {sidebarOpen && (
-            <span className="font-bold text-primary-600 text-lg tracking-tight">MelodyPath</span>
-          <span className="text-[9px] text-surface-400 bg-surface-100 px-1.5 py-0.5 rounded font-mono">v{APP_VERSION}</span>
+            <>
+              <span className="font-bold text-primary-600 text-lg tracking-tight">MelodyPath</span>
+              <span className="text-[9px] text-surface-400 bg-surface-100 px-1.5 py-0.5 rounded font-mono">v{APP_VERSION}</span>
+            </>
           )}
         </div>
 
