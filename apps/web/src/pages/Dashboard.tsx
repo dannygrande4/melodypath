@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useUserStore, xpToNextLevel } from '@/stores/userStore'
 import { useUIStore } from '@/stores/uiStore'
+import Mascot from '@/components/ui/Mascot'
 
 const SKILL_LABELS = {
   BEGINNER: 'Beginner',
@@ -57,6 +58,9 @@ export default function Dashboard() {
           View Profile
         </Link>
       </div>
+
+      {/* Kids mascot */}
+      <Mascot category={streak_days > 3 ? 'streak' : 'welcome'} size="md" />
 
       {/* Stats row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

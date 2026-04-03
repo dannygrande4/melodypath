@@ -440,6 +440,217 @@ export const LESSONS: LessonDef[] = [
       },
     ],
   },
+
+  // ─── Advanced Lessons ────────────────────────────────────────────────────────
+
+  {
+    id: 'extended-chords',
+    title: 'Extended Chords (9th, 11th, 13th)',
+    module: 'Advanced Harmony',
+    level: 'ADVANCED',
+    concepts: ['9th chords', '11th chords', '13th chords', 'extensions'],
+    xpReward: 45,
+    order: 11,
+    prerequisites: ['seventh-chords', 'ii-v-i'],
+    steps: [
+      {
+        type: 'text',
+        title: 'Beyond 7th Chords',
+        content: `7th chords stack notes in 3rds up to the 7th. But we can keep stacking:\n\n- **9th chord:** 1-3-5-7-**9** (the 9th = the 2nd, up an octave)\n- **11th chord:** 1-3-5-7-9-**11** (the 11th = the 4th, up an octave)\n- **13th chord:** 1-3-5-7-9-11-**13** (the 13th = the 6th — all 7 notes!)\n\nThese are the lush, colorful chords you hear in jazz, neo-soul, R&B, and film scores.\n\nIn practice, you don't play all the notes — you **omit** some (usually the 5th, sometimes the root or 11th) to keep it playable and clear.`,
+      },
+      {
+        type: 'quiz',
+        question: 'A 9th chord is built by adding which interval on top of a 7th chord?',
+        options: ['The 2nd (up an octave)', 'The 4th', 'The 6th', 'Another 3rd'],
+        correctIndex: 0,
+        explanation: 'The 9th is the 2nd degree raised an octave. On top of a 7th chord: 1-3-5-7-9.',
+      },
+      {
+        type: 'text',
+        title: 'Common Extended Chords',
+        content: `**Cmaj9** = C E G B D — Dreamy, sophisticated\n**C9** (dominant) = C E G Bb D — Funky, bluesy\n**Cm9** = C Eb G Bb D — Smooth, neo-soul\n\n**Add9 vs 9th:** "Cadd9" = C E G D (no 7th). "C9" = C E G Bb D (includes the 7th). The "add" means you're adding just the 9th without the 7th.\n\n**#11:** Raising the 11th creates the Lydian sound — floaty and magical. Cmaj7#11 is a favorite of jazz composers.`,
+      },
+      {
+        type: 'quiz',
+        question: 'What is the difference between Cadd9 and C9?',
+        options: [
+          'No difference — they are the same',
+          'Cadd9 has no 7th; C9 includes the 7th',
+          'C9 is an inversion of Cadd9',
+          'Cadd9 is minor; C9 is major'
+        ],
+        correctIndex: 1,
+        explanation: 'Cadd9 = 1-3-5-9 (no 7th). C9 = 1-3-5-b7-9 (includes the dominant 7th).',
+      },
+    ],
+  },
+  {
+    id: 'secondary-dominants',
+    title: 'Secondary Dominants',
+    module: 'Advanced Harmony',
+    level: 'ADVANCED',
+    concepts: ['secondary dominants', 'V/V', 'tonicization'],
+    xpReward: 45,
+    order: 12,
+    prerequisites: ['ii-v-i', 'chord-inversions'],
+    steps: [
+      {
+        type: 'text',
+        title: 'Borrowing Tension',
+        content: `In the key of C major, only G7 is a dominant chord. But what if we could create that same "pull" toward any chord?\n\nA **secondary dominant** is a temporary dominant chord that resolves to a chord other than I.\n\nWritten as **V/x** — "five of x." For example:\n- **V/V** (five of five) = D7 → G (D7 pulls to G, just like G7 pulls to C)\n- **V/ii** = A7 → Dm\n- **V/vi** = E7 → Am\n\nEach one briefly "tonicizes" its target chord — making it feel momentarily like home.`,
+      },
+      {
+        type: 'quiz',
+        question: 'In the key of C, what is V/V (the secondary dominant of V)?',
+        options: ['C7', 'D7', 'E7', 'F7'],
+        correctIndex: 1,
+        explanation: 'V = G in C major. The V of G is D7. So V/V in C major = D7, which pulls strongly to G.',
+      },
+      {
+        type: 'text',
+        title: 'Recognizing Secondary Dominants',
+        content: `Hear a dominant 7th chord that's NOT the V? It's probably a secondary dominant.\n\n**Classic example:** C → E7 → Am → G\n\nThat E7 isn't from C major — it's V/vi (five of A minor). It creates a moment of dramatic tension before Am.\n\nSecondary dominants are everywhere:\n- "Yesterday" (Beatles) — uses V/ii\n- "Autumn Leaves" — full of secondary dominants\n- "Hey Jude" — V/IV in the verse\n\nOnce you hear them, you can't un-hear them.`,
+      },
+      {
+        type: 'quiz',
+        question: 'A secondary dominant creates:',
+        options: [
+          'A modulation to a new key',
+          'A brief tonicization of a non-I chord',
+          'A diminished sound',
+          'A suspended chord'
+        ],
+        correctIndex: 1,
+        explanation: 'Secondary dominants briefly tonicize their target chord without actually changing key. It\'s a moment of borrowed tension.',
+      },
+    ],
+  },
+  {
+    id: 'jazz-voicings',
+    title: 'Jazz Piano Voicings',
+    module: 'Advanced Harmony',
+    level: 'ADVANCED',
+    concepts: ['shell voicings', 'rootless voicings', 'drop-2'],
+    xpReward: 50,
+    order: 13,
+    prerequisites: ['extended-chords', 'chord-inversions'],
+    steps: [
+      {
+        type: 'text',
+        title: 'Shell Voicings',
+        content: `Jazz pianists don't play big block chords — they use **voicings** that are sparse but rich.\n\n**Shell voicings** use only 3 notes:\n- Root + 3rd + 7th\n\nFor Cmaj7: C + E + B\nFor Dm7: D + F + C\nFor G7: G + B + F\n\nWhy skip the 5th? It doesn't add much character. The 3rd tells you major/minor, and the 7th tells you the chord quality. That's all you need.\n\nShell voicings sound clean, professional, and leave space for the bass player and other instruments.`,
+      },
+      {
+        type: 'quiz',
+        question: 'A shell voicing consists of:',
+        options: ['Root + 3rd + 5th', 'Root + 3rd + 7th', '3rd + 7th + 9th', 'Root + 5th + 7th'],
+        correctIndex: 1,
+        explanation: 'Shell voicings = Root + 3rd + 7th. The 5th is omitted because it adds little harmonic character.',
+      },
+      {
+        type: 'text',
+        title: 'Rootless Voicings',
+        content: `In a band, the bass player covers the root. So jazz pianists often drop it entirely:\n\n**Rootless voicings** omit the root and use the 3rd, 7th, and extensions.\n\nCmaj9 rootless: E + B + D (3rd + 7th + 9th)\nDm9 rootless: F + C + E (3rd + 7th + 9th)\nG13 rootless: B + F + A + E (3rd + 7th + 13th + 9th)\n\nThese sound incredibly sophisticated — it's what gives jazz piano that "adult" sound. The brain fills in the root from context.`,
+      },
+      {
+        type: 'text',
+        title: 'Voice Leading with Voicings',
+        content: `The real magic: connect voicings so notes move as little as possible.\n\nii-V-I in C with rootless voicings:\n- Dm9: F-C-E (3-7-9)\n- G13: F-B-E (7-3-13) — only ONE note moved!\n- Cmaj9: E-B-D (3-7-9) — again, minimal movement\n\nThis smoothness is what makes jazz harmony sound so fluid. Each voice (top, middle, bottom) moves by a step or stays put.`,
+      },
+      {
+        type: 'exercise',
+        instruction: 'Play a Cmaj7 shell voicing: C4, E4, B4',
+        expectedNotes: ['C4', 'E4', 'B4'],
+      },
+    ],
+  },
+  {
+    id: 'blues-scale',
+    title: 'The Blues Scale & 12-Bar Blues',
+    module: 'Advanced Scales',
+    level: 'ADVANCED',
+    concepts: ['blues scale', '12-bar blues', 'blue notes', 'call and response'],
+    xpReward: 40,
+    order: 14,
+    prerequisites: ['minor-scales'],
+    steps: [
+      {
+        type: 'text',
+        title: 'The Blues Scale',
+        content: `The **blues scale** is the minor pentatonic with one extra note — the **flat 5th** (also called the "blue note").\n\nA blues scale: A C D **Eb** E G A\n\nFormula: 1 b3 4 **b5** 5 b7\n\nThat b5 is the magic ingredient. It creates a crunchy, expressive tension that immediately sounds "bluesy." Bend into it, slide through it, sit on it — it's the most emotional note in the scale.`,
+      },
+      {
+        type: 'quiz',
+        question: 'What makes the blues scale different from the minor pentatonic?',
+        options: ['A raised 3rd', 'A flat 5th (blue note)', 'A major 7th', 'An extra root note'],
+        correctIndex: 1,
+        explanation: 'The blues scale adds the b5 (flat 5th / "blue note") to the minor pentatonic. That one note gives it its signature sound.',
+      },
+      {
+        type: 'text',
+        title: 'The 12-Bar Blues',
+        content: `The **12-bar blues** is a chord progression that's been the backbone of blues, rock, and jazz for over a century:\n\n| Bar | 1 | 2 | 3 | 4 |\n|-----|---|---|---|---|\n| 1–4 | I7 | I7 | I7 | I7 |\n| 5–8 | IV7 | IV7 | I7 | I7 |\n| 9–12 | V7 | IV7 | I7 | V7 |\n\nIn the key of A: A7 → D7 → A7 → E7 → D7 → A7\n\nNotice: ALL chords are **dominant 7ths** — that's what gives the blues its unique, gritty harmonic feel.`,
+      },
+      {
+        type: 'quiz',
+        question: 'How many bars (measures) is a standard blues progression?',
+        options: ['8', '12', '16', '32'],
+        correctIndex: 1,
+        explanation: 'The standard blues form is 12 bars, divided into three 4-bar phrases.',
+      },
+      {
+        type: 'exercise',
+        instruction: 'Play the A blues scale: A3, C4, D4, D#4, E4, G4, A4',
+        expectedNotes: ['A3', 'C4', 'D4', 'D#4', 'E4', 'G4', 'A4'],
+      },
+    ],
+  },
+  {
+    id: 'intro-composition',
+    title: 'Introduction to Composition',
+    module: 'Advanced Creative',
+    level: 'ADVANCED',
+    concepts: ['composition', 'melody writing', 'song structure', 'motif'],
+    xpReward: 50,
+    order: 15,
+    prerequisites: ['chord-progressions-intro', 'blues-scale'],
+    steps: [
+      {
+        type: 'text',
+        title: 'Creating a Melody',
+        content: `Writing a melody isn't magic — it's a craft with learnable principles.\n\n**Start with a motif:** A motif is a short musical idea (2–4 notes) that you build the melody from. Think of "Beethoven's 5th" — that whole symphony grows from just 4 notes (da-da-da-DUM).\n\n**Principles for strong melodies:**\n- **Step-then-leap:** Move mostly by step (C→D→E), then use occasional leaps (C→G) for drama\n- **Arch shape:** Melodies often rise to a peak then descend\n- **Repetition + variation:** State the motif, repeat it, then change it slightly\n- **Resolution:** End phrases on stable notes (root, 3rd, 5th of the chord)`,
+      },
+      {
+        type: 'quiz',
+        question: 'A motif is:',
+        options: [
+          'A full chord progression',
+          'A short musical idea (2–4 notes) that a melody is built from',
+          'The bass line of a song',
+          'A type of scale'
+        ],
+        correctIndex: 1,
+        explanation: 'A motif is a short, memorable musical idea that serves as the seed for a larger melody.',
+      },
+      {
+        type: 'text',
+        title: 'Song Structure',
+        content: `Most songs follow predictable structures:\n\n**Verse-Chorus (ABAB):**\nVerse → Chorus → Verse → Chorus\n\n**Verse-Chorus-Bridge (ABABCB):**\nVerse → Chorus → Verse → Chorus → Bridge → Chorus\n\n**AABA (Great American Songbook):**\nA section → A section → B section (bridge) → A section\n\nThe **verse** tells the story (different lyrics each time).\nThe **chorus** is the hook (same lyrics, most memorable).\nThe **bridge** provides contrast (different chords, new energy).\n\nTry this: pick a chord progression (like I-V-vi-IV), hum a melody over it, and you've started composing.`,
+      },
+      {
+        type: 'quiz',
+        question: 'In a Verse-Chorus song, what part typically stays the same each time?',
+        options: ['The verse', 'The chorus', 'The bridge', 'The intro'],
+        correctIndex: 1,
+        explanation: 'The chorus has the same lyrics and melody each time — it\'s the most memorable, singable part of the song.',
+      },
+      {
+        type: 'text',
+        title: 'Your Turn',
+        content: `Here's a composition exercise to try:\n\n1. **Pick a progression:** I-vi-IV-V in C (C-Am-F-G)\n2. **Set a tempo:** 100 BPM in 4/4 time\n3. **Write a 4-bar motif:** Start on C, mostly stepwise, end on a chord tone\n4. **Repeat with variation:** Change the ending note, add a rhythm change\n5. **Add a contrasting phrase:** Go higher, use a leap, create tension\n6. **Resolve:** Bring it back to the root (C)\n\nUse the Practice sandbox piano or Chord Explorer to experiment. There are no wrong notes — only interesting ones.`,
+      },
+    ],
+  },
 ]
 
 export function getLessonById(id: string): LessonDef | undefined {
