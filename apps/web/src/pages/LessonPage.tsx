@@ -1,9 +1,283 @@
+import { useState, useCallback, useMemo } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { getLessonById, type LessonStep } from '@/lib/lessons/lessonData'
+import { useLessonStore } from '@/stores/lessonStore'
+import { useUserStore } from '@/stores/userStore'
+import { useAudioInit } from '@/hooks/useAudioInit'
+import { useAudioStore } from '@/stores/audioStore'
+import PianoKeyboard from '@/components/Piano/PianoKeyboard'
+
 export default function LessonPage() {
+  const { lessonId } = useParams<{ lessonId: string }>()
+  const navigate = useNavigate()
+  const lesson = getLessonById(lessonId ?? '')
+  const markComplete = useLessonStore((s) => s.markComplete)
+  const addXP = useUserStore((s) => s.addXP)
+  const recordPractice = useUserStore((s) => s.recordPractice)
+  const { ensureAudio } = useAudioInit()
+  const engine = useAudioStore((s) => s.engine)
+
+  const [stepIdx, setStepIdx] = useState(0)
+  const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({}) // stepIdx → selected option
+  const [exerciseNotes, setExerciseNotes] = useState<string[]>([])
+  const [exerciseComplete, setExerciseComplete] = useState(false)
+  const [finished, setFinished] = useState(false)
+
+  if (!lesson) {
+    return (
+      <div className="p-8 text-center">
+        <h1 className="text-2xl font-bold text-surface-900 mb-4">Lesson Not Found</h1>
+        <Link to="/learn" className="text-primary-600 hover:underline">Back to Lessons</Link>
+      </div>
+    )
+  }
+
+  const totalSteps = lesson.steps.length
+  const currentStep = lesson.steps[stepIdx] as LessonStep | undefined
+  const progress = ((stepIdx + 1) / totalSteps) * 100
+
+  // Count correct quiz answers
+  const quizScore = useMemo(() => {
+    let correct = 0
+    let total = 0
+    for (let i = 0; i < lesson.steps.length; i++) {
+      const step = lesson.steps[i]
+      if (step.type === 'quiz') {
+        total++
+        if (quizAnswers[i] === step.correctIndex) correct++
+      }
+    }
+    return total > 0 ? Math.round((correct / total) * 100) : 100
+  }, [quizAnswers, lesson.steps])
+
+  // ─── Navigation ─────────────────────────────────────────────────────
+
+  const canAdvance = useCallback(() => {
+    if (!currentStep) return false
+    if (currentStep.type === 'text') return true
+    if (currentStep.type === 'quiz') return quizAnswers[stepIdx] !== undefined
+    if (currentStep.type === 'exercise') return exerciseComplete
+    return false
+  }, [currentStep, stepIdx, quizAnswers, exerciseComplete])
+
+  const nextStep = useCallback(() => {
+    if (stepIdx < totalSteps - 1) {
+      setStepIdx(stepIdx + 1)
+      setExerciseNotes([])
+      setExerciseComplete(false)
+    } else {
+      // Lesson complete
+      markComplete(lesson.id, quizScore)
+      addXP(lesson.xpReward)
+      recordPractice()
+      setFinished(true)
+    }
+  }, [stepIdx, totalSteps, lesson, quizScore, markComplete, addXP, recordPractice])
+
+  // ─── Quiz handler ───────────────────────────────────────────────────
+
+  const selectQuizAnswer = useCallback((optionIdx: number) => {
+    if (quizAnswers[stepIdx] !== undefined) return // already answered
+    setQuizAnswers((prev) => ({ ...prev, [stepIdx]: optionIdx }))
+  }, [stepIdx, quizAnswers])
+
+  // ─── Exercise handler ───────────────────────────────────────────────
+
+  const handleExerciseNote = useCallback(async (note: string) => {
+    await ensureAudio()
+    engine.playNote(note, '8n')
+
+    if (currentStep?.type !== 'exercise') return
+    const expected = currentStep.expectedNotes
+
+    setExerciseNotes((prev) => {
+      const next = [...prev, note]
+      // Check if the sequence matches so far
+      const correct = next.every((n, i) => i < expected.length && n === expected[i])
+      if (!correct) {
+        // Reset on wrong note
+        return [note]
+      }
+      if (next.length === expected.length) {
+        setExerciseComplete(true)
+      }
+      return next
+    })
+  }, [ensureAudio, engine, currentStep])
+
+  // ─── Finished screen ────────────────────────────────────────────────
+
+  if (finished) {
+    return (
+      <div className="p-8 max-w-lg mx-auto text-center space-y-6">
+        <div className="text-6xl">🎉</div>
+        <h1 className="text-2xl font-bold text-surface-900">Lesson Complete!</h1>
+        <div className="text-lg text-surface-600">{lesson.title}</div>
+        <div className="flex justify-center gap-6">
+          <div className="text-center">
+            <div className="text-3xl font-extrabold text-primary-600">+{lesson.xpReward}</div>
+            <div className="text-xs text-surface-400">XP Earned</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-extrabold text-timing-perfect">{quizScore}%</div>
+            <div className="text-xs text-surface-400">Quiz Score</div>
+          </div>
+        </div>
+        <div className="flex gap-3 justify-center mt-4">
+          <Link
+            to="/learn"
+            className="px-6 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700"
+          >
+            Next Lesson
+          </Link>
+          <button
+            onClick={() => { setStepIdx(0); setQuizAnswers({}); setExerciseNotes([]); setExerciseComplete(false); setFinished(false) }}
+            className="px-6 py-3 bg-white border border-surface-200 text-surface-700 font-medium rounded-xl hover:bg-surface-50"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // ─── Render step ────────────────────────────────────────────────────
+
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold text-surface-900 mb-4">LessonPage</h1>
-      <div className="rounded-xl border-2 border-dashed border-surface-200 p-16 text-center text-surface-400">
-        Coming soon — Phase build in progress
+    <div className="p-6 max-w-2xl mx-auto space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-xs text-surface-400 uppercase tracking-wider">{lesson.module}</div>
+          <h1 className="text-xl font-bold text-surface-900">{lesson.title}</h1>
+        </div>
+        <div className="text-sm text-surface-400">
+          {stepIdx + 1} / {totalSteps}
+        </div>
+      </div>
+
+      {/* Progress bar */}
+      <div className="w-full bg-surface-100 rounded-full h-1.5">
+        <div className="bg-primary-500 h-1.5 rounded-full transition-all" style={{ width: `${progress}%` }} />
+      </div>
+
+      {/* Step content */}
+      <div className="bg-white rounded-xl border border-surface-200 p-6 min-h-[300px]">
+        {currentStep?.type === 'text' && (
+          <div>
+            <h2 className="text-lg font-bold text-surface-900 mb-4">{currentStep.title}</h2>
+            <div className="prose text-surface-700 leading-relaxed whitespace-pre-line">
+              {currentStep.content.split(/(\*\*[^*]+\*\*)/).map((part, i) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                  return <strong key={i} className="text-surface-900">{part.slice(2, -2)}</strong>
+                }
+                return <span key={i}>{part}</span>
+              })}
+            </div>
+          </div>
+        )}
+
+        {currentStep?.type === 'quiz' && (() => {
+          const answered = quizAnswers[stepIdx] !== undefined
+          const selectedIdx = quizAnswers[stepIdx]
+          const isCorrect = selectedIdx === currentStep.correctIndex
+
+          return (
+            <div>
+              <h2 className="text-lg font-bold text-surface-900 mb-4">{currentStep.question}</h2>
+              <div className="space-y-2">
+                {currentStep.options.map((opt, i) => {
+                  let style = 'bg-white border-surface-200 hover:border-primary-300'
+                  if (answered) {
+                    if (i === currentStep.correctIndex) style = 'bg-green-50 border-green-400 text-green-800'
+                    else if (i === selectedIdx) style = 'bg-red-50 border-red-400 text-red-800'
+                    else style = 'bg-surface-50 border-surface-200 opacity-60'
+                  }
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => selectQuizAnswer(i)}
+                      disabled={answered}
+                      className={`w-full text-left px-4 py-3 rounded-lg border transition-colors ${style}`}
+                    >
+                      {opt}
+                    </button>
+                  )
+                })}
+              </div>
+              {answered && (
+                <div className={`mt-4 p-3 rounded-lg text-sm ${isCorrect ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                  {isCorrect ? 'Correct! ' : 'Not quite. '}{currentStep.explanation}
+                </div>
+              )}
+            </div>
+          )
+        })()}
+
+        {currentStep?.type === 'exercise' && (
+          <div>
+            <h2 className="text-lg font-bold text-surface-900 mb-2">Exercise</h2>
+            <p className="text-surface-600 mb-4">{currentStep.instruction}</p>
+
+            {/* Progress indicator */}
+            <div className="flex gap-1 mb-4">
+              {currentStep.expectedNotes.map((note, i) => {
+                const played = i < exerciseNotes.length
+                const isCurrent = i === exerciseNotes.length
+                return (
+                  <span
+                    key={i}
+                    className={`px-2 py-1 rounded text-sm font-mono font-bold ${
+                      played ? 'bg-timing-perfect text-white' :
+                      isCurrent ? 'bg-primary-100 text-primary-700 border border-primary-300' :
+                      'bg-surface-100 text-surface-400'
+                    }`}
+                  >
+                    {note}
+                  </span>
+                )
+              })}
+            </div>
+
+            {exerciseComplete && (
+              <div className="mb-4 p-3 bg-green-50 text-green-800 rounded-lg text-sm font-medium">
+                Great job! You played it perfectly.
+              </div>
+            )}
+
+            {/* Piano for exercise */}
+            <div className="overflow-x-auto pb-2">
+              <PianoKeyboard
+                startOctave={3}
+                octaves={3}
+                onNotePlay={handleExerciseNote}
+                activeNotes={exerciseNotes.slice(-1)}
+                highlightedNotes={currentStep.expectedNotes.map((n, i) => ({
+                  note: n,
+                  role: i < exerciseNotes.length ? 'root' as const : 'other' as const,
+                }))}
+                showLabels
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => navigate('/learn')}
+          className="text-sm text-surface-500 hover:text-surface-700"
+        >
+          Exit Lesson
+        </button>
+        <button
+          onClick={nextStep}
+          disabled={!canAdvance()}
+          className="px-6 py-2.5 bg-primary-600 text-white font-bold rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {stepIdx === totalSteps - 1 ? 'Complete Lesson' : 'Continue'}
+        </button>
       </div>
     </div>
   )

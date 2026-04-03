@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useUIStore } from '@/stores/uiStore'
 import AppShell from '@/components/layout/AppShell'
+import LevelUpOverlay from '@/components/Gamification/LevelUpOverlay'
 import Landing from '@/pages/Landing'
 import Onboarding from '@/pages/Onboarding'
 import Dashboard from '@/pages/Dashboard'
@@ -27,6 +28,8 @@ export default function App() {
   }, [ageMode, highContrast, reducedMotion])
 
   return (
+    <>
+    <LevelUpOverlay />
     <Routes>
       {/* Public routes (no shell) */}
       <Route path="/" element={<Landing />} />
@@ -47,5 +50,6 @@ export default function App() {
         <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>
+    </>
   )
 }
