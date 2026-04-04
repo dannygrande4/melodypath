@@ -4,7 +4,8 @@ import { supabase } from './supabase'
  * Central API client.
  * Automatically attaches Supabase JWT for authenticated requests.
  */
-const BASE_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:3001').replace(/\/$/, '')
+// Empty string = same origin (Vercel serverless functions at /api/*)
+const BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
 
 interface RequestOptions extends Omit<RequestInit, 'body'> {
   body?: unknown
