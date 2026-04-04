@@ -477,3 +477,158 @@ export function generateFurElise(bpm = 85): { notes: NoteEvent[]; duration: numb
   }))
   return { notes, duration: half * 30 + beat }
 }
+
+/**
+ * Amazing Grace
+ */
+export function generateAmazingGrace(bpm = 80): { notes: NoteEvent[]; duration: number } {
+  const beat = 60 / bpm
+  const melody = [
+    { note: 'G3', lane: 0 }, { note: 'C4', lane: 1 }, { note: 'E4', lane: 2 },
+    { note: 'C4', lane: 1 }, { note: 'E4', lane: 2 }, { note: 'D4', lane: 1 },
+    { note: 'C4', lane: 1 }, { note: 'A3', lane: 0 }, { note: 'G3', lane: 0 },
+    { note: 'G3', lane: 0 }, { note: 'C4', lane: 1 }, { note: 'E4', lane: 2 },
+    { note: 'C4', lane: 1 }, { note: 'E4', lane: 2 }, { note: 'G4', lane: 3 },
+    { note: 'E4', lane: 2 }, { note: 'C4', lane: 1 }, { note: 'A3', lane: 0 },
+    { note: 'C4', lane: 1 }, { note: 'C4', lane: 1 }, { note: 'A3', lane: 0 },
+    { note: 'G3', lane: 0 }, { note: 'C4', lane: 1 },
+  ]
+  const notes: NoteEvent[] = melody.map((m, i) => ({
+    note: m.note, time: i * beat * 1.2, duration: beat, lane: m.lane, velocity: 85,
+  }))
+  return { notes, duration: (melody.length + 2) * beat * 1.2 }
+}
+
+/**
+ * Canon in D (simplified melody)
+ */
+export function generateCanonInD(bpm = 70): { notes: NoteEvent[]; duration: number } {
+  const beat = 60 / bpm
+  const melody = [
+    { note: 'F#4', lane: 2 }, { note: 'E4', lane: 1 }, { note: 'D4', lane: 0 },
+    { note: 'C#4', lane: 0 }, { note: 'B3', lane: 0 }, { note: 'A3', lane: 0 },
+    { note: 'B3', lane: 0 }, { note: 'C#4', lane: 0 },
+    { note: 'D4', lane: 1 }, { note: 'C#4', lane: 0 }, { note: 'B3', lane: 0 },
+    { note: 'A3', lane: 0 }, { note: 'G3', lane: 0 }, { note: 'F#3', lane: 0 },
+    { note: 'G3', lane: 0 }, { note: 'A3', lane: 0 },
+    { note: 'D4', lane: 1 }, { note: 'F#4', lane: 2 }, { note: 'A4', lane: 3 },
+    { note: 'G4', lane: 3 }, { note: 'F#4', lane: 2 }, { note: 'D4', lane: 1 },
+    { note: 'F#4', lane: 2 }, { note: 'E4', lane: 1 }, { note: 'D4', lane: 1 },
+    { note: 'B3', lane: 0 }, { note: 'B3', lane: 0 }, { note: 'C#4', lane: 0 },
+    { note: 'D4', lane: 1 }, { note: 'D4', lane: 1 }, { note: 'A3', lane: 0 },
+    { note: 'A3', lane: 0 },
+  ]
+  const notes: NoteEvent[] = melody.map((m, i) => ({
+    note: m.note, time: i * beat, duration: beat * 0.9, lane: m.lane, velocity: 80,
+  }))
+  return { notes, duration: (melody.length + 2) * beat }
+}
+
+/**
+ * Take Me Home, Country Roads (chorus melody)
+ */
+export function generateCountryRoads(bpm = 82): { notes: NoteEvent[]; duration: number } {
+  const beat = 60 / bpm
+  // "Country roads, take me home, to the place I belong..."
+  const melody = [
+    { note: 'A4', lane: 3 }, { note: 'G4', lane: 2 }, { note: 'E4', lane: 1 },
+    { note: 'E4', lane: 1 }, { note: 'D4', lane: 0 },
+    { note: 'E4', lane: 1 }, { note: 'E4', lane: 1 },
+    { note: 'A4', lane: 3 }, { note: 'G4', lane: 2 }, { note: 'E4', lane: 1 },
+    { note: 'E4', lane: 1 }, { note: 'D4', lane: 0 },
+    { note: 'E4', lane: 1 },
+    { note: 'A4', lane: 3 }, { note: 'A4', lane: 3 }, { note: 'G4', lane: 2 },
+    { note: 'E4', lane: 1 }, { note: 'D4', lane: 0 }, { note: 'E4', lane: 1 },
+    { note: 'E4', lane: 1 }, { note: 'D4', lane: 0 },
+    { note: 'C4', lane: 0 }, { note: 'D4', lane: 0 },
+    { note: 'E4', lane: 1 }, { note: 'D4', lane: 0 }, { note: 'C4', lane: 0 },
+    { note: 'A3', lane: 0 },
+  ]
+  const notes: NoteEvent[] = melody.map((m, i) => ({
+    note: m.note, time: i * beat, duration: beat * 0.9, lane: m.lane, velocity: 90,
+  }))
+  return { notes, duration: (melody.length + 2) * beat }
+}
+
+/**
+ * Let It Be (verse melody)
+ */
+export function generateLetItBe(bpm = 72): { notes: NoteEvent[]; duration: number } {
+  const beat = 60 / bpm
+  // "When I find myself in times of trouble, Mother Mary comes to me..."
+  const melody = [
+    { note: 'G4', lane: 2 }, { note: 'G4', lane: 2 }, { note: 'A4', lane: 3 },
+    { note: 'G4', lane: 2 }, { note: 'G4', lane: 2 }, { note: 'E4', lane: 1 },
+    { note: 'D4', lane: 0 }, { note: 'E4', lane: 1 },
+    { note: 'G4', lane: 2 }, { note: 'G4', lane: 2 }, { note: 'A4', lane: 3 },
+    { note: 'G4', lane: 2 }, { note: 'E4', lane: 1 },
+    { note: 'D4', lane: 0 }, { note: 'C4', lane: 0 },
+    { note: 'E4', lane: 1 }, { note: 'E4', lane: 1 }, { note: 'D4', lane: 0 },
+    { note: 'C4', lane: 0 }, { note: 'D4', lane: 0 }, { note: 'E4', lane: 1 },
+    { note: 'G4', lane: 2 }, { note: 'A4', lane: 3 }, { note: 'G4', lane: 2 },
+    { note: 'C4', lane: 0 }, { note: 'D4', lane: 0 }, { note: 'E4', lane: 1 },
+    { note: 'C4', lane: 0 },
+  ]
+  const notes: NoteEvent[] = melody.map((m, i) => ({
+    note: m.note, time: i * beat, duration: beat * 0.85, lane: m.lane, velocity: 85,
+  }))
+  return { notes, duration: (melody.length + 2) * beat }
+}
+
+/**
+ * Blackbird (simplified picking melody)
+ */
+export function generateBlackbird(bpm = 92): { notes: NoteEvent[]; duration: number } {
+  const beat = 60 / bpm
+  const half = beat / 2
+  const melody = [
+    { note: 'G3', time: 0 }, { note: 'A3', time: half },
+    { note: 'B3', time: half * 2 }, { note: 'G4', time: half * 3 },
+    { note: 'A4', time: half * 4 }, { note: 'G4', time: half * 5 },
+    { note: 'E4', time: half * 7 }, { note: 'D4', time: half * 8 },
+    { note: 'C4', time: half * 10 },
+    { note: 'G3', time: half * 12 }, { note: 'A3', time: half * 13 },
+    { note: 'B3', time: half * 14 }, { note: 'D4', time: half * 15 },
+    { note: 'E4', time: half * 16 }, { note: 'D4', time: half * 17 },
+    { note: 'C4', time: half * 19 }, { note: 'B3', time: half * 20 },
+    { note: 'A3', time: half * 22 },
+    { note: 'G3', time: half * 24 }, { note: 'A3', time: half * 25 },
+    { note: 'B3', time: half * 26 }, { note: 'G4', time: half * 27 },
+    { note: 'A4', time: half * 28 }, { note: 'B4', time: half * 29 },
+    { note: 'A4', time: half * 30 }, { note: 'G4', time: half * 31 },
+    { note: 'E4', time: half * 33 },
+  ]
+  const laneMap: Record<string, number> = {
+    'G3': 0, 'A3': 0, 'B3': 1, 'C4': 1, 'D4': 1, 'E4': 2, 'G4': 3, 'A4': 3, 'B4': 3,
+  }
+  const notes: NoteEvent[] = melody.map((m) => ({
+    note: m.note, time: m.time, duration: half * 0.9, lane: laneMap[m.note] ?? 0, velocity: 75,
+  }))
+  return { notes, duration: half * 35 + beat }
+}
+
+/**
+ * Wonderwall (simplified vocal melody — chorus)
+ */
+export function generateWonderwall(bpm = 87): { notes: NoteEvent[]; duration: number } {
+  const beat = 60 / bpm
+  // "Because maybe, you're gonna be the one that saves me..."
+  const melody = [
+    { note: 'B4', lane: 3 }, { note: 'A4', lane: 3 },
+    { note: 'G4', lane: 2 }, { note: 'G4', lane: 2 }, { note: 'F#4', lane: 2 },
+    { note: 'E4', lane: 1 }, { note: 'E4', lane: 1 },
+    { note: 'F#4', lane: 2 }, { note: 'G4', lane: 2 },
+    { note: 'B4', lane: 3 }, { note: 'A4', lane: 3 },
+    { note: 'G4', lane: 2 }, { note: 'G4', lane: 2 }, { note: 'F#4', lane: 2 },
+    { note: 'E4', lane: 1 },
+    { note: 'F#4', lane: 2 }, { note: 'G4', lane: 2 },
+    { note: 'A4', lane: 3 }, { note: 'B4', lane: 3 },
+    { note: 'A4', lane: 3 }, { note: 'G4', lane: 2 },
+    { note: 'F#4', lane: 2 }, { note: 'E4', lane: 1 },
+    { note: 'D4', lane: 0 }, { note: 'E4', lane: 1 },
+  ]
+  const notes: NoteEvent[] = melody.map((m, i) => ({
+    note: m.note, time: i * beat, duration: beat * 0.85, lane: m.lane, velocity: 90,
+  }))
+  return { notes, duration: (melody.length + 2) * beat }
+}
