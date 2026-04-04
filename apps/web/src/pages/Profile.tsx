@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { useUserStore, xpToNextLevel } from '@/stores/userStore'
 import { useLessonStore } from '@/stores/lessonStore'
+import { useLeaderboardStore } from '@/stores/leaderboardStore'
+import { useEarTrainingStore } from '@/stores/earTrainingStore'
 import { BADGES, type BadgeCheckStats } from '@/lib/badges'
 
 const SKILL_LABELS = { BEGINNER: 'Beginner', INTERMEDIATE: 'Intermediate', ADVANCED: 'Advanced' }
@@ -10,18 +12,20 @@ export default function Profile() {
   const { xp, level, streak_days, skill_level, instrument } = useUserStore()
   const { completedLessons } = useLessonStore()
   const lessonsCompleted = Object.keys(completedLessons).length
+  const { highScores } = useLeaderboardStore()
+  const songsPlayed = Object.keys(highScores).length
+  const { totalCorrect: earTrainingCorrect } = useEarTrainingStore()
 
   const xpRemaining = xpToNextLevel(xp, level)
 
-  // Compute earned badges
   const stats: BadgeCheckStats = useMemo(() => ({
     lessonsCompleted,
-    songsPlayed: 0, // TODO: track from song attempts
+    songsPlayed,
     streakDays: streak_days,
     totalXP: xp,
     level,
-    earTrainingCorrect: 0, // TODO: track
-  }), [lessonsCompleted, streak_days, xp, level])
+    earTrainingCorrect,
+  }), [lessonsCompleted, songsPlayed, streak_days, xp, level, earTrainingCorrect])
 
   const earnedBadges = useMemo(
     () => BADGES.filter((b) => b.condition(stats)),

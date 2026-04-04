@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useUserStore, xpToNextLevel } from '@/stores/userStore'
 import { useUIStore } from '@/stores/uiStore'
+import { useLessonStore } from '@/stores/lessonStore'
+import { LESSONS, isLessonUnlocked } from '@/lib/lessons/lessonData'
+import { SONG_LIBRARY } from '@/lib/songLibrary'
 import Mascot from '@/components/ui/Mascot'
 
 const SKILL_LABELS = {
@@ -10,12 +13,12 @@ const SKILL_LABELS = {
 }
 
 const QUICK_ACTIONS = [
-  { to: '/play', icon: '🎮', title: 'Play a Song', desc: 'Guitar Hero-style play mode' },
-  { to: '/learn', icon: '📚', title: 'Start a Lesson', desc: 'Pick up where you left off' },
-  { to: '/explore/chords', icon: '🎼', title: 'Explore Chords', desc: 'Visualize and hear any chord' },
-  { to: '/explore/scales', icon: '🎹', title: 'Explore Scales', desc: 'Maps for piano and guitar' },
-  { to: '/ear-training', icon: '👂', title: 'Train Your Ear', desc: 'Intervals, chords, melodies' },
-  { to: '/practice', icon: '🎵', title: 'Practice', desc: 'Backing tracks and metronome' },
+  { to: '/play', icon: '🎮', title: 'Play a Song', desc: 'Hit notes in time — Guitar Hero style' },
+  { to: '/challenges', icon: '🎯', title: 'Challenges', desc: 'Play what we ask — test your skills' },
+  { to: '/explore/chords', icon: '🎼', title: 'Explore Chords', desc: 'See and hear any chord on piano + guitar' },
+  { to: '/explore/scales', icon: '🎹', title: 'Explore Scales', desc: 'Visualize scales across the fretboard' },
+  { to: '/ear-training', icon: '👂', title: 'Train Your Ear', desc: 'Identify intervals, chords, and melodies' },
+  { to: '/progressions', icon: '🔄', title: 'Build Progressions', desc: 'Create chord progressions in any key' },
 ]
 
 const DAILY_TIPS = [
@@ -29,6 +32,8 @@ const DAILY_TIPS = [
 export default function Dashboard() {
   const { xp, level, streak_days, skill_level, instrument } = useUserStore()
   const { ageMode } = useUIStore()
+  const { completedLessons } = useLessonStore()
+  const completedIds = new Set(Object.keys(completedLessons))
 
   const xpRemaining = xpToNextLevel(xp, level)
   const xpForLevel = xpRemaining + (xp % 100 || 100)
@@ -38,6 +43,24 @@ export default function Dashboard() {
   const tip = DAILY_TIPS[tipIndex]
 
   const isKids = ageMode === 'kids'
+
+  // ─── Adaptive content based on user state ────────────────────────────
+  const nextLesson = LESSONS.find((l) => !completedIds.has(l.id) && isLessonUnlocked(l.id, completedIds))
+  const lessonsCompleted = completedIds.size
+  const totalLessons = LESSONS.length
+
+  // Recommend songs based on skill level
+  const maxDifficulty = skill_level === 'ADVANCED' ? 5 : skill_level === 'INTERMEDIATE' ? 3 : 2
+  const recommendedSongs = SONG_LIBRARY.filter((s) => s.difficulty <= maxDifficulty).slice(0, 3)
+
+  // Dynamic daily challenge based on skill + day
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
+  const dailySong = recommendedSongs[dayOfYear % recommendedSongs.length]
+  const dailyChallenge = skill_level === 'BEGINNER'
+    ? { text: `Play "${dailySong?.title}" and complete one lesson`, songId: dailySong?.id }
+    : skill_level === 'INTERMEDIATE'
+      ? { text: `Beat your high score on "${dailySong?.title}" and try an Interval challenge`, songId: dailySong?.id }
+      : { text: `Get an S rank on "${dailySong?.title}" and complete a Progression challenge`, songId: dailySong?.id }
 
   return (
     <div className="p-4 sm:p-6 max-w-5xl mx-auto space-y-6">
@@ -105,18 +128,38 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Daily Challenge */}
+      {/* Continue learning — next lesson */}
+      {nextLesson && (
+        <Link
+          to={`/learn/${nextLesson.id}`}
+          className="block bg-white rounded-xl border border-surface-200 p-5 hover:border-primary-300 hover:shadow-sm transition-all"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-xs font-bold text-primary-600 uppercase tracking-wider mb-1">
+                Continue Learning ({lessonsCompleted}/{totalLessons})
+              </div>
+              <div className="text-lg font-bold text-surface-900">{nextLesson.title}</div>
+              <div className="text-sm text-surface-500 mt-0.5">{nextLesson.concepts.join(' · ')} · +{nextLesson.xpReward} XP</div>
+            </div>
+            <span className="text-2xl text-primary-500">→</span>
+          </div>
+          <div className="w-full bg-surface-100 rounded-full h-1.5 mt-3">
+            <div className="bg-primary-500 h-1.5 rounded-full" style={{ width: `${(lessonsCompleted / totalLessons) * 100}%` }} />
+          </div>
+        </Link>
+      )}
+
+      {/* Daily Challenge — personalized */}
       <div className="bg-gradient-to-r from-primary-50 to-accent-500/10 rounded-xl border border-primary-100 p-5">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
             <div className="text-xs font-bold text-primary-600 uppercase tracking-wider mb-1">Daily Challenge</div>
-            <div className="text-lg font-bold text-surface-900">
-              Play "Ode to Joy" and complete one ear training round
-            </div>
-            <div className="text-sm text-surface-500 mt-1">Complete both for +25 bonus XP</div>
+            <div className="text-lg font-bold text-surface-900">{dailyChallenge.text}</div>
+            <div className="text-sm text-surface-500 mt-1">Complete for +25 bonus XP</div>
           </div>
           <Link
-            to="/play"
+            to={dailyChallenge.songId ? `/play/${dailyChallenge.songId}` : '/play'}
             className="px-5 py-2.5 bg-primary-600 text-white font-bold rounded-lg hover:bg-primary-700 transition-colors"
           >
             Let's Go

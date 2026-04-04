@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { getLessonById, type LessonStep } from '@/lib/lessons/lessonData'
+import { getLessonById, LESSONS, isLessonUnlocked, type LessonStep } from '@/lib/lessons/lessonData'
 import { useLessonStore } from '@/stores/lessonStore'
 import { useUserStore } from '@/stores/userStore'
 import { useAudioInit } from '@/hooks/useAudioInit'
@@ -128,20 +128,60 @@ export default function LessonPage() {
             <div className="text-xs text-surface-400">Quiz Score</div>
           </div>
         </div>
-        <div className="flex gap-3 justify-center mt-4">
-          <Link
-            to="/learn"
-            className="px-6 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700"
-          >
-            Next Lesson
-          </Link>
-          <button
-            onClick={() => { setStepIdx(0); setQuizAnswers({}); setExerciseNotes([]); setExerciseComplete(false); setFinished(false) }}
-            className="px-6 py-3 bg-white border border-surface-200 text-surface-700 font-medium rounded-xl hover:bg-surface-50"
-          >
-            Retry
-          </button>
-        </div>
+        {/* Suggested next actions */}
+        {(() => {
+          const completed = useLessonStore.getState().completedIds()
+          completed.add(lesson.id) // include the one we just finished
+          const nextLesson = LESSONS.find((l) => l.id !== lesson.id && !completed.has(l.id) && isLessonUnlocked(l.id, completed))
+          const relatedConcepts = lesson.concepts
+
+          return (
+            <div className="space-y-3 mt-4">
+              {/* Next lesson */}
+              {nextLesson ? (
+                <Link
+                  to={`/learn/${nextLesson.id}`}
+                  className="w-full flex items-center justify-between px-5 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700"
+                >
+                  <span>Next: {nextLesson.title}</span>
+                  <span>→</span>
+                </Link>
+              ) : (
+                <Link
+                  to="/learn"
+                  className="w-full block text-center px-5 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700"
+                >
+                  All lessons complete! View progress
+                </Link>
+              )}
+
+              {/* Related practice suggestions */}
+              <div className="flex flex-wrap gap-2 justify-center">
+                {relatedConcepts.some((c) => c.includes('chord')) && (
+                  <Link to="/explore/chords" className="px-4 py-2 bg-surface-100 text-surface-700 text-sm rounded-lg hover:bg-surface-200">
+                    Practice Chords →
+                  </Link>
+                )}
+                {relatedConcepts.some((c) => c.includes('scale') || c.includes('minor') || c.includes('major')) && (
+                  <Link to="/explore/scales" className="px-4 py-2 bg-surface-100 text-surface-700 text-sm rounded-lg hover:bg-surface-200">
+                    Explore Scales →
+                  </Link>
+                )}
+                <Link to="/challenges" className="px-4 py-2 bg-surface-100 text-surface-700 text-sm rounded-lg hover:bg-surface-200">
+                  Test Yourself →
+                </Link>
+              </div>
+
+              {/* Retry */}
+              <button
+                onClick={() => { setStepIdx(0); setQuizAnswers({}); setExerciseNotes([]); setExerciseComplete(false); setFinished(false) }}
+                className="w-full px-5 py-2 text-sm text-surface-500 hover:text-surface-700"
+              >
+                Retry this lesson
+              </button>
+            </div>
+          )
+        })()}
       </div>
     )
   }

@@ -19,9 +19,13 @@ const NAV_ITEMS = [
 ]
 
 const ACCESSIBLE_NAV = [
+  { to: '/dashboard', icon: '🏠', label: 'Home' },
   { to: '/play', icon: '🎮', label: 'Play' },
   { to: '/learn', icon: '📚', label: 'Learn' },
   { to: '/practice', icon: '🎵', label: 'Practice' },
+  { to: '/explore/chords', icon: '🎼', label: 'Chords' },
+  { to: '/challenges', icon: '🎯', label: 'Challenges' },
+  { to: '/resources', icon: '📋', label: 'Resources' },
 ]
 
 export default function AppShell() {

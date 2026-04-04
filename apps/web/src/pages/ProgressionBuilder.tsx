@@ -80,8 +80,12 @@ export default function ProgressionBuilder() {
     const beatMs = (60 / bpm) * 1000 * 2 // 2 beats per chord
 
     // Play first chord
-    const firstNotes = getChordNotes(key, 'major', 3) // simplified
-    engine.playChord(chordNames[0] ? [chordNames[0].replace(/m$/, '') + '3'] : firstNotes, '2n')
+    if (chordNames[0]) {
+      const root = chordNames[0].replace(/[^A-G#b]/g, '')
+      const isMinor = chordNames[0].includes('m') && !chordNames[0].includes('maj')
+      const notes = getChordNotes(root, isMinor ? 'minor' : 'major', 3)
+      if (notes.length > 0) engine.playChord(notes, '2n')
+    }
 
     let idx = 0
     const iv = setInterval(() => {
@@ -98,12 +102,18 @@ export default function ProgressionBuilder() {
       }
       setCurrentIdx(idx)
 
-      // Play the chord (simplified — just plays the root as a note)
+      // Play the actual chord
       const chordRoot = chordNames[idx]
       if (chordRoot) {
         const root = chordRoot.replace(/[^A-G#b]/g, '')
-        engine.playNote(`${root}3`, '2n')
-        engine.playNote(`${root}4`, '2n')
+        const isMinor = chordRoot.includes('m') && !chordRoot.includes('maj')
+        const chordType = isMinor ? 'minor' : 'major'
+        const notes = getChordNotes(root, chordType, 3)
+        if (notes.length > 0) {
+          engine.playChord(notes, '2n')
+        } else {
+          engine.playNote(`${root}3`, '2n')
+        }
       }
     }, beatMs)
 
@@ -124,8 +134,11 @@ export default function ProgressionBuilder() {
     const chordRoot = chordNames[idx]
     if (chordRoot) {
       const root = chordRoot.replace(/[^A-G#b]/g, '')
-      engine.playNote(`${root}3`, '4n')
-      engine.playNote(`${root}4`, '4n')
+      const isMinor = chordRoot.includes('m') && !chordRoot.includes('maj')
+      const notes = getChordNotes(root, isMinor ? 'minor' : 'major', 3)
+      if (notes.length > 0) {
+        engine.playChord(notes, '4n')
+      }
     }
   }, [ensureAudio, engine, chordNames])
 
