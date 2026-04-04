@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pnpm --filter @melodypath/web build",
+  "buildCommand": "pnpm exec prisma generate --schema prisma/schema.prisma && pnpm --filter @melodypath/web build",
   "outputDirectory": "apps/web/dist",
   "installCommand": "pnpm install",
   "framework": null,
