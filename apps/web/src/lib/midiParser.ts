@@ -1,10 +1,26 @@
 import { Midi } from '@tonejs/midi'
 import type { NoteEvent } from '@melodypath/shared-types'
 
+// Chromatic note names for scalar neighbor lookup
+const CHROMATIC = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
+function getScalarNeighbor(note: string, direction: 1 | -1): string {
+  const pc = note.replace(/\d/, '')
+  const octave = parseInt(note.match(/\d/)?.[0] ?? '4')
+  const idx = CHROMATIC.indexOf(pc)
+  if (idx === -1) return note
+
+  // Move by a whole step (2 semitones) for a more musical passing tone
+  const newIdx = idx + direction * 2
+  const wrappedIdx = ((newIdx % 12) + 12) % 12
+  const newOctave = octave + (newIdx < 0 ? -1 : newIdx >= 12 ? 1 : 0)
+  return `${CHROMATIC[wrappedIdx]}${newOctave}`
+}
+
 /**
  * Create difficulty variants from a set of notes.
- * Easy: every other note (half density)
- * Hard: add passing tones between notes (1.5x density)
+ * Easy: keep strong beats only (removes passing tones, keeps melody shape)
+ * Hard: add scalar passing tones between notes
  */
 export function applyDifficultyFilter(
   notes: NoteEvent[],
@@ -13,11 +29,11 @@ export function applyDifficultyFilter(
   if (tier === 'medium') return notes
 
   if (tier === 'easy') {
-    // Keep every other note
-    return notes.filter((_, i) => i % 2 === 0)
+    // Keep notes on strong beats (every other), but always keep first and last
+    return notes.filter((_, i) => i === 0 || i === notes.length - 1 || i % 2 === 0)
   }
 
-  // Hard: add extra notes between existing ones
+  // Hard: add scalar neighbor passing tones between notes
   const result: NoteEvent[] = []
   for (let i = 0; i < notes.length; i++) {
     result.push(notes[i])
@@ -25,19 +41,31 @@ export function applyDifficultyFilter(
       const curr = notes[i]
       const next = notes[i + 1]
       const gap = next.time - (curr.time + curr.duration)
-      if (gap > 0.2) {
-        // Add a passing note halfway
+      if (gap > 0.15) {
+        // Choose a passing tone: scalar neighbor moving toward the next note
+        const currMidi = noteNameToMidi(curr.note)
+        const nextMidi = noteNameToMidi(next.note)
+        const direction: 1 | -1 = nextMidi > currMidi ? 1 : -1
+        const passingNote = getScalarNeighbor(curr.note, direction)
+
         result.push({
-          note: curr.note,
+          note: passingNote,
           time: curr.time + (next.time - curr.time) * 0.5,
-          duration: curr.duration * 0.5,
-          lane: (curr.lane + next.lane) % 4,
-          velocity: Math.round(curr.velocity * 0.7),
+          duration: curr.duration * 0.4,
+          lane: curr.lane, // same lane as the note it's passing from
+          velocity: Math.round(curr.velocity * 0.6),
         })
       }
     }
   }
   return result
+}
+
+function noteNameToMidi(name: string): number {
+  const pc = name.replace(/\d/, '')
+  const oct = parseInt(name.match(/\d/)?.[0] ?? '4')
+  const idx = CHROMATIC.indexOf(pc)
+  return (oct + 1) * 12 + idx
 }
 
 /**

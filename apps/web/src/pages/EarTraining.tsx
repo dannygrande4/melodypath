@@ -24,6 +24,11 @@ const INTERVALS = [
   { name: 'Minor 7th', short: 'm7', interval: '7m' },
   { name: 'Major 7th', short: 'M7', interval: '7M' },
   { name: 'Octave', short: 'P8', interval: '8P' },
+  // Compound intervals (beyond octave)
+  { name: 'Minor 9th', short: 'm9', interval: '9m' },
+  { name: 'Major 9th', short: 'M9', interval: '9M' },
+  { name: 'Minor 10th', short: 'm10', interval: '10m' },
+  { name: 'Major 10th', short: 'M10', interval: '10M' },
 ]
 
 const CHORD_TYPES = [

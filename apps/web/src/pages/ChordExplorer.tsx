@@ -16,11 +16,15 @@ const ROOTS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 const CHORD_TYPES = [
   { value: 'major', label: 'Major' },
   { value: 'minor', label: 'Minor' },
+  { value: '5', label: 'Power (5)' },
+  { value: 'sus2', label: 'Sus2' },
+  { value: 'sus4', label: 'Sus4' },
   { value: 'dim', label: 'Dim' },
   { value: 'aug', label: 'Aug' },
-  { value: 'maj7', label: 'Maj7' },
   { value: '7', label: '7 (Dom)' },
+  { value: 'maj7', label: 'Maj7' },
   { value: 'm7', label: 'Min7' },
+  { value: 'add9', label: 'Add9' },
 ]
 
 type Mode = 'explore' | 'tryit'

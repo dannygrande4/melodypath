@@ -75,6 +75,34 @@ const AM7_BARRE: BarreTemplate = {
   rootString: 5, rootFret: 0, rootStringIdx: 1,
 }
 
+// Sus/Add barre templates
+const E_SUS2_BARRE: BarreTemplate = {
+  label: 'E-form Barre', shape: [0, 0, 2, 4, 0, 0], fingers: [1, 1, 2, 4, 1, 1],
+  rootString: 6, rootFret: 0, rootStringIdx: 0,
+}
+const E_SUS4_BARRE: BarreTemplate = {
+  label: 'E-form Barre', shape: [0, 0, 2, 2, 3, 0], fingers: [1, 1, 2, 3, 4, 1],
+  rootString: 6, rootFret: 0, rootStringIdx: 0,
+}
+const A_SUS2_BARRE: BarreTemplate = {
+  label: 'A-form Barre', shape: [-1, 0, 2, 2, 0, 0], fingers: [0, 1, 3, 4, 1, 1],
+  rootString: 5, rootFret: 0, rootStringIdx: 1,
+}
+const A_SUS4_BARRE: BarreTemplate = {
+  label: 'A-form Barre', shape: [-1, 0, 2, 2, 3, 0], fingers: [0, 1, 2, 3, 4, 1],
+  rootString: 5, rootFret: 0, rootStringIdx: 1,
+}
+
+// Power chord template (root + 5th)
+const POWER_CHORD_6: BarreTemplate = {
+  label: 'Power Chord', shape: [0, 2, 2, -1, -1, -1], fingers: [1, 3, 4, 0, 0, 0],
+  rootString: 6, rootFret: 0, rootStringIdx: 0,
+}
+const POWER_CHORD_5: BarreTemplate = {
+  label: 'Power Chord', shape: [-1, 0, 2, 2, -1, -1], fingers: [0, 1, 3, 4, 0, 0],
+  rootString: 5, rootFret: 0, rootStringIdx: 1,
+}
+
 // ─── Note lookup ─────────────────────────────────────────────────────────────
 
 const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
@@ -209,6 +237,64 @@ const OPEN_VOICINGS: Record<string, ChordVoicing[]> = {
   E_aug: [
     { label: 'Open', frets: [0, 3, 2, 1, 1, 0], fingers: [0, 4, 3, 2, 1, 0], rootString: 6 },
   ],
+
+  // ─── Sus2 ─────────────────────────────────────────────────────────
+  A_sus2: [
+    { label: 'Open', frets: [-1, 0, 2, 2, 0, 0], fingers: [0, 0, 1, 2, 0, 0], rootString: 5 },
+  ],
+  D_sus2: [
+    { label: 'Open', frets: [-1, -1, 0, 2, 3, 0], fingers: [0, 0, 0, 1, 3, 0], rootString: 4 },
+  ],
+  E_sus2: [
+    { label: 'Open', frets: [0, 2, 4, 4, 0, 0], fingers: [0, 1, 3, 4, 0, 0], rootString: 6 },
+  ],
+
+  // ─── Sus4 ─────────────────────────────────────────────────────────
+  A_sus4: [
+    { label: 'Open', frets: [-1, 0, 2, 2, 3, 0], fingers: [0, 0, 1, 2, 3, 0], rootString: 5 },
+  ],
+  D_sus4: [
+    { label: 'Open', frets: [-1, -1, 0, 2, 3, 3], fingers: [0, 0, 0, 1, 2, 3], rootString: 4 },
+  ],
+  E_sus4: [
+    { label: 'Open', frets: [0, 2, 2, 2, 0, 0], fingers: [0, 2, 3, 4, 0, 0], rootString: 6 },
+  ],
+
+  // ─── Power Chords (5th) ───────────────────────────────────────────
+  E_5: [
+    { label: 'Open', frets: [0, 2, 2, -1, -1, -1], fingers: [1, 3, 4, 0, 0, 0], rootString: 6 },
+  ],
+  A_5: [
+    { label: 'Open', frets: [-1, 0, 2, 2, -1, -1], fingers: [0, 1, 3, 4, 0, 0], rootString: 5 },
+  ],
+
+  // ─── Add9 ─────────────────────────────────────────────────────────
+  C_add9: [
+    { label: 'Open', frets: [-1, 3, 2, 0, 3, 0], fingers: [0, 2, 1, 0, 3, 0], rootString: 5 },
+  ],
+  G_add9: [
+    { label: 'Open', frets: [3, 0, 0, 2, 0, 3], fingers: [2, 0, 0, 1, 0, 3], rootString: 6 },
+  ],
+  D_add9: [
+    { label: 'Open', frets: [-1, -1, 0, 2, 3, 0], fingers: [0, 0, 0, 1, 3, 0], rootString: 4 },
+  ],
+  A_add9: [
+    { label: 'Open', frets: [-1, 0, 2, 4, 2, 0], fingers: [0, 0, 1, 3, 2, 0], rootString: 5 },
+  ],
+
+  // ─── Extra positions for common chords ────────────────────────────
+  C_major_alt: [
+    { label: 'C (higher)', frets: [-1, 3, 5, 5, 5, 3], fingers: [0, 1, 2, 3, 4, 1], rootString: 5, minFret: 3 },
+  ],
+  G_major_alt: [
+    { label: 'G (barre 3)', frets: [3, 5, 5, 4, 3, 3], fingers: [1, 3, 4, 2, 1, 1], rootString: 6, minFret: 3 },
+  ],
+  D_major_alt: [
+    { label: 'D (barre 5)', frets: [-1, 5, 7, 7, 7, 5], fingers: [0, 1, 3, 3, 3, 1], rootString: 5, minFret: 5 },
+  ],
+  A_major_alt: [
+    { label: 'A (barre 5)', frets: [5, 7, 7, 6, 5, 5], fingers: [1, 3, 4, 2, 1, 1], rootString: 6, minFret: 5 },
+  ],
 }
 
 // ─── Map from chord type to barre templates ──────────────────────────────────
@@ -219,8 +305,11 @@ const BARRE_TEMPLATES: Record<string, BarreTemplate[]> = {
   '7': [E7_BARRE, A7_BARRE],
   m7: [EM7_BARRE, AM7_BARRE],
   maj7: [EMAJ7_BARRE],
-  dim: [],  // dim shapes are positional, handled via transposition below
-  aug: [],  // aug shapes are symmetrical (every 4 frets), handled below
+  sus2: [E_SUS2_BARRE, A_SUS2_BARRE],
+  sus4: [E_SUS4_BARRE, A_SUS4_BARRE],
+  '5': [POWER_CHORD_6, POWER_CHORD_5],  // power chords
+  dim: [],
+  aug: [],
 }
 
 // ─── Diminished template (moveable shape) ────────────────────────────────────
@@ -264,6 +353,10 @@ function buildChordDisplayName(root: string, type: string): string {
   if (type === 'maj7') return `${root}maj7`
   if (type === 'dim') return `${root}dim`
   if (type === 'aug') return `${root}aug`
+  if (type === 'sus2') return `${root}sus2`
+  if (type === 'sus4') return `${root}sus4`
+  if (type === '5') return `${root}5`
+  if (type === 'add9') return `${root}add9`
   return `${root}${type}`
 }
 
@@ -407,7 +500,7 @@ export function chordShapeToFretNotes(chordName: string): FretNote[] {
 export function getAvailableChordShapes(): string[] {
   // Now everything is available
   const roots = NOTE_NAMES
-  const types = ['major', 'minor', '7', 'm7', 'maj7', 'dim', 'aug']
+  const types = ['major', 'minor', '7', 'm7', 'maj7', 'dim', 'aug', 'sus2', 'sus4', '5', 'add9']
   const result: string[] = []
   for (const root of roots) {
     for (const type of types) {

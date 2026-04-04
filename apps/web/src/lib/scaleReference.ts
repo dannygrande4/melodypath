@@ -28,9 +28,12 @@ export const SCALE_REFERENCES: ScaleReference[] = [
     exampleKey: 'C',
     exampleNotes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
     tab: [
-      { string: 6, frets: [0, 2, 4, 5] },  // E string: only partial
+      // C major on low E string: E(0) F(1) G(3) A(5)
+      { string: 6, frets: [0, 1, 3, 5] },
+      // A string: A(0) B(2) C(3)
       { string: 5, frets: [0, 2, 3] },
-      { string: 4, frets: [0, 2] },
+      // D string: D(0) E(2) F(3)
+      { string: 4, frets: [0, 2, 3] },
     ],
     staffNotes: [60, 62, 64, 65, 67, 69, 71, 72], // C4 to C5
     genres: ['Pop', 'Rock', 'Classical', 'Country'],
@@ -43,8 +46,10 @@ export const SCALE_REFERENCES: ScaleReference[] = [
     exampleKey: 'A',
     exampleNotes: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
     tab: [
-      { string: 6, frets: [0, 2, 3, 5] },
-      { string: 5, frets: [0, 2, 3] },
+      // A minor on low E: E(0) F(1) G(3) A(5)
+      { string: 6, frets: [0, 1, 3, 5] },
+      // A string: A(0) B(2) C(3) D(5)
+      { string: 5, frets: [0, 2, 3, 5] },
     ],
     staffNotes: [57, 59, 60, 62, 64, 65, 67, 69], // A3 to A4
     genres: ['Rock', 'Pop', 'Metal', 'Classical'],
