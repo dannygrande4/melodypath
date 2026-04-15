@@ -47,9 +47,8 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-accent-500/10 flex flex-col">
       {/* Nav */}
-      <header className="relative z-20 flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5">
+      <header className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 bg-transparent backdrop-blur-sm">
         <div className="flex items-center gap-2">
-          <span className="text-3xl">🎵</span>
           <span className="text-xl font-bold text-primary-700">MoniqueMusic</span>
         </div>
         <div className="flex items-center gap-3">
@@ -70,7 +69,7 @@ export default function Landing() {
 
       {/* Birthday top fold */}
       <section
-        className="relative min-h-[calc(100vh-5rem)] flex flex-col items-center justify-center text-center px-6 overflow-hidden"
+        className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden"
         style={{
           background:
             'radial-gradient(ellipse at top, #fff1f8 0%, #fef3c7 45%, #e0e7ff 100%)',
