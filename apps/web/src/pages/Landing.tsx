@@ -90,7 +90,7 @@ export default function Landing() {
               textShadow: '0 4px 24px rgba(236, 72, 153, 0.25)',
             }}
           >
-            HAPPY<br />BIRTHDAY<br />MONIQUE
+            HAPPY 12<span style={{ fontSize: '0.6em', verticalAlign: 'super' }}>TH</span><br />BIRTHDAY<br />MONIQUE
           </h1>
           <p className="mt-8 text-lg sm:text-2xl max-w-2xl italic" style={{ color: '#4c1d95' }}>
             With love, from Uncle Danny, Uncle Ben & Auntie Jordan 💛
