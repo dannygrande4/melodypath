@@ -159,7 +159,7 @@ export default function PianoKeyboard({
               )}
             </button>
 
-            {/* Black key — positioned at the right edge of this white key */}
+            {/* Black key - positioned at the right edge of this white key */}
             {black && (() => {
               const bNote = black.note
               const bActive = activeSet.has(bNote)

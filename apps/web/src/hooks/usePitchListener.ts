@@ -35,12 +35,12 @@ export function usePitchListener(options: PitchListenerOptions = {}): PitchListe
 
   const processResults = useCallback((result: PitchResult | null) => {
     if (!result) {
-      // Only clear after a pause — don't clear on every null frame
+      // Only clear after a pause - don't clear on every null frame
       historyRef.current = []
       return
     }
 
-    // Show ANY detection immediately — no smoothing filter
+    // Show ANY detection immediately - no smoothing filter
     setCurrentPitch(result)
 
     // Track history for hold confirmation only

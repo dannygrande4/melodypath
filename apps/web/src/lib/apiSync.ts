@@ -8,7 +8,7 @@ import { api } from './api'
 let syncDebounce: ReturnType<typeof setTimeout> | null = null
 
 /**
- * Debounced XP sync — batches rapid XP gains into one API call.
+ * Debounced XP sync - batches rapid XP gains into one API call.
  */
 export function syncXP(amount: number): void {
   if (syncDebounce) clearTimeout(syncDebounce)
@@ -16,8 +16,8 @@ export function syncXP(amount: number): void {
     try {
       await api.post('/api/progress/xp', { amount })
     } catch {
-      // Offline or server down — local store is the source of truth
-      console.debug('[sync] XP sync failed — will retry next session')
+      // Offline or server down - local store is the source of truth
+      console.debug('[sync] XP sync failed - will retry next session')
     }
   }, 500)
 }
@@ -71,7 +71,7 @@ export async function loadProgress(): Promise<{
     const result = await api.get<{ data: any }>('/api/progress')
     return result.data
   } catch {
-    console.debug('[sync] Could not load progress from server — using local state')
+    console.debug('[sync] Could not load progress from server - using local state')
     return null
   }
 }

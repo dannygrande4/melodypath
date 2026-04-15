@@ -17,7 +17,7 @@ const SOUNDFONT_INSTRUMENTS: Record<SupportedInstrument, string> = {
 }
 
 /**
- * Central audio engine — uses Soundfont for realistic instruments,
+ * Central audio engine - uses Soundfont for realistic instruments,
  * Tone.js for synthesis fallback, metronome, and transport.
  */
 export class AudioEngine {

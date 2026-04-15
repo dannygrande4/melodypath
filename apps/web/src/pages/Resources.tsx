@@ -168,7 +168,7 @@ function ScaleCard({ scale }: { scale: ScaleReference }) {
 
   return (
     <div className="bg-white rounded-xl border border-surface-200 overflow-hidden">
-      {/* Header — always visible */}
+      {/* Header - always visible */}
       <button
         onClick={() => setExpanded(!expanded)}
         className="w-full text-left p-5 flex items-center justify-between hover:bg-surface-50 transition-colors"
@@ -245,8 +245,8 @@ export default function Resources() {
       <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800 rounded-xl p-4 flex items-start gap-3">
         <span className="text-xl flex-shrink-0">💡</span>
         <div className="text-sm text-surface-700 dark:text-surface-300 space-y-1">
-          <p><strong>Staff notation</strong> is how sheet music works — dots on 5 lines show you which notes to play and how long to hold them.</p>
-          <p><strong>Guitar tab</strong> uses numbers to tell you which fret to press on each string — no music reading needed!</p>
+          <p><strong>Staff notation</strong> is how sheet music works - dots on 5 lines show you which notes to play and how long to hold them.</p>
+          <p><strong>Guitar tab</strong> uses numbers to tell you which fret to press on each string - no music reading needed!</p>
           <p>Click any scale below to see both.</p>
           <a href="/explore/scales" className="inline-block mt-1 text-primary-600 dark:text-primary-400 font-medium hover:underline text-xs">
             Want to hear these scales? Try the Scale Explorer →
@@ -259,7 +259,7 @@ export default function Resources() {
           size="md"
           text="Click any scale to expand it and see the staff notation (for reading sheet music) and guitar tab (numbers showing which fret to play on each string). The root note is highlighted in blue."
         />
-        Click a scale to see notation — staff for reading, tab for guitar frets
+        Click a scale to see notation - staff for reading, tab for guitar frets
       </div>
 
       <div className="space-y-2">

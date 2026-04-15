@@ -13,8 +13,7 @@ const SKILL_LABELS = {
 }
 
 const QUICK_ACTIONS = [
-  { to: '/play', icon: '🎮', title: 'Play a Song', desc: 'Hit notes in time — Guitar Hero style' },
-  { to: '/challenges', icon: '🎯', title: 'Challenges', desc: 'Play what we ask — test your skills' },
+  { to: '/challenges', icon: '🎯', title: 'Challenges', desc: 'Play what we ask - test your skills' },
   { to: '/explore/chords', icon: '🎼', title: 'Explore Chords', desc: 'See and hear any chord on piano + guitar' },
   { to: '/explore/scales', icon: '🎹', title: 'Explore Scales', desc: 'Visualize scales across the fretboard' },
   { to: '/ear-training', icon: '👂', title: 'Train Your Ear', desc: 'Identify intervals, chords, and melodies' },
@@ -23,7 +22,7 @@ const QUICK_ACTIONS = [
 
 const DAILY_TIPS = [
   'Tip: Playing songs you love is the fastest way to learn.',
-  'Tip: Try the Ear Training module — even 5 minutes a day builds real skill.',
+  'Tip: Try the Ear Training module - even 5 minutes a day builds real skill.',
   'Tip: Use the Scale Explorer to see how scales connect to chords.',
   'Tip: A streak is just showing up. Even one chord a day counts.',
   'Tip: Switch between piano and guitar views in the Chord Explorer.',
@@ -57,10 +56,10 @@ export default function Dashboard() {
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
   const dailySong = recommendedSongs[dayOfYear % recommendedSongs.length]
   const dailyChallenge = skill_level === 'BEGINNER'
-    ? { text: `Play "${dailySong?.title}" and complete one lesson`, songId: dailySong?.id }
+    ? { text: `Complete one lesson and try an ear training exercise` }
     : skill_level === 'INTERMEDIATE'
-      ? { text: `Beat your high score on "${dailySong?.title}" and try an Interval challenge`, songId: dailySong?.id }
-      : { text: `Get an S rank on "${dailySong?.title}" and complete a Progression challenge`, songId: dailySong?.id }
+      ? { text: `Complete a lesson and tackle an Interval challenge` }
+      : { text: `Complete a lesson and finish a Progression challenge` }
 
   return (
     <div className="p-4 sm:p-6 max-w-5xl mx-auto space-y-6">
@@ -128,7 +127,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Continue learning — next lesson */}
+      {/* Continue learning - next lesson */}
       {nextLesson && (
         <Link
           to={`/learn/${nextLesson.id}`}
@@ -150,7 +149,7 @@ export default function Dashboard() {
         </Link>
       )}
 
-      {/* Daily Challenge — personalized */}
+      {/* Daily Challenge - personalized */}
       <div className="bg-gradient-to-r from-primary-50 to-accent-500/10 rounded-xl border border-primary-100 p-5">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
@@ -159,7 +158,7 @@ export default function Dashboard() {
             <div className="text-sm text-surface-500 mt-1">Complete for +25 bonus XP</div>
           </div>
           <Link
-            to={dailyChallenge.songId ? `/play/${dailyChallenge.songId}` : '/play'}
+            to="/challenges"
             className="px-5 py-2.5 bg-primary-600 text-white font-bold rounded-lg hover:bg-primary-700 transition-colors"
           >
             Let's Go

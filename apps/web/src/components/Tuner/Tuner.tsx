@@ -123,7 +123,7 @@ export default function Tuner() {
       <div className="text-center space-y-3">
         {/* Note name */}
         <div className={`text-7xl font-extrabold transition-colors ${noteColor}`}>
-          {pitch ? pitch.note.replace(/\d/, '') : '—'}
+          {pitch ? pitch.note.replace(/\d/, '') : '-'}
         </div>
         <div className="text-lg text-surface-400">
           {pitch ? `${pitch.note} · ${pitch.frequency.toFixed(1)} Hz` : 'Play a note...'}

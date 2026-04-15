@@ -172,7 +172,7 @@ export default function ProgressionBuilder() {
         <h1 className="text-2xl font-bold text-surface-900">Progression Builder</h1>
         <p className="flex items-center text-surface-500 text-sm mt-1">
           Build and play chord progressions in any key
-          <InfoTooltip text="A chord progression is a series of chords played in order — it's the backbone of every song. Roman numerals (I, IV, V) are shorthand that works in any key. Try a preset to hear what it sounds like!" />
+          <InfoTooltip text="A chord progression is a series of chords played in order - it's the backbone of every song. Roman numerals (I, IV, V) are shorthand that works in any key. Try a preset to hear what it sounds like!" />
         </p>
       </div>
 

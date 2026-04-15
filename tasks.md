@@ -1,42 +1,42 @@
-# MoniqueMusic — Build Tasks
+# MoniqueMusic - Build Tasks
 
 > **Initial URL:** `dannygrande.com/music`  
 > **Future URL:** Own domain (e.g. `moniquemusic.com`)  
-> Routing and asset paths are fully env-var driven — migration = change 2 vars + redeploy.
+> Routing and asset paths are fully env-var driven - migration = change 2 vars + redeploy.
 
 ---
 
-## Phase 1 — Project Setup
+## Phase 1 - Project Setup
 
 - [ ] Initialize pnpm monorepo root with `pnpm init` + `pnpm-workspace.yaml`
 - [ ] Add Turbo (`turbo.json`) with `dev`, `build`, `test`, `lint` pipelines
-- [ ] Scaffold `apps/web` — Vite + React 18 + TypeScript
-- [ ] Scaffold `apps/server` — Fastify + TypeScript
+- [ ] Scaffold `apps/web` - Vite + React 18 + TypeScript
+- [ ] Scaffold `apps/server` - Fastify + TypeScript
 - [ ] Scaffold `packages/audio-engine`, `packages/music-theory`, `packages/shared-types`
 - [ ] Configure TypeScript (`tsconfig.json`) across all packages (strict mode)
 - [ ] Configure ESLint + Prettier (shared config in root)
 - [ ] Set up Prisma: `schema.prisma` with all models (User, Lesson, Song, LessonProgress, SongAttempt, Achievement, UserAchievement)
 - [ ] Run initial Prisma migration (`prisma migrate dev --name init`)
-- [ ] Create Supabase project — enable Auth + create storage buckets (`midi-files`, `audio-files`, `lesson-content`)
+- [ ] Create Supabase project - enable Auth + create storage buckets (`midi-files`, `audio-files`, `lesson-content`)
 - [ ] Set up `.env.example` files for `apps/web` and `apps/server`
 - [ ] Add GitHub Actions CI workflow (lint + test + build on PR)
 - [ ] **Verify:** `pnpm dev` runs web + server; DB migration applies cleanly
 
 ---
 
-## Phase 2 — Subpath & Domain Configuration (do this early, not at deploy time)
+## Phase 2 - Subpath & Domain Configuration (do this early, not at deploy time)
 
 - [ ] Set `base: process.env.VITE_BASE_PATH ?? '/music'` in `apps/web/vite.config.ts`
 - [ ] Pass `basename={import.meta.env.VITE_BASE_PATH}` to `<BrowserRouter>` in `main.tsx`
 - [ ] Create `apps/web/.env.development` → `VITE_BASE_PATH=/music`, `VITE_API_URL=http://localhost:3001`
 - [ ] Create `apps/web/.env.production.example` → `VITE_BASE_PATH=/music`, `VITE_API_URL=https://dannygrande.com/music-api`
-- [ ] All `fetch()` calls use `import.meta.env.VITE_API_URL` as base — create `lib/api.ts` client helper
+- [ ] All `fetch()` calls use `import.meta.env.VITE_API_URL` as base - create `lib/api.ts` client helper
 - [ ] Set `CORS_ORIGINS` env var on server (comma-separated list, include both `dannygrande.com` and future domain)
 - [ ] **Verify:** Build output asset paths start with `/music/`; React Router links work under `/music`
 
 ---
 
-## Phase 3 — Audio Engine Package
+## Phase 3 - Audio Engine Package
 
 - [ ] Install Tone.js + Tonal.js in `packages/audio-engine`
 - [ ] Implement `AudioEngine` class:
@@ -50,13 +50,13 @@
   - [ ] `getScale(root, type)` → `{ notes[], degrees[] }`
   - [ ] `getIntervals(root, target)`
   - [ ] `transposeNote(note, interval)`
-  - [ ] `getProgressionChords(key, numerals[])` — e.g. `('C', ['I','IV','V'])` → chords
+  - [ ] `getProgressionChords(key, numerals[])` - e.g. `('C', ['I','IV','V'])` → chords
 - [ ] Unit tests for all music-theory functions (Jest, no browser required)
 - [ ] **Verify:** Tests pass; audio plays in a dev browser sandbox page
 
 ---
 
-## Phase 4 — UI Foundation
+## Phase 4 - UI Foundation
 
 - [ ] Install Tailwind CSS + shadcn/ui into `apps/web`
 - [ ] Define design token CSS variables: primary palette, `--kids-*`, `--adult-*`, `--accessible-*`
@@ -71,7 +71,7 @@
 
 ---
 
-## Phase 5 — Interactive Instruments
+## Phase 5 - Interactive Instruments
 
 - [ ] Build `PianoKeyboard.tsx` (Canvas API):
   - [ ] Configurable key range (default 2 octaves, expand to 88)
@@ -87,7 +87,7 @@
 
 ---
 
-## Phase 6 — Guitar Hero Play Mode
+## Phase 6 - Guitar Hero Play Mode
 
 - [ ] Install PixiJS in `apps/web`
 - [ ] Build `NoteHighway.ts` (PixiJS Application):
@@ -101,17 +101,17 @@
 - [ ] Build scoring system: base score × combo multiplier, accuracy %, grade (S/A/B/C/D)
 - [ ] Build MIDI file parser: `.mid` → `NoteEvent[]` timeline
 - [ ] Build `PlayGame.tsx` page (wraps PixiJS canvas + HUD overlay)
-- [ ] Build `PlayBrowser.tsx` — song library with difficulty/genre/concept filters
+- [ ] Build `PlayBrowser.tsx` - song library with difficulty/genre/concept filters
 - [ ] Build post-song summary screen (grade, score, accuracy chart, replay/next)
 - [ ] Seed 3 test songs (easy MIDI files) for development
 - [ ] **Verify:** Test MIDI plays with falling notes; timing windows score accurately
 
 ---
 
-## Phase 7 — Learn Mode & Content
+## Phase 7 - Learn Mode & Content
 
-- [ ] Build `SkillTree.tsx` — visual node graph, prerequisite-based locking, level filter
-- [ ] Build `LessonView.tsx` — JSON-driven lesson engine:
+- [ ] Build `SkillTree.tsx` - visual node graph, prerequisite-based locking, level filter
+- [ ] Build `LessonView.tsx` - JSON-driven lesson engine:
   - [ ] `text` step: markdown with highlighted terms
   - [ ] `animation` step: component registry (ScaleAnimation, ChordBuildAnimation)
   - [ ] `exercise` step: Piano/Guitar with expected note validation
@@ -135,22 +135,22 @@
 
 ---
 
-## Phase 8 — Ear Training
+## Phase 8 - Ear Training
 
-- [ ] Build `IntervalExercise.tsx` — play 2 notes → pick interval name
-- [ ] Build `ChordQualityExercise.tsx` — play chord → pick major/minor/dim/aug/7th
-- [ ] Build `MelodyDictation.tsx` — play 4-note melody → select notes on piano
-- [ ] Build `RhythmTapping.tsx` — visual + audio rhythm → tap spacebar to match
+- [ ] Build `IntervalExercise.tsx` - play 2 notes → pick interval name
+- [ ] Build `ChordQualityExercise.tsx` - play chord → pick major/minor/dim/aug/7th
+- [ ] Build `MelodyDictation.tsx` - play 4-note melody → select notes on piano
+- [ ] Build `RhythmTapping.tsx` - visual + audio rhythm → tap spacebar to match
 - [ ] Adaptive difficulty: track accuracy per interval type, increase difficulty at >80%
 - [ ] **Verify:** Interval plays correct notes; correct/incorrect answers tracked in store
 
 ---
 
-## Phase 9 — Gamification Layer
+## Phase 9 - Gamification Layer
 
 - [ ] Implement `addXP(amount)` in userStore: update XP → check level threshold → animate level-up
 - [ ] Build level-up animation overlay (Framer Motion)
-- [ ] Build `AchievementToast.tsx` — badge unlock notification
+- [ ] Build `AchievementToast.tsx` - badge unlock notification
 - [ ] Implement `achievementChecker.ts`: JSON badge config → check conditions on lesson/song complete
 - [ ] Create initial badge set (JSON):
   - "First Chord", "Blues Initiate", "Hat Trick" (3 lessons), "30-Day Streak", "Ear of the Tiger", "Perfect Score", "Speed Demon"
@@ -161,7 +161,7 @@
 
 ---
 
-## Phase 10 — Age-Adaptive UI
+## Phase 10 - Age-Adaptive UI
 
 - [ ] Build `AgeProvider.tsx`: inject CSS vars + context based on `uiStore.ageMode`
 - [ ] Implement Kids Mode:
@@ -180,7 +180,7 @@
 
 ---
 
-## Phase 11 — Practice Sandbox
+## Phase 11 - Practice Sandbox
 
 - [ ] Install Howler.js
 - [ ] Build backing track player: loop list by key + genre, seamless looping
@@ -191,25 +191,25 @@
 
 ---
 
-## Phase 12 — Backend & Persistence
+## Phase 12 - Backend & Persistence
 
 - [ ] Set up Fastify server with Prisma client
 - [ ] Implement auth routes (Supabase JWT validation middleware)
 - [ ] Implement REST endpoints:
-  - [ ] `POST /api/progress/xp` — add XP + update level
-  - [ ] `POST /api/progress/lesson` — mark lesson complete
-  - [ ] `POST /api/progress/song` — record song attempt
-  - [ ] `GET /api/songs` — list songs with filters
-  - [ ] `GET /api/lessons` — list lessons with user progress
-  - [ ] `GET /api/achievements` — user's earned badges
-- [ ] Implement `achievement.service.ts` — server-side badge condition evaluation
-- [ ] Implement `streak.service.ts` — compute streak from `last_practice` timestamps
+  - [ ] `POST /api/progress/xp` - add XP + update level
+  - [ ] `POST /api/progress/lesson` - mark lesson complete
+  - [ ] `POST /api/progress/song` - record song attempt
+  - [ ] `GET /api/songs` - list songs with filters
+  - [ ] `GET /api/lessons` - list lessons with user progress
+  - [ ] `GET /api/achievements` - user's earned badges
+- [ ] Implement `achievement.service.ts` - server-side badge condition evaluation
+- [ ] Implement `streak.service.ts` - compute streak from `last_practice` timestamps
 - [ ] Wire frontend stores to persist to API (debounced, 500ms)
 - [ ] **Verify:** Progress persists across sessions; streak logic correct across days
 
 ---
 
-## Phase 13 — MIDI Hardware Support
+## Phase 13 - MIDI Hardware Support
 
 - [ ] Build `MIDIManager.ts` in `audio-engine`:
   - [ ] `navigator.requestMIDIAccess()` → list/select input ports
@@ -221,7 +221,7 @@
 
 ---
 
-## Phase 14 — Microphone & Pitch Detection
+## Phase 14 - Microphone & Pitch Detection
 
 - [ ] Install pitchfinder in `audio-engine`
 - [ ] Build `PitchDetector.ts`:
@@ -235,7 +235,7 @@
 
 ---
 
-## Phase 15 — Deployment (Initial: dannygrande.com/music)
+## Phase 15 - Deployment (Initial: dannygrande.com/music)
 
 - [ ] Build frontend: `pnpm build` → output to `apps/web/dist`
 - [ ] Set production env vars:
@@ -261,7 +261,7 @@
 
 ---
 
-## Phase 16 — Domain Migration (when ready)
+## Phase 16 - Domain Migration (when ready)
 
 - [ ] Register new domain (e.g. `moniquemusic.com`)
 - [ ] Point DNS A record to same server IP

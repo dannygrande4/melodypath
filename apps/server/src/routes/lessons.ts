@@ -39,7 +39,7 @@ export default async function lessonRoutes(app: FastifyInstance) {
         where: { user_id_lesson_id: { user_id: userId, lesson_id: lesson.id } },
       })
     } catch {
-      // Not authenticated — just return lesson without progress
+      // Not authenticated - just return lesson without progress
     }
 
     return { data: { ...lesson, progress } }

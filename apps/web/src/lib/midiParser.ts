@@ -142,7 +142,7 @@ export function generateDemoSong(bpm = 120, numLanes = 4): { notes: NoteEvent[];
 }
 
 /**
- * Ode to Joy — a real melody for the demo song library
+ * Ode to Joy - a real melody for the demo song library
  */
 export function generateOdeToJoy(bpm = 100, numLanes = 4): { notes: NoteEvent[]; duration: number } {
   const beat = 60 / bpm
@@ -239,7 +239,7 @@ export function generateSmokeOnTheWater(bpm = 112, numLanes = 4): { notes: NoteE
 }
 
 /**
- * Seven Nation Army — iconic bass riff
+ * Seven Nation Army - iconic bass riff
  */
 export function generateSevenNationArmy(bpm = 120, numLanes = 4): { notes: NoteEvent[]; duration: number } {
   const beat = 60 / bpm
@@ -636,7 +636,7 @@ export function generateBlackbird(bpm = 92): { notes: NoteEvent[]; duration: num
 }
 
 /**
- * Wonderwall (simplified vocal melody — chorus)
+ * Wonderwall (simplified vocal melody - chorus)
  */
 export function generateWonderwall(bpm = 87): { notes: NoteEvent[]; duration: number } {
   const beat = 60 / bpm

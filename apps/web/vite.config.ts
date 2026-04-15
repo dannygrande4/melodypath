@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: 'MoniqueMusic',
           short_name: 'MoniqueMusic',
-          description: 'Learn music your way — from first chord to jazz improvisation',
+          description: 'Learn music your way - from first chord to jazz improvisation',
           theme_color: '#4f6ef7',
           background_color: '#fafafa',
           display: 'standalone',

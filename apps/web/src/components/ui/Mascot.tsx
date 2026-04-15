@@ -34,7 +34,7 @@ export default function Mascot({ category = 'welcome', message, size = 'md' }: M
 
   return (
     <div className={`flex items-start ${s.container}`}>
-      {/* Mascot character — a friendly music note */}
+      {/* Mascot character - a friendly music note */}
       <div className={`flex-shrink-0 ${s.icon}`}>
         <div className="animate-bounce" style={{ animationDuration: '2s' }}>
           🎵

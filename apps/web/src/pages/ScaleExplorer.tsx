@@ -45,7 +45,7 @@ export default function ScaleExplorer() {
   const scaleInfo = useMemo(() => getScale(root, scaleType), [root, scaleType])
   const scaleNotesOctave = useMemo(() => getScaleNotes(root, scaleType, 4), [root, scaleType])
 
-  // Piano highlights — spread across octaves 3–5
+  // Piano highlights - spread across octaves 3–5
   const pianoHighlights: HighlightedNote[] = useMemo(() => {
     if (!scaleInfo) return []
     const highlights: HighlightedNote[] = []
@@ -129,7 +129,7 @@ export default function ScaleExplorer() {
       </div>
 
       <WhatIsThis
-        explanation="A scale is a group of notes that sound good together — like a musical ladder. The Major scale sounds happy, the Minor scale sounds sad. Pick a root note (the starting note) and a scale type to see all the notes on piano and guitar. Hit 'Play' to hear it!"
+        explanation="A scale is a group of notes that sound good together - like a musical ladder. The Major scale sounds happy, the Minor scale sounds sad. Pick a root note (the starting note) and a scale type to see all the notes on piano and guitar. Hit 'Play' to hear it!"
         lessonId="major-scale"
         lessonTitle="The Major Scale"
       />

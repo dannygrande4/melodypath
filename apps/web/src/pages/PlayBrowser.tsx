@@ -25,7 +25,7 @@ export default function PlayBrowser() {
       <div>
         <h1 className="text-2xl font-bold text-surface-900">Play Mode</h1>
         <p className="text-surface-500 text-sm mt-1">
-          Pick a song and play Guitar Hero-style — hit the falling notes in time!
+          Pick a song and play Guitar Hero-style - hit the falling notes in time!
         </p>
       </div>
 

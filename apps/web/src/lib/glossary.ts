@@ -1,5 +1,5 @@
 /**
- * Music glossary — simple definitions for every term used in the app.
+ * Music glossary - simple definitions for every term used in the app.
  * Referenced by WhatIsThis components and tooltips.
  */
 export const GLOSSARY: Record<string, { simple: string; detail?: string; lessonId?: string }> = {
@@ -24,7 +24,7 @@ export const GLOSSARY: Record<string, { simple: string; detail?: string; lessonI
     lessonId: 'major-scale',
   },
   bpm: {
-    simple: 'Beats Per Minute — how fast the music goes. 60 BPM = one beat per second. 120 BPM = two beats per second.',
+    simple: 'Beats Per Minute - how fast the music goes. 60 BPM = one beat per second. 120 BPM = two beats per second.',
     lessonId: 'rhythm-basics',
   },
   octave: {
@@ -47,11 +47,11 @@ export const GLOSSARY: Record<string, { simple: string; detail?: string; lessonI
     lessonId: 'chord-progressions-intro',
   },
   triad: {
-    simple: 'The simplest chord — just 3 notes: the 1st, 3rd, and 5th of a scale.',
+    simple: 'The simplest chord - just 3 notes: the 1st, 3rd, and 5th of a scale.',
     lessonId: 'first-chord',
   },
   mode: {
-    simple: 'A scale that starts on a different note of the major scale. Each mode has its own mood — Dorian sounds jazzy, Phrygian sounds Spanish.',
+    simple: 'A scale that starts on a different note of the major scale. Each mode has its own mood - Dorian sounds jazzy, Phrygian sounds Spanish.',
     lessonId: 'intro-to-modes',
   },
   metronome: {
@@ -59,7 +59,7 @@ export const GLOSSARY: Record<string, { simple: string; detail?: string; lessonI
     lessonId: 'rhythm-basics',
   },
   tab: {
-    simple: 'Guitar tablature — a way to write music for guitar using numbers. Each number tells you which fret to press on which string.',
+    simple: 'Guitar tablature - a way to write music for guitar using numbers. Each number tells you which fret to press on which string.',
   },
   'staff notation': {
     simple: 'Traditional sheet music. Notes are dots on 5 lines. Higher on the lines = higher pitch.',

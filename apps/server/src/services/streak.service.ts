@@ -16,7 +16,7 @@ export async function updateStreak(userId: string): Promise<number> {
 
   let newStreak: number
   if (lastDate === today) {
-    // Already practiced today — no change
+    // Already practiced today - no change
     newStreak = user.streak_days
   } else if (lastDate === yesterday) {
     // Continuing streak

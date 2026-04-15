@@ -1,5 +1,5 @@
 /**
- * Scale reference data — includes tab notation and staff note positions
+ * Scale reference data - includes tab notation and staff note positions
  * for the Resources section.
  */
 
@@ -57,7 +57,7 @@ export const SCALE_REFERENCES: ScaleReference[] = [
   {
     name: 'Major Pentatonic',
     formula: 'W W m3 W m3',
-    description: 'Major scale minus the 4th and 7th. Universally pleasant — can\'t hit a wrong note.',
+    description: 'Major scale minus the 4th and 7th. Universally pleasant - can\'t hit a wrong note.',
     mood: 'Bright, carefree, uplifting',
     exampleKey: 'C',
     exampleNotes: ['C', 'D', 'E', 'G', 'A'],

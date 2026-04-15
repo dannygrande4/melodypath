@@ -1,7 +1,7 @@
 import type { FastifyRequest, FastifyReply } from 'fastify'
 
 /**
- * Auth middleware — validates JWT from Supabase.
+ * Auth middleware - validates JWT from Supabase.
  * For now, uses a simple token check. Replace with Supabase JWT
  * verification when Supabase is configured.
  */

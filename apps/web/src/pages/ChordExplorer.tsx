@@ -161,7 +161,7 @@ export default function ChordExplorer() {
           <p className="text-surface-500 text-sm mt-1">
             {mode === 'explore'
               ? 'Select a chord to see it on piano and guitar'
-              : 'Click piano keys to build a chord — we\'ll identify it'}
+              : 'Click piano keys to build a chord - we\'ll identify it'}
           </p>
         </div>
 
@@ -306,7 +306,7 @@ export default function ChordExplorer() {
           <div>
             <div className="flex items-center text-xs text-surface-500 mb-1">
               Type
-              <InfoTooltip text="The chord type describes its overall quality — major sounds bright/happy, minor sounds dark/sad, diminished sounds tense, augmented sounds mysterious." />
+              <InfoTooltip text="The chord type describes its overall quality - major sounds bright/happy, minor sounds dark/sad, diminished sounds tense, augmented sounds mysterious." />
             </div>
             <div className="text-sm text-surface-700 mt-1 capitalize">{chordInfo.type}</div>
           </div>

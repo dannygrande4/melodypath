@@ -88,7 +88,7 @@ export default function PlayGame() {
             // Reset after a frame so next note triggers
             setTimeout(() => setMidiLaneHit(null), 16)
           },
-          () => {}, // noteOff — not needed for play mode
+          () => {}, // noteOff - not needed for play mode
         )
       }
     })
@@ -293,7 +293,7 @@ export default function PlayGame() {
             </div>
             {midiConnected && (
               <div className="mt-2 px-3 py-1.5 bg-green-900/50 border border-green-700 rounded-lg text-green-400 text-sm font-medium inline-block">
-                🎹 MIDI device connected — play your instrument to hit notes!
+                🎹 MIDI device connected - play your instrument to hit notes!
               </div>
             )}
             {!midiConnected && (

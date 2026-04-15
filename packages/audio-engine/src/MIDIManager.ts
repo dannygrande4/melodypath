@@ -56,7 +56,7 @@ export class MIDIManager {
   }
 
   /**
-   * Register callbacks for note events — used to highlight keys in the UI.
+   * Register callbacks for note events - used to highlight keys in the UI.
    */
   setCallbacks(onNoteOn: MIDINoteCallback, onNoteOff: MIDINoteOffCallback): void {
     this.onNoteOn = onNoteOn

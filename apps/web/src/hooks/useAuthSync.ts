@@ -26,7 +26,7 @@ export function useAuthSync() {
     const prevUserId = prevUserIdRef.current
     const storedUserId = getActiveUserId()
 
-    // First time ever — clear anonymous progress
+    // First time ever - clear anonymous progress
     if (!storedUserId && !currentUserId) {
       clearAnonymousProgress()
     }

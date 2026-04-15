@@ -25,7 +25,7 @@ export default function LevelUpOverlay() {
         <div className="text-7xl font-extrabold text-accent-500 drop-shadow-lg">
           {pendingLevelUp.newLevel}
         </div>
-        <div className="text-white/60 text-sm">Keep going — you're doing great!</div>
+        <div className="text-white/60 text-sm">Keep going - you're doing great!</div>
       </div>
     </div>
   )

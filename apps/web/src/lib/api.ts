@@ -18,7 +18,7 @@ async function getAuthHeader(): Promise<Record<string, string>> {
       return { Authorization: `Bearer ${session.access_token}` }
     }
   } catch {
-    // Not authenticated — that's fine
+    // Not authenticated - that's fine
   }
   return {}
 }

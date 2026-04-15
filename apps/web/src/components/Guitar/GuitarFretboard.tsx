@@ -214,7 +214,7 @@ export default function GuitarFretboard({
           </text>
         ))}
 
-      {/* Note dots — interactive */}
+      {/* Note dots - interactive */}
       {/* Fret 0 (open) positions + fretted positions */}
       {Array.from({ length: frets + 1 }, (_, fret) => {
         return tuning.map((_, stringIdx) => {

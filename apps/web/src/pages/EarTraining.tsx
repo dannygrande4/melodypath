@@ -283,7 +283,7 @@ export default function EarTraining() {
       </div>
 
       <WhatIsThis
-        explanation="Training your ear means learning to recognize sounds without looking. We'll play something — you guess what it is. Start with Intervals (the distance between two notes) or Chords (multiple notes together). No instrument needed — just listen and click!"
+        explanation="Training your ear means learning to recognize sounds without looking. We'll play something - you guess what it is. Start with Intervals (the distance between two notes) or Chords (multiple notes together). No instrument needed - just listen and click!"
       />
 
       {/* Exercise type toggle */}
@@ -312,7 +312,7 @@ export default function EarTraining() {
           size="md"
           text={
             exerciseType === 'intervals'
-              ? 'An interval is the distance between two notes. We\'ll play two notes — listen to the gap between them and pick the right name.'
+              ? 'An interval is the distance between two notes. We\'ll play two notes - listen to the gap between them and pick the right name.'
               : exerciseType === 'chords'
                 ? 'We\'ll play a chord (multiple notes at once). Listen to its overall mood: Major = happy/bright, Minor = sad/dark, Dim = tense, Aug = mysterious.'
                 : exerciseType === 'melody'
@@ -381,13 +381,13 @@ export default function EarTraining() {
             <span>Correct! +5 XP</span>
           ) : (
             <span>
-              Not quite — the answer was <strong>{feedback.answer}</strong>
+              Not quite - the answer was <strong>{feedback.answer}</strong>
             </span>
           )}
         </div>
       )}
 
-      {/* Answer options — interval / chord mode */}
+      {/* Answer options - interval / chord mode */}
       {currentQ && !feedback && (exerciseType === 'intervals' || exerciseType === 'chords') && (
         <div>
           <h2 className="text-sm font-semibold text-surface-500 mb-3">What do you hear?</h2>
@@ -409,7 +409,7 @@ export default function EarTraining() {
       {currentQ && !feedback && exerciseType === 'melody' && (
         <div>
           <h2 className="text-sm font-semibold text-surface-500 mb-3">
-            Recreate the melody — click the notes in order ({melodyAnswer.length}/{melodyTarget.length})
+            Recreate the melody - click the notes in order ({melodyAnswer.length}/{melodyTarget.length})
           </h2>
           {/* Progress */}
           <div className="flex gap-1 mb-4">

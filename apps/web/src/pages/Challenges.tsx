@@ -137,17 +137,17 @@ export default function Challenges() {
         <div>
           <h1 className="text-2xl font-bold text-surface-900">Play Challenges</h1>
           <p className="flex items-center text-surface-500 text-sm mt-1">
-            Play what we ask — we'll listen with your mic
+            Play what we ask - we'll listen with your mic
             <InfoTooltip text="The app uses your microphone to detect what note or chord you're playing on your instrument. Hold each note steady for about half a second for it to register." />
           </p>
         </div>
 
         <WhatIsThis
-          explanation="We'll ask you to play a note, a series of notes, or a chord on your instrument. The app listens through your microphone and checks if you got it right. Start with 'Single Notes' if you're new — just play one note at a time! No mic? You can still practice by listening to the reference sound."
+          explanation="We'll ask you to play a note, a series of notes, or a chord on your instrument. The app listens through your microphone and checks if you got it right. Start with 'Single Notes' if you're new - just play one note at a time! No mic? You can still practice by listening to the reference sound."
         />
 
         {/* Start with Single Notes if you're a beginner */}
-        <p className="text-xs text-surface-400">New to this? Start with <strong>Single Notes</strong> — it's the easiest way to begin.</p>
+        <p className="text-xs text-surface-400">New to this? Start with <strong>Single Notes</strong> - it's the easiest way to begin.</p>
 
         <div className="grid grid-cols-2 gap-3">
           {(Object.entries(DIFFICULTY_INFO) as [Difficulty, typeof DIFFICULTY_INFO[Difficulty]][]).map(([key, info]) => (

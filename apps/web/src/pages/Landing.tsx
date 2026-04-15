@@ -113,12 +113,12 @@ export default function Landing() {
         </h2>
         <p className="text-lg sm:text-xl text-surface-600 max-w-2xl mb-4">
           This is your very own place to play songs, learn chords, train your ear,
-          and have fun making music — at your own pace, your own way.
+          and have fun making music - at your own pace, your own way.
         </p>
         <p className="text-base sm:text-lg text-surface-600 max-w-2xl mb-10">
           Ever wanted to play <span className="font-semibold text-primary-700">"Island in the Sun"</span> or
           jam along to <span className="font-semibold text-primary-700">"Feel Good Inc."</span>? Weezer riffs,
-          Gorillaz basslines — they all start with one note. Let's go. 🎸🎹
+          Gorillaz basslines - they all start with one note. Let's go. 🎸🎹
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mb-16">
@@ -128,19 +128,12 @@ export default function Landing() {
           >
             Start Learning
           </Link>
-          <Link
-            to="/play"
-            className="px-8 py-4 bg-white text-primary-700 border-2 border-primary-200 rounded-xl font-bold text-lg hover:bg-primary-50 transition-colors"
-          >
-            🎮 Play a Song
-          </Link>
         </div>
 
         {/* Feature grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl w-full">
           {[
-            { icon: '🎸', title: 'Play Mode', desc: 'Shred Weezer power chords on a Guitar Hero-style note highway' },
-            { icon: '📚', title: 'Guided Lessons', desc: 'From your first chord to Gorillaz grooves — step by step' },
+            { icon: '📚', title: 'Guided Lessons', desc: 'From your first chord to Gorillaz grooves, step by step' },
             { icon: '👂', title: 'Ear Training', desc: 'Learn to hear every hook, riff and melody you love' },
           ].map((f) => (
             <div key={f.title} className="bg-white rounded-2xl p-6 shadow-sm border border-surface-100 text-left">

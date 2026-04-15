@@ -63,13 +63,13 @@ export function kidsify(text: string): string {
 }
 
 /**
- * Mascot messages — contextual encouragement and tips from the mascot character.
+ * Mascot messages - contextual encouragement and tips from the mascot character.
  */
 export const MASCOT_MESSAGES: Record<string, string[]> = {
   welcome: [
     "Hi there! I'm Melody! Let's make some music! 🎵",
     "Ready to learn something awesome today?",
-    "Music is like a superpower — let's unlock yours!",
+    "Music is like a superpower - let's unlock yours!",
   ],
   correct: [
     "You got it! Amazing! ⭐",
@@ -78,7 +78,7 @@ export const MASCOT_MESSAGES: Record<string, string[]> = {
     "Yes! Your brain is a music machine!",
   ],
   incorrect: [
-    "Oops! That's okay — try again!",
+    "Oops! That's okay - try again!",
     "Not quite, but you're learning! That's what matters!",
     "Hmm, close! Give it another shot!",
   ],

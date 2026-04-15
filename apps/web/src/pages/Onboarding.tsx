@@ -6,7 +6,7 @@ import type { AgeGroup, InstrumentType, SkillLevel, AgeMode } from '@moniquemusi
 
 type Step = 'age' | 'instrument' | 'quiz' | 'done'
 
-// Skill assessment questions — each correct answer adds points
+// Skill assessment questions - each correct answer adds points
 const QUIZ_QUESTIONS = [
   {
     question: 'How many notes are in a major scale?',
@@ -160,7 +160,7 @@ export default function Onboarding() {
                 ))}
               </div>
               <p className="text-xs text-surface-400 text-center mt-6">
-                No wrong answers — this just helps us personalize your experience
+                No wrong answers - this just helps us personalize your experience
               </p>
             </div>
           )

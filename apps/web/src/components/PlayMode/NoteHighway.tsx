@@ -7,12 +7,12 @@ const NUM_LANES = 4
 const LANE_COLORS = ['#4f6ef7', '#22c55e', '#f59e0b', '#a855f7']
 const LANE_KEYS = ['d', 'f', 'j', 'k']
 const HIT_LINE_Y_RATIO = 0.85  // 85% down the canvas
-const TIMING = { PERFECT: 0.06, GOOD: 0.12, OK: 0.20 } // seconds — more forgiving
+const TIMING = { PERFECT: 0.06, GOOD: 0.12, OK: 0.20 } // seconds - more forgiving
 
 /**
  * Note travel time scales with BPM:
- * - Slow songs (80 BPM): notes fall slower (3s travel) — more time to react
- * - Fast songs (160 BPM): notes fall faster (1.5s travel) — less clutter
+ * - Slow songs (80 BPM): notes fall slower (3s travel) - more time to react
+ * - Fast songs (160 BPM): notes fall faster (1.5s travel) - less clutter
  */
 function getTravelTime(bpm: number): number {
   return Math.max(1.2, Math.min(3.0, 240 / bpm))

@@ -37,7 +37,7 @@ export default function ScaleStepAnimation({ notes, steps, scaleName }: ScaleSte
   return (
     <div className="bg-surface-50 rounded-xl p-6 space-y-4">
       <div className="text-sm text-surface-500 text-center">
-        <strong>{scaleName}</strong> — listen to each step
+        <strong>{scaleName}</strong> - listen to each step
       </div>
 
       {/* Notes with step indicators */}

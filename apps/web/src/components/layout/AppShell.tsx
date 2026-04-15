@@ -7,7 +7,6 @@ import { APP_VERSION } from '@/lib/version'
 
 const NAV_ITEMS = [
   { to: '/dashboard', icon: '🏠', label: 'Dashboard' },
-  { to: '/play', icon: '🎮', label: 'Play' },
   { to: '/learn', icon: '📚', label: 'Learn' },
   { to: '/practice', icon: '🎵', label: 'Practice' },
   { to: '/explore/chords', icon: '🎼', label: 'Chords' },
@@ -20,7 +19,6 @@ const NAV_ITEMS = [
 
 const ACCESSIBLE_NAV = [
   { to: '/dashboard', icon: '🏠', label: 'Home' },
-  { to: '/play', icon: '🎮', label: 'Play' },
   { to: '/learn', icon: '📚', label: 'Learn' },
   { to: '/practice', icon: '🎵', label: 'Practice' },
   { to: '/explore/chords', icon: '🎼', label: 'Chords' },

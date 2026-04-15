@@ -128,7 +128,7 @@ export default function PracticeSandbox() {
           <InfoTooltip
             size="md"
             text="A metronome keeps a steady beat at a specific speed (BPM = Beats Per Minute). Practicing with a metronome helps you develop solid timing and rhythm."
-            detail="The highlighted beat shows beat 1 (the downbeat) in amber — this is the strongest beat in each measure."
+            detail="The highlighted beat shows beat 1 (the downbeat) in amber - this is the strongest beat in each measure."
           />
         </h2>
 

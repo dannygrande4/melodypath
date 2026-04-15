@@ -99,7 +99,7 @@ export default function SingingExercise({ targetNotes, onComplete }: SingingExer
   return (
     <div className="bg-surface-50 rounded-xl p-6 space-y-5">
       <div className="text-sm text-surface-500 text-center">
-        Sing each note — hold it steady for half a second to confirm
+        Sing each note - hold it steady for half a second to confirm
       </div>
 
       {/* Note targets */}

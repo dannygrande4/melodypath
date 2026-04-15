@@ -4,8 +4,8 @@ import { useLessonStore } from '@/stores/lessonStore'
 import WhatIsThis from '@/components/ui/WhatIsThis'
 
 const LEVEL_LABELS: Record<string, string> = {
-  BEGINNER: '🌱 Start here — no experience needed',
-  INTERMEDIATE: '🌿 You know the basics — time to go deeper',
+  BEGINNER: '🌱 Start here - no experience needed',
+  INTERMEDIATE: '🌿 You know the basics - time to go deeper',
   ADVANCED: '🌳 Ready for music theory and advanced concepts',
 }
 
@@ -43,7 +43,7 @@ export default function LearnDashboard() {
       {/* Beginner guidance */}
       {completed.size === 0 && (
         <WhatIsThis
-          explanation="Each lesson teaches you one new concept with explanations, quizzes, and hands-on exercises. Start with Lesson 1 and work your way through — or if you already know a topic, tap 'Skip ahead' to test out of it."
+          explanation="Each lesson teaches you one new concept with explanations, quizzes, and hands-on exercises. Start with Lesson 1 and work your way through - or if you already know a topic, tap 'Skip ahead' to test out of it."
         />
       )}
 
@@ -141,7 +141,7 @@ export default function LearnDashboard() {
                               {lesson.concepts.join(' · ')} · {timeEst}
                             </div>
                           </div>
-                          {/* Skip ahead button — test out of prerequisites */}
+                          {/* Skip ahead button - test out of prerequisites */}
                           <button
                             onClick={() => {
                               // Mark all prerequisites as complete so this lesson unlocks

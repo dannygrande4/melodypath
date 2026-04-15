@@ -106,7 +106,7 @@ export default function PlayChallenge({ challenge, onComplete, showReference = t
           setTimeout(() => onComplete(true), 1200)
         }
       } else if (sequenceProgress.length > 0) {
-        // Wrong note in sequence — reset
+        // Wrong note in sequence - reset
         setSequenceProgress([])
       }
     }
@@ -228,7 +228,7 @@ export default function PlayChallenge({ challenge, onComplete, showReference = t
             ? 'bg-green-50 text-green-700'
             : 'bg-red-50 text-red-700'
         }`}>
-          {result === 'correct' ? 'Perfect! 🎉' : `Not quite — that was ${currentPc ?? '?'}`}
+          {result === 'correct' ? 'Perfect! 🎉' : `Not quite - that was ${currentPc ?? '?'}`}
         </div>
       )}
 
@@ -255,7 +255,7 @@ export default function PlayChallenge({ challenge, onComplete, showReference = t
         {started && !result && (
           <div className="space-y-3 w-full max-w-xs mx-auto">
             <div className="text-sm text-surface-400 text-center animate-pulse">
-              🎤 Listening — play the {challenge.type === 'chord' ? 'chord' : 'note'} on your instrument...
+              🎤 Listening - play the {challenge.type === 'chord' ? 'chord' : 'note'} on your instrument...
             </div>
             {/* Mic level meter */}
             <div className="space-y-1">
@@ -275,7 +275,7 @@ export default function PlayChallenge({ challenge, onComplete, showReference = t
               </div>
               {micLevel < 0.03 && (
                 <div className="text-[10px] text-red-500 text-center">
-                  No sound detected — check mic permissions or play louder
+                  No sound detected - check mic permissions or play louder
                 </div>
               )}
             </div>
