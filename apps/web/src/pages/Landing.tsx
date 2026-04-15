@@ -38,6 +38,11 @@ export default function Landing() {
           This is your very own place to play songs, learn chords, train your ear,
           and have fun making music — at your own pace, your own way.
         </p>
+        <p className="text-base sm:text-lg text-surface-600 max-w-2xl mb-4">
+          Ever wanted to play <span className="font-semibold text-primary-700">"Island in the Sun"</span> or
+          jam along to <span className="font-semibold text-primary-700">"Feel Good Inc."</span>? Weezer riffs,
+          Gorillaz basslines — they all start with one note. Let's go. 🎸🎹
+        </p>
         <p className="text-base sm:text-lg text-surface-500 max-w-2xl mb-10 italic">
           With love, from Uncle Danny, Uncle Ben & Auntie Jordan 💛
         </p>
@@ -60,9 +65,9 @@ export default function Landing() {
         {/* Feature grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl w-full">
           {[
-            { icon: '🎸', title: 'Play Mode', desc: 'Guitar Hero-style note highway for any instrument' },
-            { icon: '📚', title: 'Guided Lessons', desc: 'Adaptive curriculum from beginner to advanced' },
-            { icon: '👂', title: 'Ear Training', desc: 'Develop your musical ear with interactive exercises' },
+            { icon: '🎸', title: 'Play Mode', desc: 'Shred Weezer power chords on a Guitar Hero-style note highway' },
+            { icon: '📚', title: 'Guided Lessons', desc: 'From your first chord to Gorillaz grooves — step by step' },
+            { icon: '👂', title: 'Ear Training', desc: 'Learn to hear every hook, riff and melody you love' },
           ].map((f) => (
             <div key={f.title} className="bg-white rounded-2xl p-6 shadow-sm border border-surface-100 text-left">
               <div className="text-3xl mb-3">{f.icon}</div>
