@@ -87,17 +87,6 @@ export default function ChordExplorer() {
     return voicingToFretNotes(currentVoicing, root, chordType)
   }, [currentVoicing, mode, root, chordType])
 
-  // Compute the fret range to display for the current voicing
-  const guitarFrets = useMemo(() => {
-    if (!currentVoicing) return { count: 5, startFret: 0 }
-    const playedFrets = currentVoicing.frets.filter((f) => f > 0)
-    if (playedFrets.length === 0) return { count: 5, startFret: 0 }
-    const maxFret = Math.max(...playedFrets)
-    if (maxFret <= 5) return { count: 5, startFret: 0 }
-    const minFret = Math.min(...playedFrets)
-    return { count: Math.max(5, maxFret - minFret + 3), startFret: Math.max(0, minFret - 1) }
-  }, [currentVoicing])
-
   // ─── Handlers ───────────────────────────────────────────────────────────
 
   const playChord = useCallback(async () => {
@@ -406,15 +395,18 @@ export default function ChordExplorer() {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl border border-surface-200 p-2 sm:p-4 overflow-x-auto">
-            <GuitarFretboard
-              frets={guitarFrets.count}
-              notes={guitarNotes}
-              activeNotes={activeNotes}
-              onNotePlay={handleGuitarNote}
-              showLabels
-              labelMode={guitarLabelMode}
-            />
+          <div className="bg-white rounded-xl border border-surface-200 p-2 sm:p-4 overflow-x-auto max-w-full">
+            <div className="min-w-[720px]">
+              <GuitarFretboard
+                frets={12}
+                notes={guitarNotes}
+                activeNotes={activeNotes}
+                onNotePlay={handleGuitarNote}
+                showLabels
+                labelMode={guitarLabelMode}
+              />
+            </div>
+            <div className="text-xs text-surface-400 mt-2 sm:hidden">← swipe to see more frets →</div>
           </div>
         </div>
       )}
