@@ -1,6 +1,32 @@
 import { Chord, Scale, Interval, Note, Key } from 'tonal'
 import type { ChordInfo, ScaleInfo } from '@moniquemusic/shared-types'
 
+// ─── Enharmonic normalization ────────────────────────────────────────────────
+// Tonal spells chords relative to the tonic, so C# major returns ["C#","E#","G#"]
+// and the audio engine cannot play "E#4". Normalize to canonical sharps/naturals
+// so every downstream consumer (fretboard, piano, audio) agrees on the name.
+
+const ENHARMONIC_MAP: Record<string, string> = {
+  'E#': 'F',
+  'B#': 'C',
+  'Cb': 'B',
+  'Fb': 'E',
+  'E##': 'F#',
+  'B##': 'C#',
+  'Cbb': 'Bb',
+  'Fbb': 'Eb',
+}
+
+/** Normalize a pitch class, e.g. "E#" -> "F". Preserves octave suffix if present. */
+export function normalizeEnharmonic(note: string): string {
+  if (!note) return note
+  const match = note.match(/^([A-Ga-g](?:bb|##|b|#)?)(-?\d+)?$/)
+  if (!match) return note
+  const [, pc, oct] = match
+  const normPc = ENHARMONIC_MAP[pc] ?? pc
+  return oct !== undefined ? `${normPc}${oct}` : normPc
+}
+
 // ─── Chord Utilities ──────────────────────────────────────────────────────────
 
 /**
@@ -12,9 +38,9 @@ export function getChord(name: string): ChordInfo | null {
 
   return {
     name: chord.symbol,
-    root: chord.tonic,
+    root: normalizeEnharmonic(chord.tonic),
     type: chord.aliases[0] ?? chord.type,
-    notes: chord.notes,
+    notes: chord.notes.map(normalizeEnharmonic),
     intervals: chord.intervals,
   }
 }
@@ -26,12 +52,13 @@ export function getChord(name: string): ChordInfo | null {
  * would be lower than the root.
  */
 export function getChordNotes(root: string, type: string, octave = 4): string[] {
-  const chord = Chord.getChord(type, root)
+  const normRoot = normalizeEnharmonic(root)
+  const chord = Chord.getChord(type, normRoot)
   if (!chord.tonic) return []
 
-  const rootMidi = Note.midi(`${root}${octave}`) ?? 0
-  return chord.notes.map((pc) => {
-    // Try the given octave first; if the result is below root, bump up one
+  const rootMidi = Note.midi(`${normRoot}${octave}`) ?? 0
+  return chord.notes.map((rawPc) => {
+    const pc = normalizeEnharmonic(rawPc)
     const candidate = `${pc}${octave}`
     const midi = Note.midi(candidate) ?? 0
     if (midi >= rootMidi) return candidate
@@ -43,7 +70,7 @@ export function getChordNotes(root: string, type: string, octave = 4): string[] 
  * Given an array of notes, identify the chord name (if any)
  */
 export function identifyChord(notes: string[]): string | null {
-  const stripped = notes.map((n) => Note.pitchClass(n))
+  const stripped = notes.map((n) => normalizeEnharmonic(Note.pitchClass(n)))
   const matches = Chord.detect(stripped)
   return matches[0] ?? null
 }
@@ -58,9 +85,9 @@ export function getScale(root: string, type: string): ScaleInfo | null {
   if (!scale.tonic) return null
 
   return {
-    root: scale.tonic,
+    root: normalizeEnharmonic(scale.tonic),
     type: scale.type,
-    notes: scale.notes,
+    notes: scale.notes.map(normalizeEnharmonic),
     degrees: scale.intervals,
   }
 }
@@ -69,8 +96,9 @@ export function getScale(root: string, type: string): ScaleInfo | null {
  * Get all notes of a scale in a specific octave
  */
 export function getScaleNotes(root: string, type: string, octave = 4): string[] {
-  const scale = Scale.get(`${root}${octave} ${type}`)
-  return scale.notes
+  const normRoot = normalizeEnharmonic(root)
+  const scale = Scale.get(`${normRoot}${octave} ${type}`)
+  return scale.notes.map(normalizeEnharmonic)
 }
 
 /**
@@ -103,7 +131,7 @@ export function getIntervalName(interval: string): string {
  */
 export function transposeNote(note: string, interval: string): string | null {
   const result = Note.transpose(note, interval)
-  return result || null
+  return result ? normalizeEnharmonic(result) : null
 }
 
 /**
@@ -160,7 +188,11 @@ export function getProgressionChords(keyRoot: string, numerals: string[]): strin
     if (degree === undefined) return numeral
 
     const chord = chords[degree]
-    return chord ?? numeral
+    if (!chord) return numeral
+    // Chord symbols like "E#m" need the root normalized; type suffix preserved.
+    const m = chord.match(/^([A-G](?:#|b)?)(.*)$/)
+    if (!m) return chord
+    return `${normalizeEnharmonic(m[1])}${m[2]}`
   })
 }
 

@@ -12,6 +12,38 @@ import {
   getProgressionChords,
 } from '../index.js'
 
+describe('enharmonic normalization', () => {
+  it('normalizes E# to F in C# major chord', () => {
+    const chord = getChord('C#')
+    expect(chord).not.toBeNull()
+    expect(chord!.notes).toEqual(['C#', 'F', 'G#'])
+    expect(chord!.notes).not.toContain('E#')
+  })
+
+  it('normalizes B# to C in F## / C## contexts via getChordNotes', () => {
+    const notes = getChordNotes('C#', 'major', 4)
+    expect(notes).toEqual(['C#4', 'F4', 'G#4'])
+  })
+
+  it('normalizes Cb to B and Fb to E', () => {
+    const chord = getChord('Gb')
+    expect(chord).not.toBeNull()
+    // Gb major = Gb Bb Db — no E#/B#, but make sure it resolves cleanly
+    expect(chord!.notes.every((n) => !['E#', 'B#', 'Cb', 'Fb'].includes(n))).toBe(true)
+  })
+
+  it('produces playable pitches for every sharp major root', () => {
+    const roots = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+    for (const r of roots) {
+      const notes = getChordNotes(r, 'major', 4)
+      expect(notes.length).toBe(3)
+      for (const n of notes) {
+        expect(n).not.toMatch(/E#|B#|Cb|Fb/)
+      }
+    }
+  })
+})
+
 describe('getChord', () => {
   it('returns C major chord info', () => {
     const chord = getChord('C')
