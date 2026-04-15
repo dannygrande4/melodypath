@@ -4,25 +4,34 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Adult / default palette
+        // Brand palette: pink → fuchsia → amber, on black
         primary: {
-          50: '#f0f4ff',
-          100: '#e0eaff',
-          500: '#4f6ef7',
-          600: '#3b54e8',
-          700: '#2d40c9',
-          900: '#1a2580',
+          50: '#fdf2f8',
+          100: '#fce7f3',
+          200: '#fbcfe8',
+          300: '#f9a8d4',
+          500: '#ec4899',  // pink-500
+          600: '#db2777',
+          700: '#be185d',
+          900: '#500724',
         },
         accent: {
-          500: '#f59e0b',
+          300: '#fcd34d',
+          500: '#f59e0b',  // amber-500
           600: '#d97706',
+          700: '#b45309',
+        },
+        fuchsia: {
+          400: '#e879f9',
+          500: '#d946ef',
+          600: '#c026d3',
         },
         surface: {
           50: '#fafafa',
           100: '#f4f4f5',
           200: '#e4e4e7',
-          800: '#27272a',
-          900: '#18181b',
+          800: '#18181b',
+          900: '#000000',
         },
         // Kids palette
         kids: {

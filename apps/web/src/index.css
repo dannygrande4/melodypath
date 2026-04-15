@@ -24,13 +24,13 @@
 /* ── Dark mode ───────────────────────────────────────────────────────────── */
 
 .dark {
-  --color-bg: #0a0a0b;
-  --color-surface: #18181b;
-  --color-border: #27272a;
+  --color-bg: #000000;
+  --color-surface: #0a0a0a;
+  --color-border: #1f1f1f;
   --color-text: #fafafa;
   --color-text-muted: #a1a1aa;
-  --color-primary: #6d8af9;
-  --color-primary-dark: #4f6ef7;
+  --color-primary: #ec4899;
+  --color-primary-dark: #db2777;
   --color-accent: #f59e0b;
 }
 
