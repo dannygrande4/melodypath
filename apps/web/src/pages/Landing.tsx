@@ -69,14 +69,31 @@ export default function Landing() {
       </header>
 
       {/* Birthday top fold */}
-      <section className="relative min-h-[calc(100vh-5rem)] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+      <section
+        className="relative min-h-[calc(100vh-5rem)] flex flex-col items-center justify-center text-center px-6 overflow-hidden"
+        style={{
+          background:
+            'radial-gradient(ellipse at top, #fff1f8 0%, #fef3c7 45%, #e0e7ff 100%)',
+        }}
+      >
         <Confetti />
         <div className="relative z-10 flex flex-col items-center">
           <div className="text-6xl sm:text-7xl mb-6 animate-bounce-slow">🎉🎂🎈</div>
-          <h1 className="font-extrabold tracking-tight leading-[0.95] text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-fuchsia-500 to-amber-400 drop-shadow-sm text-[15vw] sm:text-[11vw] lg:text-[9rem]">
+          <h1
+            className="font-extrabold tracking-tight leading-[0.95] text-[15vw] sm:text-[11vw] lg:text-[9rem]"
+            style={{
+              backgroundImage:
+                'linear-gradient(90deg, #ec4899 0%, #d946ef 50%, #f59e0b 100%)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              color: 'transparent',
+              textShadow: '0 4px 24px rgba(236, 72, 153, 0.25)',
+            }}
+          >
             HAPPY<br />BIRTHDAY<br />MONIQUE
           </h1>
-          <p className="mt-8 text-lg sm:text-2xl text-surface-700 max-w-2xl italic">
+          <p className="mt-8 text-lg sm:text-2xl max-w-2xl italic" style={{ color: '#4c1d95' }}>
             With love, from Uncle Danny, Uncle Ben & Auntie Jordan 💛
           </p>
           <Link
@@ -85,7 +102,7 @@ export default function Landing() {
           >
             🎁 Open Your Gift
           </Link>
-          <div className="mt-12 text-surface-500 text-sm animate-bounce">↓ scroll for your music world ↓</div>
+          <div className="mt-12 text-sm animate-bounce" style={{ color: '#6d28d9' }}>↓ scroll for your music world ↓</div>
         </div>
       </section>
 
