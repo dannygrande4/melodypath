@@ -47,7 +47,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-accent-500/10 flex flex-col">
       {/* Nav */}
-      <header className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 bg-transparent backdrop-blur-sm">
+      <header className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 bg-transparent">
         <div className="flex items-center gap-2">
           <span className="text-xl font-bold text-primary-700">MoniqueMusic</span>
         </div>
