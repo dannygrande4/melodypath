@@ -29,6 +29,8 @@ interface GuitarFretboardProps {
   labelMode?: 'notes' | 'fingers'
   /** Tuning: array of 6 note names from low to high E (default standard) */
   tuning?: string[]
+  /** Free play mode: every fret position is clickable, no chord overlay */
+  freePlay?: boolean
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -69,6 +71,7 @@ export default function GuitarFretboard({
   showLabels = true,
   labelMode = 'notes',
   tuning = STANDARD_TUNING,
+  freePlay = false,
 }: GuitarFretboardProps) {
   const activeSet = useMemo(() => new Set(activeNotes), [activeNotes])
 
@@ -296,6 +299,41 @@ export default function GuitarFretboard({
           )
         })
       })}
+
+      {/* Free-play interactive layer: clickable hit-target at every fret position */}
+      {freePlay &&
+        Array.from({ length: frets + 1 }, (_, fret) =>
+          tuning.map((openNote, stringIdx) => {
+            const stringNum = stringIdx + 1
+            const cx =
+              fret === 0
+                ? nutX - 14
+                : paddingLeft + (fret - 0.5) * fretSpacing
+            const cy = paddingTop + stringIdx * stringSpacing
+            const fullNote = noteAtFret(openNote, fret)
+            const isActive = activeSet.has(fullNote)
+            return (
+              <g
+                key={`fp-${stringNum}-${fret}`}
+                onClick={() => handleClick(stringNum, fret)}
+                className="cursor-pointer"
+              >
+                {/* Invisible hit-target */}
+                <circle cx={cx} cy={cy} r={14} fill="transparent" />
+                {isActive && (
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r={10}
+                    fill="#ec4899"
+                    stroke="white"
+                    strokeWidth={2}
+                  />
+                )}
+              </g>
+            )
+          }),
+        )}
 
       {/* X marks for muted strings could go here */}
     </svg>

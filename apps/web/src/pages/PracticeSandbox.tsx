@@ -275,6 +275,7 @@ export default function PracticeSandbox() {
         <div className="bg-white rounded-xl border border-surface-200 p-4 overflow-x-auto">
           <GuitarFretboard
             frets={12}
+            freePlay
             onNotePlay={async (note) => {
               if (currentInstrument !== 'guitar') {
                 await ensureAudio()
