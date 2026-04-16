@@ -4,7 +4,6 @@ import { useAudioStore } from '@/stores/audioStore'
 import PianoKeyboard from '@/components/Piano/PianoKeyboard'
 import GuitarFretboard from '@/components/Guitar/GuitarFretboard'
 import Tuner from '@/components/Tuner/Tuner'
-import BackingTrackPlayer from '@/components/Practice/BackingTrackPlayer'
 import AudioRecorder from '@/components/Practice/AudioRecorder'
 import InfoTooltip from '@/components/ui/InfoTooltip'
 import WhatIsThis from '@/components/ui/WhatIsThis'
@@ -259,9 +258,6 @@ export default function PracticeSandbox() {
 
       {/* Tuner */}
       <Tuner />
-
-      {/* Backing tracks */}
-      <BackingTrackPlayer />
 
       {/* Audio recorder */}
       <AudioRecorder />
