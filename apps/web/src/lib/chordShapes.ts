@@ -35,25 +35,26 @@ interface BarreTemplate {
   rootStringIdx: number
 }
 
-// E-form barre (root on 6th string)
+// E-form barre (root on 6th string). Shapes are low-E-to-high-E, relative to the
+// barre fret (shape[i] = how many frets above the barre the note sits).
 const E_MAJOR_BARRE: BarreTemplate = {
-  label: 'E-form Barre', shape: [0, 0, 2, 2, 2, 0], fingers: [1, 1, 2, 3, 4, 1],
+  label: 'E-form Barre', shape: [0, 2, 2, 1, 0, 0], fingers: [1, 3, 4, 2, 1, 1],
   rootString: 6, rootFret: 0, rootStringIdx: 0,
 }
 const E_MINOR_BARRE: BarreTemplate = {
-  label: 'E-form Barre', shape: [0, 0, 2, 2, 0, 0], fingers: [1, 1, 3, 4, 1, 1],
+  label: 'E-form Barre', shape: [0, 2, 2, 0, 0, 0], fingers: [1, 3, 4, 1, 1, 1],
   rootString: 6, rootFret: 0, rootStringIdx: 0,
 }
 const E7_BARRE: BarreTemplate = {
-  label: 'E-form Barre', shape: [0, 0, 2, 0, 2, 0], fingers: [1, 1, 3, 1, 4, 1],
+  label: 'E-form Barre', shape: [0, 2, 0, 1, 0, 0], fingers: [1, 3, 1, 2, 1, 1],
   rootString: 6, rootFret: 0, rootStringIdx: 0,
 }
 const EM7_BARRE: BarreTemplate = {
-  label: 'E-form Barre', shape: [0, 0, 2, 1, 2, 0], fingers: [1, 1, 3, 2, 4, 1],
+  label: 'E-form Barre', shape: [0, 2, 0, 0, 0, 0], fingers: [1, 3, 1, 1, 1, 1],
   rootString: 6, rootFret: 0, rootStringIdx: 0,
 }
 const EMAJ7_BARRE: BarreTemplate = {
-  label: 'E-form Barre', shape: [0, 0, 1, 1, 0, 0], fingers: [1, 1, 2, 3, 1, 1],
+  label: 'E-form Barre', shape: [0, 2, 1, 1, 0, 0], fingers: [1, 3, 2, 1, 1, 1],
   rootString: 6, rootFret: 0, rootStringIdx: 0,
 }
 
@@ -77,11 +78,11 @@ const AM7_BARRE: BarreTemplate = {
 
 // Sus/Add barre templates
 const E_SUS2_BARRE: BarreTemplate = {
-  label: 'E-form Barre', shape: [0, 0, 2, 4, 0, 0], fingers: [1, 1, 2, 4, 1, 1],
+  label: 'E-form Barre', shape: [0, 2, 2, 4, 0, 0], fingers: [1, 2, 3, 4, 1, 1],
   rootString: 6, rootFret: 0, rootStringIdx: 0,
 }
 const E_SUS4_BARRE: BarreTemplate = {
-  label: 'E-form Barre', shape: [0, 0, 2, 2, 3, 0], fingers: [1, 1, 2, 3, 4, 1],
+  label: 'E-form Barre', shape: [0, 2, 2, 2, 0, 0], fingers: [1, 2, 3, 4, 1, 1],
   rootString: 6, rootFret: 0, rootStringIdx: 0,
 }
 const A_SUS2_BARRE: BarreTemplate = {

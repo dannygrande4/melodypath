@@ -169,9 +169,11 @@ export default function GuitarFretboard({
         return null
       })}
 
-      {/* Strings */}
+      {/* Strings (high E on top, low E on bottom - standard guitar view).
+          tuning is low-to-high (index 0 = low E), so we invert the y-position
+          so index 5 (high E) renders at y=paddingTop. */}
       {tuning.map((_, i) => {
-        const y = paddingTop + i * stringSpacing
+        const y = paddingTop + (5 - i) * stringSpacing
         const thickness = 1 + (5 - i) * 0.3 // thicker for lower strings
         return (
           <line
@@ -191,7 +193,7 @@ export default function GuitarFretboard({
         <text
           key={`label-${i}`}
           x={nutX - 8}
-          y={paddingTop + i * stringSpacing + 4}
+          y={paddingTop + (5 - i) * stringSpacing + 4}
           textAnchor="end"
           fill="#71717a"
           fontSize={11}
@@ -217,11 +219,13 @@ export default function GuitarFretboard({
           </text>
         ))}
 
-      {/* Note dots - interactive */}
-      {/* Fret 0 (open) positions + fretted positions */}
+      {/* Note dots - interactive.
+          stringIdx iterates tuning low-to-high (0=low E ... 5=high E).
+          voicingToFretNotes stores string 1=high E (=tuning idx 5)
+          and string 6=low E (=tuning idx 0), so stringNum = 6 - stringIdx. */}
       {Array.from({ length: frets + 1 }, (_, fret) => {
         return tuning.map((_, stringIdx) => {
-          const stringNum = stringIdx + 1 // 1-indexed
+          const stringNum = 6 - stringIdx
           const key = `${stringNum}-${fret}`
           const fretNote = noteMap.get(key)
           if (!fretNote) return null
@@ -230,7 +234,7 @@ export default function GuitarFretboard({
             fret === 0
               ? nutX - 14
               : paddingLeft + (fret - 0.5) * fretSpacing
-          const cy = paddingTop + stringIdx * stringSpacing
+          const cy = paddingTop + (5 - stringIdx) * stringSpacing
           const fullNote = fretNote.fullNote
           const isActive = activeSet.has(fullNote)
           const color = ROLE_COLORS[fretNote.role ?? 'other']
@@ -304,12 +308,12 @@ export default function GuitarFretboard({
       {freePlay &&
         Array.from({ length: frets + 1 }, (_, fret) =>
           tuning.map((openNote, stringIdx) => {
-            const stringNum = stringIdx + 1
+            const stringNum = 6 - stringIdx
             const cx =
               fret === 0
                 ? nutX - 14
                 : paddingLeft + (fret - 0.5) * fretSpacing
-            const cy = paddingTop + stringIdx * stringSpacing
+            const cy = paddingTop + (5 - stringIdx) * stringSpacing
             const fullNote = noteAtFret(openNote, fret)
             const isActive = activeSet.has(fullNote)
             return (
