@@ -19,8 +19,8 @@ interface GuitarFretboardProps {
   notes?: FretNote[]
   /** Active/pressed notes */
   activeNotes?: string[]
-  /** Called when a position is clicked */
-  onNotePlay?: (note: string) => void
+  /** Called when a position is clicked. `position` gives the exact string/fret the user clicked. */
+  onNotePlay?: (note: string, position?: { string: number; fret: number }) => void
   /** Show fret numbers */
   showFretNumbers?: boolean
   /** Show labels in dots */
@@ -90,7 +90,7 @@ export default function GuitarFretboard({
       const stringIdx = 6 - stringNum
       const openNote = tuning[stringIdx]
       const note = noteAtFret(openNote, fret)
-      onNotePlay?.(note)
+      onNotePlay?.(note, { string: stringNum, fret })
     },
     [tuning, onNotePlay],
   )

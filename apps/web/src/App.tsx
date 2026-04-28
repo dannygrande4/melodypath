@@ -19,6 +19,7 @@ const ChordExplorer = lazy(() => import('@/pages/ChordExplorer'))
 const ScaleExplorer = lazy(() => import('@/pages/ScaleExplorer'))
 const EarTraining = lazy(() => import('@/pages/EarTraining'))
 const PracticeSandbox = lazy(() => import('@/pages/PracticeSandbox'))
+const FretboardQuiz = lazy(() => import('@/pages/FretboardQuiz'))
 const Resources = lazy(() => import('@/pages/Resources'))
 const SongImport = lazy(() => import('@/pages/SongImport'))
 const Challenges = lazy(() => import('@/pages/Challenges'))
@@ -102,6 +103,7 @@ export default function App() {
         <Route path="/progressions" element={<ProgressionBuilder />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/practice" element={<PracticeSandbox />} />
+        <Route path="/practice/fretboard-quiz" element={<FretboardQuiz />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
       </Route>

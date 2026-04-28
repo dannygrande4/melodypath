@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useAudioInit } from '@/hooks/useAudioInit'
 import { useAudioStore } from '@/stores/audioStore'
 import PianoKeyboard from '@/components/Piano/PianoKeyboard'
@@ -134,6 +135,22 @@ export default function PracticeSandbox() {
         lessonId="rhythm-basics"
         lessonTitle="Rhythm & Time"
       />
+
+      <Link
+        to="/practice/fretboard-quiz"
+        className="block bg-gradient-to-r from-primary-600 to-accent-500 rounded-xl p-5 text-white hover:opacity-95 transition-opacity"
+      >
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <div className="text-xs uppercase tracking-wider opacity-80 font-semibold">New</div>
+            <div className="text-lg font-bold mt-0.5">🎸 Fretboard Quiz</div>
+            <div className="text-sm opacity-90 mt-0.5">
+              Drill your note knowledge — any string, single string, or name-that-fret
+            </div>
+          </div>
+          <div className="text-2xl">→</div>
+        </div>
+      </Link>
 
       {/* Metronome section */}
       <div className="bg-white rounded-xl border border-surface-200 p-6 space-y-5">
