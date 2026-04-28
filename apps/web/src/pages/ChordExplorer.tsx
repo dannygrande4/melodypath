@@ -362,7 +362,7 @@ export default function ChordExplorer() {
           <div className="bg-white rounded-xl border border-surface-200 p-2 sm:p-4 overflow-x-auto max-w-full">
             <div className="min-w-[720px]">
               <GuitarFretboard
-                frets={12}
+                frets={24}
                 notes={guitarNotes}
                 activeNotes={activeNotes}
                 onNotePlay={handleGuitarNote}

@@ -267,7 +267,7 @@ export default function ScaleExplorer() {
         <h2 className="text-sm font-semibold text-surface-500 mb-3">Guitar Fretboard</h2>
         <div className="bg-white rounded-xl border border-surface-200 p-2 sm:p-4 overflow-x-auto">
           <GuitarFretboard
-            frets={12}
+            frets={24}
             notes={guitarNotes}
             activeNotes={activeNotes}
             onNotePlay={handleGuitarNote}

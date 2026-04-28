@@ -274,7 +274,7 @@ export default function PracticeSandbox() {
         </h2>
         <div className="bg-white rounded-xl border border-surface-200 p-4 overflow-x-auto">
           <GuitarFretboard
-            frets={12}
+            frets={24}
             freePlay
             onNotePlay={async (note) => {
               if (currentInstrument !== 'guitar') {
