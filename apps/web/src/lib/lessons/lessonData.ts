@@ -1644,7 +1644,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Playing Off the Beat',
-        content: `**Syncopation** means placing accents or notes where they are not expected — typically on the offbeats (the "ands") rather than the main beats.\n\nNormal emphasis: **1** and **2** and **3** and **4** and\nSyncopated emphasis: 1 **and** 2 **and** 3 **and** 4 **and**\n\nSyncopation creates rhythmic surprise and energy. It makes music feel alive, groovy, and unpredictable. Without syncopation, music tends to sound stiff and march-like.\n\nVirtually all popular music genres use syncopation: jazz, funk, rock, reggae, Latin, hip-hop, and R&B all rely heavily on off-beat rhythms.`,
+        content: `**Syncopation** means placing accents or notes where they are not expected — typically on the offbeats (the "ands") rather than the main beats.\n\nNormal emphasis: **1** and **2** and **3** and **4** and\nSyncopated emphasis: 1 **and** 2 **and** 3 **and** 4 **and**\n\n[rhythm-pattern:4/4|er,e,er,e,er,e,er,e|Syncopated rhythm — accents on the offbeats]\n\nSyncopation creates rhythmic surprise and energy. It makes music feel alive, groovy, and unpredictable. Without syncopation, music tends to sound stiff and march-like.\n\nVirtually all popular music genres use syncopation: jazz, funk, rock, reggae, Latin, hip-hop, and R&B all rely heavily on off-beat rhythms.`,
       },
       {
         type: 'quiz',
@@ -1728,7 +1728,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Dividing the Beat into Four',
-        content: `**Sixteenth notes** divide each beat into four equal parts. In 4/4 time, that gives you 16 sixteenth notes per measure.\n\nWe count them: **"1 e and a 2 e and a 3 e and a 4 e and a"**\n\nThe "1" is the downbeat, "e" is the first subdivision, "and" is the second (same as the eighth note offbeat), and "a" is the third subdivision.\n\nSixteenth notes are the foundation of funk, hip-hop, Latin music, and many modern pop grooves. They create a fine-grained rhythmic grid that allows for incredibly precise and intricate patterns.`,
+        content: `**Sixteenth notes** divide each beat into four equal parts. In 4/4 time, that gives you 16 sixteenth notes per measure.\n\nWe count them: **"1 e and a 2 e and a 3 e and a 4 e and a"**\n\n[rhythm-pattern:4/4|s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s|Sixteen sixteenth notes — count "1 e & a"]\n\nThe "1" is the downbeat, "e" is the first subdivision, "and" is the second (same as the eighth note offbeat), and "a" is the third subdivision.\n\nSixteenth notes are the foundation of funk, hip-hop, Latin music, and many modern pop grooves. They create a fine-grained rhythmic grid that allows for incredibly precise and intricate patterns.`,
       },
       {
         type: 'quiz',
@@ -1770,7 +1770,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What is a Polyrhythm?',
-        content: `A **polyrhythm** is two or more conflicting rhythms played simultaneously. The most common polyrhythm is **3 against 2** (also called a hemiola) — one part plays 3 evenly spaced notes while another plays 2.\n\nImagine tapping your left hand 3 times evenly while your right hand taps 2 times in the same span. The two patterns create a mesmerizing interlocking texture.\n\nPolyrhythms are fundamental to African drumming traditions and have deeply influenced jazz, Latin music, funk, and progressive rock. They add rhythmic complexity and depth that keeps the listener engaged.`,
+        content: `A **polyrhythm** is two or more conflicting rhythms played simultaneously. The most common polyrhythm is **3 against 2** (also called a hemiola) — one part plays 3 evenly spaced notes while another plays 2.\n\n[rhythm-pattern:4/4|h,h|Two beats — the "2" voice]\n[rhythm-pattern:4/4|q.,q.,e|Three even hits in the same span — the "3" voice]\n\nImagine tapping your left hand 3 times evenly while your right hand taps 2 times in the same span. The two patterns create a mesmerizing interlocking texture.\n\nPolyrhythms are fundamental to African drumming traditions and have deeply influenced jazz, Latin music, funk, and progressive rock. They add rhythmic complexity and depth that keeps the listener engaged.`,
       },
       {
         type: 'quiz',
@@ -1854,7 +1854,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Beyond 4/4 and 3/4',
-        content: `Most popular music sits comfortably in 4/4 or 3/4 time. But **odd time signatures** break free of these familiar patterns, creating music that feels asymmetric, unusual, and compelling.\n\n**5/4 time** has 5 beats per measure, typically grouped as 3+2 or 2+3:\n- "Take Five" (Dave Brubeck) — the most famous 5/4 piece\n- "Mission: Impossible" theme — 5/4 throughout\n\n**7/8 time** has 7 eighth notes per measure, often grouped as 2+2+3 or 3+2+2:\n- "Money" (Pink Floyd) — 7/4 verse\n- Common in Balkan folk music`,
+        content: `Most popular music sits comfortably in 4/4 or 3/4 time. But **odd time signatures** break free of these familiar patterns, creating music that feels asymmetric, unusual, and compelling.\n\n**5/4 time** has 5 beats per measure, typically grouped as 3+2 or 2+3:\n- "Take Five" (Dave Brubeck) — the most famous 5/4 piece\n- "Mission: Impossible" theme — 5/4 throughout\n\n[rhythm-pattern:5/4|q,q,q,q,q|5/4 — five beats per measure]\n\n**7/8 time** has 7 eighth notes per measure, often grouped as 2+2+3 or 3+2+2:\n- "Money" (Pink Floyd) — 7/4 verse\n- Common in Balkan folk music\n\n[rhythm-pattern:7/8|e,e,e,e,e,e,e|7/8 — often grouped 2+2+3]`,
       },
       {
         type: 'quiz',

@@ -6,6 +6,7 @@ import { useAuthSync } from '@/hooks/useAuthSync'
 import AppShell from '@/components/layout/AppShell'
 import LevelUpOverlay from '@/components/Gamification/LevelUpOverlay'
 import UnlockOverlay from '@/components/Gamification/UnlockOverlay'
+import AchievementToast from '@/components/Gamification/AchievementToast'
 import RouteGuard from '@/components/RouteGuard'
 
 // ── Lazy-loaded pages (code-split per route) ─────────────────────────────────
@@ -84,6 +85,7 @@ export default function App() {
     <>
     <LevelUpOverlay />
     <UnlockOverlay />
+    <AchievementToast />
     <Suspense fallback={<PageLoading />}>
     <Routes>
       {/* Public routes (no shell) */}

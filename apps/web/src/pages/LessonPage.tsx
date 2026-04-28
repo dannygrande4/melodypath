@@ -21,6 +21,7 @@ export default function LessonPage() {
   const markComplete = useLessonStore((s) => s.markComplete)
   const addXP = useUserStore((s) => s.addXP)
   const recordPractice = useUserStore((s) => s.recordPractice)
+  const checkAndAwardBadges = useUserStore((s) => s.checkAndAwardBadges)
   const ageMode = useUIStore((s) => s.ageMode)
   const isKids = ageMode === 'kids'
   const { ensureAudio } = useAudioInit()
@@ -123,9 +124,11 @@ export default function LessonPage() {
       markComplete(lesson.id, quizScore)
       addXP(lesson.xpReward)
       recordPractice()
+      const lessonsCompleted = useLessonStore.getState().completedIds().size
+      checkAndAwardBadges({ lessonsCompleted })
       setFinished(true)
     }
-  }, [stepIdx, totalSteps, lesson, quizScore, markComplete, addXP, recordPractice])
+  }, [stepIdx, totalSteps, lesson, quizScore, markComplete, addXP, recordPractice, checkAndAwardBadges])
 
   // ─── Quiz handler ───────────────────────────────────────────────────
 

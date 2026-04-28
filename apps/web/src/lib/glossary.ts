@@ -327,6 +327,40 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     aliases: ['modes'],
   },
 
+  // ─── Additional theory terms ───────────────────────────────────────────────
+  syncopation: {
+    simple: 'Putting accents on unexpected beats — usually the offbeats. Makes music feel groovy instead of stiff.',
+    lessonId: 'syncopation',
+  },
+  triplet: {
+    simple: 'Three notes squeezed into the time of two. Counted "trip-let" — common in swing and waltz feels.',
+    lessonId: 'swing-feel',
+    aliases: ['triplets'],
+  },
+  arpeggio: {
+    simple: 'Playing a chord one note at a time instead of all at once. Like rolling a chord across the strings.',
+    aliases: ['arpeggios', 'arpeggiated'],
+  },
+  cadence: {
+    simple: 'A short chord sequence at the end of a phrase that creates a feeling of pause or resolution. Like punctuation in music.',
+    lessonId: 'one-four-five',
+    aliases: ['cadences'],
+  },
+  'slash chord': {
+    simple: 'A chord with a non-root note in the bass, written like C/E (C chord, E in the bass).',
+    lessonId: 'slash-chords-bass-lines',
+    aliases: ['slash chords'],
+  },
+  'secondary dominant': {
+    simple: 'A V chord that resolves to something other than the tonic — borrowed dominant for color.',
+    lessonId: 'secondary-dominants',
+    aliases: ['secondary dominants'],
+  },
+  pickup: {
+    simple: 'A note (or notes) before the first downbeat of a piece — leading you into beat 1. Also called an anacrusis.',
+    aliases: ['pickup note', 'pickup notes', 'anacrusis'],
+  },
+
   // ─── Guitar physical reference (always available) ─────────────────────────
   fret: {
     simple: 'The metal bars on a guitar neck. Pressing a string behind a fret changes the note.',

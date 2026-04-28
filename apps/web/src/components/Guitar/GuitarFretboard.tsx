@@ -147,7 +147,7 @@ export default function GuitarFretboard({
         y1={paddingTop - 4}
         x2={nutX}
         y2={paddingTop + 5 * stringSpacing + 4}
-        stroke="#1a1a1a"
+        stroke="currentColor"
         strokeWidth={4}
       />
 

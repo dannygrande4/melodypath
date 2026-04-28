@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit && node scripts/audit-glossary.mjs --check",
+    "audit:glossary": "node scripts/audit-glossary.mjs"
   },
   "dependencies": {
     "@moniquemusic/audio-engine": "workspace:*",

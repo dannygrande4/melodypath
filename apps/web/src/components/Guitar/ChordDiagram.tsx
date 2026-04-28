@@ -53,7 +53,7 @@ export default function ChordDiagram({
   const nutY = padTop
 
   return (
-    <div className="inline-flex flex-col items-center select-none">
+    <div className="inline-flex flex-col items-center select-none text-surface-700 dark:text-surface-200">
       <div className={`font-bold text-surface-900 mb-1 ${size === 'sm' ? 'text-sm' : 'text-base'}`}>
         {name}
       </div>
@@ -69,7 +69,7 @@ export default function ChordDiagram({
                 y={padTop - 8}
                 textAnchor="middle"
                 fontSize={fontSize + 1}
-                fill="#71717a"
+                fill="currentColor"
                 fontFamily="Inter, sans-serif"
                 fontWeight="600"
               >
@@ -85,7 +85,7 @@ export default function ChordDiagram({
                 cy={padTop - 9}
                 r={dotRadius * 0.55}
                 fill="none"
-                stroke="#71717a"
+                stroke="currentColor"
                 strokeWidth={1.4}
               />
             )
@@ -100,7 +100,7 @@ export default function ChordDiagram({
             y1={nutY}
             x2={padLeft + 5 * stringSpacing}
             y2={nutY}
-            stroke="#1a1a1a"
+            stroke="currentColor"
             strokeWidth={size === 'sm' ? 3 : 4}
           />
         )}
@@ -112,7 +112,7 @@ export default function ChordDiagram({
             y={nutY + fretSpacing - 2}
             textAnchor="end"
             fontSize={fontSize}
-            fill="#71717a"
+            fill="currentColor"
             fontFamily="Inter, sans-serif"
           >
             {baseFret}fr
@@ -129,7 +129,8 @@ export default function ChordDiagram({
               y1={y}
               x2={padLeft + 5 * stringSpacing}
               y2={y}
-              stroke="#c4c4c4"
+              stroke="currentColor"
+              strokeOpacity={0.4}
               strokeWidth={1.2}
             />
           )
@@ -145,7 +146,8 @@ export default function ChordDiagram({
               y1={nutY}
               x2={x}
               y2={nutY + fretsToShow * fretSpacing}
-              stroke="#a0a0a0"
+              stroke="currentColor"
+              strokeOpacity={0.55}
               strokeWidth={1.1}
             />
           )
@@ -207,7 +209,8 @@ export default function ChordDiagram({
             y={nutY + fretsToShow * fretSpacing + padBottom - 4}
             textAnchor="middle"
             fontSize={fontSize - 1}
-            fill="#a1a1aa"
+            fill="currentColor"
+            fillOpacity={0.65}
             fontFamily="Inter, sans-serif"
           >
             {label}

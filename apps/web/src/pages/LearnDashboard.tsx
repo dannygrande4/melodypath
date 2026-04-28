@@ -49,6 +49,52 @@ export default function LearnDashboard() {
         />
       )}
 
+      {/* Module progression strip — visual skill tree overview */}
+      <div className="overflow-x-auto -mx-4 px-4 sm:-mx-0 sm:px-0">
+        <div className="flex items-stretch gap-2 min-w-max pb-1">
+          {Array.from(modules.entries()).map(([moduleName, lessons], i) => {
+            const moduleCompleted = lessons.filter((l) => completed.has(l.id)).length
+            const moduleTotal = lessons.length
+            const moduleAnyUnlocked = lessons.some((l) => isAdmin || isLessonUnlocked(l.id, completed))
+            const isComplete = moduleCompleted === moduleTotal
+            const isInProgress = moduleCompleted > 0 && !isComplete
+            const pct = (moduleCompleted / moduleTotal) * 100
+            return (
+              <div key={moduleName} className="flex items-center">
+                <div
+                  className={`relative w-32 sm:w-40 flex-shrink-0 rounded-lg border p-2.5 ${
+                    isComplete
+                      ? 'bg-green-50 border-green-300'
+                      : isInProgress
+                        ? 'bg-primary-50 border-primary-300'
+                        : moduleAnyUnlocked
+                          ? 'bg-white border-surface-200'
+                          : 'bg-surface-50 border-surface-200 opacity-60'
+                  }`}
+                >
+                  <div className="text-[10px] font-bold text-surface-400 uppercase tracking-wider truncate">
+                    Module {i + 1}
+                  </div>
+                  <div className="text-xs font-bold text-surface-800 truncate">{moduleName}</div>
+                  <div className="text-[10px] text-surface-500 mt-1">
+                    {moduleCompleted} / {moduleTotal} lessons
+                  </div>
+                  <div className="h-1 bg-surface-200 rounded-full mt-1.5 overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all ${isComplete ? 'bg-green-500' : 'bg-primary-500'}`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+                {i < modules.size - 1 && (
+                  <div className={`w-3 h-0.5 ${isComplete ? 'bg-green-300' : 'bg-surface-200'}`} />
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
       {/* Next up callout */}
       {nextLesson && completed.size > 0 && (
         <Link

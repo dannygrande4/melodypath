@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { User, SkillLevel, InstrumentType, AgeGroup } from '@moniquemusic/shared-types'
 import { syncXP } from '@/lib/apiSync'
+import { checkBadges, type BadgeCheckStats } from '@/lib/badges'
 
 // XP thresholds per level (level 1 → 2 needs 100 XP, etc.)
 const XP_PER_LEVEL = (level: number) => Math.floor(100 * Math.pow(1.2, level - 1))
@@ -44,6 +45,10 @@ interface UserState {
   // UI state
   pendingLevelUp: LevelUpEvent | null
 
+  // Achievement state
+  earnedBadgeIds: string[]
+  pendingBadgeIds: string[]
+
   // Actions
   setUser: (user: Partial<User>) => void
   addXP: (amount: number) => void
@@ -52,6 +57,8 @@ interface UserState {
   setInstrument: (instrument: InstrumentType) => void
   setAgeGroup: (group: AgeGroup) => void
   recordPractice: () => void
+  checkAndAwardBadges: (extra: Partial<BadgeCheckStats>) => void
+  consumeBadge: () => void
   reset: () => void
 }
 
@@ -66,6 +73,8 @@ const defaultState = {
   streak_days: 0,
   last_practice: null,
   pendingLevelUp: null,
+  earnedBadgeIds: [] as string[],
+  pendingBadgeIds: [] as string[],
 }
 
 export const useUserStore = create<UserState>()(
@@ -95,6 +104,28 @@ export const useUserStore = create<UserState>()(
       setSkillLevel: (skill_level) => set({ skill_level }),
       setInstrument: (instrument) => set({ instrument }),
       setAgeGroup: (age_group) => set({ age_group }),
+
+      checkAndAwardBadges: (extra) => {
+        const state = get()
+        const stats: BadgeCheckStats = {
+          lessonsCompleted: extra.lessonsCompleted ?? 0,
+          songsPlayed: extra.songsPlayed ?? 0,
+          streakDays: state.streak_days,
+          totalXP: state.xp,
+          level: state.level,
+          earTrainingCorrect: extra.earTrainingCorrect ?? 0,
+        }
+        const earned = new Set(state.earnedBadgeIds)
+        const newly = checkBadges(stats, earned)
+        if (newly.length === 0) return
+        set({
+          earnedBadgeIds: [...state.earnedBadgeIds, ...newly.map((b) => b.id)],
+          pendingBadgeIds: [...state.pendingBadgeIds, ...newly.map((b) => b.id)],
+        })
+      },
+
+      consumeBadge: () =>
+        set((state) => ({ pendingBadgeIds: state.pendingBadgeIds.slice(1) })),
 
       recordPractice: () =>
         set((state) => {
@@ -126,6 +157,7 @@ export const useUserStore = create<UserState>()(
         level: state.level,
         streak_days: state.streak_days,
         last_practice: state.last_practice,
+        earnedBadgeIds: state.earnedBadgeIds,
       }),
     }
   )
