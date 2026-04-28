@@ -277,7 +277,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What is a Chord?',
-        content: `A **chord** is three or more notes played at the same time. The most basic chord is a **triad** — three notes stacked in thirds.\n\nTo build a major triad, take the **1st, 3rd, and 5th** notes of the major scale:\n\nFor C major: C (1st) + E (3rd) + G (5th) = **C major chord**\n\nThe interval from the root to the 3rd is a major 3rd (4 half steps). The interval from the 3rd to the 5th is a minor 3rd (3 half steps). This specific stacking — major 3rd on the bottom, minor 3rd on top — is what creates the bright, happy sound of a major chord.`,
+        content: `A **chord** is three or more notes played at the same time. The most basic chord is a **triad** — three notes stacked in thirds.\n\nTo build a major triad, take the **1st, 3rd, and 5th** notes of the major scale:\n\nFor C major: C (1st) + E (3rd) + G (5th) = **C major chord**\n\n[chord:C]\n\nThe interval from the root to the 3rd is a major 3rd (4 half steps). The interval from the 3rd to the 5th is a minor 3rd (3 half steps). This specific stacking — major 3rd on the bottom, minor 3rd on top — is what creates the bright, happy sound of a major chord.`,
       },
       {
         type: 'quiz',
@@ -289,7 +289,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Naming Chords',
-        content: `Chords are named after their **root** — the note they are built on. The root is the foundation and gives the chord its letter name.\n\nA C major chord has C as its root, E as its third, and G as its fifth. We just call it "C" or "C major."\n\nYou can build a major triad starting on any note by applying the same formula: root + major 3rd + perfect 5th. For example:\n- G major = G + B + D\n- F major = F + A + C\n- D major = D + F# + A`,
+        content: `Chords are named after their **root** — the note they are built on. The root is the foundation and gives the chord its letter name.\n\nA C major chord has C as its root, E as its third, and G as its fifth. We just call it "C" or "C major."\n\nYou can build a major triad starting on any note by applying the same formula: root + major 3rd + perfect 5th.\n\n[chords:G,F,D]\n\nFor example:\n- G major = G + B + D\n- F major = F + A + C\n- D major = D + F# + A`,
       },
       {
         type: 'quiz',
@@ -319,7 +319,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Major vs Minor',
-        content: `If you **lower the 3rd by one half step**, a major chord becomes a **minor chord**.\n\n- C major = C, E, G (bright, happy)\n- C minor = C, **Eb**, G (dark, sad)\n\nThe only difference is that one note — the 3rd! A major triad has a major 3rd on the bottom and a minor 3rd on top. A minor triad flips this: minor 3rd on the bottom, major 3rd on top.\n\nThis tiny change completely transforms the emotional quality of the chord.`,
+        content: `If you **lower the 3rd by one half step**, a major chord becomes a **minor chord**.\n\n- C major = C, E, G (bright, happy)\n- C minor = C, **Eb**, G (dark, sad)\n\nThe only difference is that one note — the 3rd! A major triad has a major 3rd on the bottom and a minor 3rd on top. A minor triad flips this: minor 3rd on the bottom, major 3rd on top.\n\n[chords:Am,Em,Dm]\n\nThis tiny change completely transforms the emotional quality of the chord.`,
       },
       {
         type: 'quiz',
@@ -331,7 +331,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Building Minor Triads',
-        content: `To build a minor triad from any root:\n\n1. Start with the root note\n2. Go up a **minor 3rd** (3 half steps) for the third\n3. Go up a **major 3rd** (4 half steps) from there for the fifth\n\nAlternatively, just take the major triad and lower the 3rd by one half step.\n\nCommon minor triads:\n- A minor (Am) = A, C, E\n- D minor (Dm) = D, F, A\n- E minor (Em) = E, G, B\n\nMinor chords are written with a lowercase "m" after the letter: Am, Dm, Em.`,
+        content: `To build a minor triad from any root:\n\n1. Start with the root note\n2. Go up a **minor 3rd** (3 half steps) for the third\n3. Go up a **major 3rd** (4 half steps) from there for the fifth\n\nAlternatively, just take the major triad and lower the 3rd by one half step.\n\nCommon minor triads — here are the open shapes you'll use most on guitar:\n\n[chords:Am,Dm,Em]\n\n- A minor (Am) = A, C, E\n- D minor (Dm) = D, F, A\n- E minor (Em) = E, G, B\n\nMinor chords are written with a lowercase "m" after the letter: Am, Dm, Em.`,
       },
       {
         type: 'quiz',
@@ -680,7 +680,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Using Power Chords',
-        content: `Power chords are usually played with the root doubled an octave higher: C + G + C. This thickens the sound without adding new harmonic information.\n\nOn guitar, a power chord has one of the simplest shapes — just two or three fingers in a fixed pattern that you slide up and down the neck to change keys.\n\nClassic power chord songs include "Smells Like Teen Spirit" (Nirvana), "Iron Man" (Black Sabbath), and "Blitzkrieg Bop" (Ramones). The simplicity of the chord lets the rhythm and energy drive the music.`,
+        content: `Power chords are usually played with the root doubled an octave higher: C + G + C. This thickens the sound without adding new harmonic information.\n\nOn guitar, a power chord has one of the simplest shapes — just two or three fingers in a fixed pattern that you slide up and down the neck to change keys.\n\n[chords:E5,A5,D5]\n\nClassic power chord songs include "Smells Like Teen Spirit" (Nirvana), "Iron Man" (Black Sabbath), and "Blitzkrieg Bop" (Ramones). The simplicity of the chord lets the rhythm and energy drive the music.`,
       },
       {
         type: 'quiz',
@@ -722,7 +722,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The Sound of Suspension',
-        content: `Suspended chords have a distinctive "floating" or "open" quality. They create **tension** that expects **resolution** — usually to the regular major or minor chord.\n\nA classic move: Csus4 → C (the F resolves down to E). You hear this everywhere: the opening of "Pinball Wizard" by The Who, the intro of "Crazy Little Thing Called Love" by Queen, and countless worship songs.\n\nSus2 chords have a more modern, airy feel. They are favorites in folk, indie, and ambient music.`,
+        content: `Suspended chords have a distinctive "floating" or "open" quality. They create **tension** that expects **resolution** — usually to the regular major or minor chord.\n\n[chords:Dsus2,Dsus4,Asus2,Asus4]\n\nA classic move: Csus4 → C (the F resolves down to E). You hear this everywhere: the opening of "Pinball Wizard" by The Who, the intro of "Crazy Little Thing Called Love" by Queen, and countless worship songs.\n\nSus2 chords have a more modern, airy feel. They are favorites in folk, indie, and ambient music.`,
       },
       {
         type: 'quiz',
@@ -757,7 +757,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The I-IV-V Progression',
-        content: `The **I-IV-V** is the most common chord progression in all of Western music. In C major:\n\n**C (I) → F (IV) → G (V) → C (I)**\n\nThis progression powers thousands of songs across rock, pop, blues, country, and folk. "Twist and Shout," "La Bamba," "Wild Thing," and hundreds more use I-IV-V.\n\nWhy does it work? The V chord creates **tension** (it wants to go home), and the I chord provides **resolution**. The IV chord adds variety and momentum. Together they create a satisfying journey of departure and return.`,
+        content: `The **I-IV-V** is the most common chord progression in all of Western music. In C major:\n\n**C (I) → F (IV) → G (V) → C (I)**\n\n[chords:C,F,G]\n\nThis progression powers thousands of songs across rock, pop, blues, country, and folk. "Twist and Shout," "La Bamba," "Wild Thing," and hundreds more use I-IV-V.\n\nWhy does it work? The V chord creates **tension** (it wants to go home), and the I chord provides **resolution**. The IV chord adds variety and momentum. Together they create a satisfying journey of departure and return.`,
       },
       {
         type: 'quiz',
@@ -1276,7 +1276,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Cmaj7 vs C7',
-        content: `These look similar but sound very different:\n\n**Cmaj7** = C, E, G, **B** (major 7th = 11 half steps above root)\nSmooth, stable, sophisticated — used in jazz, bossa nova, and R&B.\n\n**C7** = C, E, G, **Bb** (minor/flat 7th = 10 half steps above root)\nBluesy, tense, demands resolution — used in blues, rock, and jazz.\n\nThe difference is just one half step (B vs Bb), but it completely changes the character. Cmaj7 can sit peacefully. C7 wants to move — specifically to F (the IV chord). This "pull" is the engine of tonal music.`,
+        content: `These look similar but sound very different:\n\n**Cmaj7** = C, E, G, **B** (major 7th = 11 half steps above root)\nSmooth, stable, sophisticated — used in jazz, bossa nova, and R&B.\n\n**C7** = C, E, G, **Bb** (minor/flat 7th = 10 half steps above root)\nBluesy, tense, demands resolution — used in blues, rock, and jazz.\n\n[chords:Cmaj7,C7,G7,Am7,Em7,Dm7]\n\nThe difference is just one half step (B vs Bb), but it completely changes the character. Cmaj7 can sit peacefully. C7 wants to move — specifically to F (the IV chord). This "pull" is the engine of tonal music.`,
       },
       {
         type: 'quiz',

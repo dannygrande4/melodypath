@@ -6,6 +6,8 @@ import { useUserStore } from '@/stores/userStore'
 import { useAudioInit } from '@/hooks/useAudioInit'
 import { useAudioStore } from '@/stores/audioStore'
 import PianoKeyboard from '@/components/Piano/PianoKeyboard'
+import LessonContent from '@/components/Learn/LessonContent'
+import GlossaryText from '@/components/Learn/GlossaryText'
 import Mascot from '@/components/ui/Mascot'
 import { useUIStore } from '@/stores/uiStore'
 import { kidsify } from '@/lib/kidsMode'
@@ -221,15 +223,7 @@ export default function LessonPage() {
         {currentStep?.type === 'text' && (
           <div>
             <h2 className="text-lg font-bold text-surface-900 mb-4">{currentStep.title}</h2>
-            <div className="prose text-surface-700 leading-relaxed whitespace-pre-line">
-              {(isKids ? kidsify(currentStep.content) : currentStep.content)
-                .split(/(\*\*[^*]+\*\*)/).map((part, i) => {
-                if (part.startsWith('**') && part.endsWith('**')) {
-                  return <strong key={i} className="text-surface-900">{part.slice(2, -2)}</strong>
-                }
-                return <span key={i}>{part}</span>
-              })}
-            </div>
+            <LessonContent content={isKids ? kidsify(currentStep.content) : currentStep.content} />
           </div>
         )}
 
@@ -240,7 +234,9 @@ export default function LessonPage() {
 
           return (
             <div>
-              <h2 className="text-lg font-bold text-surface-900 mb-4">{currentStep.question}</h2>
+              <h2 className="text-lg font-bold text-surface-900 mb-4">
+                <GlossaryText text={currentStep.question} />
+              </h2>
               <div className="space-y-2">
                 {currentStep.options.map((opt, i) => {
                   let style = 'bg-white border-surface-200 hover:border-primary-300'
@@ -263,7 +259,8 @@ export default function LessonPage() {
               </div>
               {answered && (
                 <div className={`mt-4 p-3 rounded-lg text-sm ${isCorrect ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
-                  {isCorrect ? 'Correct! ' : 'Not quite. '}{currentStep.explanation}
+                  {isCorrect ? 'Correct! ' : 'Not quite. '}
+                  <GlossaryText text={currentStep.explanation} />
                 </div>
               )}
             </div>
@@ -273,7 +270,9 @@ export default function LessonPage() {
         {currentStep?.type === 'exercise' && (
           <div>
             <h2 className="text-lg font-bold text-surface-900 mb-2">Exercise</h2>
-            <p className="text-surface-600 mb-4">{currentStep.instruction}</p>
+            <p className="text-surface-600 mb-4">
+              <GlossaryText text={currentStep.instruction} />
+            </p>
 
             {/* Progress indicator */}
             <div className="flex gap-1 mb-4">

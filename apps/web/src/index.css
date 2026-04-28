@@ -76,17 +76,18 @@
   color: #fafafa;
 }
 
-/* Kids mode overrides */
+/* Kids mode overrides — DON'T bump --base-font-size: it scales the entire
+   rem-based layout and makes the app feel zoomed in on mobile. Only tweak
+   visual treatment (rounded corners, accent colors). */
 [data-age-mode='kids'] {
-  --base-font-size: 18px;
   --border-radius: 1rem;
   --color-primary: theme('colors.kids.blue');
   --color-accent: theme('colors.kids.yellow');
 }
 
-/* Accessible mode overrides */
+/* Accessible mode overrides — bump line-height for legibility, but keep
+   font-size at 16px so the layout doesn't compress horizontally. */
 [data-age-mode='accessible'] {
-  --base-font-size: 20px;
   --line-height: 1.7;
 }
 

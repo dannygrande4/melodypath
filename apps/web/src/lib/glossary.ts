@@ -1,81 +1,331 @@
 /**
  * Music glossary - simple definitions for every term used in the app.
- * Referenced by WhatIsThis components and tooltips.
+ * Used by both the static WhatIsThis tooltips AND the dynamic in-lesson
+ * GlossaryText component which only highlights terms whose `lessonId` has
+ * been completed by the user.
  */
-export const GLOSSARY: Record<string, { simple: string; detail?: string; lessonId?: string }> = {
-  chord: {
-    simple: 'Three or more notes played at the same time. Major chords sound happy, minor chords sound sad.',
-    lessonId: 'first-chord',
-  },
-  scale: {
-    simple: 'A group of notes that sound good together, played one at a time going up or down. Like a musical ladder.',
-    lessonId: 'major-scale',
-  },
-  interval: {
-    simple: 'The distance between two notes. A small interval = notes close together. A big interval = notes far apart.',
-    detail: 'Intervals have names like "major 3rd" or "perfect 5th" based on how many steps apart the notes are.',
-  },
-  progression: {
-    simple: 'A series of chords played one after another. This is the backbone of every song you hear.',
-    lessonId: 'chord-progressions-intro',
-  },
-  key: {
-    simple: 'The "home base" of a song. It tells you which notes and chords will sound right.',
-    lessonId: 'major-scale',
-  },
-  bpm: {
-    simple: 'Beats Per Minute - how fast the music goes. 60 BPM = one beat per second. 120 BPM = two beats per second.',
-    lessonId: 'rhythm-basics',
-  },
+
+export interface GlossaryEntry {
+  /** Plain-language one-liner. */
+  simple: string
+  /** Optional follow-up paragraph for deeper explanation. */
+  detail?: string
+  /** Lesson that introduces this term. Once completed, the term is taught. */
+  lessonId?: string
+  /** Alternate spellings, plural forms, and synonyms — matched the same way. */
+  aliases?: string[]
+}
+
+export const GLOSSARY: Record<string, GlossaryEntry> = {
+  // ─── Foundations ────────────────────────────────────────────────────────────
   octave: {
-    simple: 'The same note played higher or lower. Going up one octave doubles the pitch.',
-    lessonId: 'notes-basics',
+    simple: 'The distance from one note to the same note higher or lower — like A3 to A4.',
+    detail: 'After 12 notes, you arrive at the same letter again — the cycle repeats at a higher or lower pitch.',
+    lessonId: 'musical-alphabet',
+    aliases: ['octaves'],
+  },
+  'half step': {
+    simple: 'The smallest distance in Western music — one fret on guitar, or one key on piano.',
+    lessonId: 'musical-alphabet',
+    aliases: ['half steps', 'semitone', 'semitones'],
+  },
+  'whole step': {
+    simple: 'Two half steps in a row — two frets on guitar, or two piano keys.',
+    lessonId: 'musical-alphabet',
+    aliases: ['whole steps', 'whole tone', 'tone'],
+  },
+  sharp: {
+    simple: 'Raises a note by one half step. C# is one fret higher than C.',
+    lessonId: 'musical-alphabet',
+    aliases: ['sharps'],
+  },
+  flat: {
+    simple: 'Lowers a note by one half step. Db is one fret lower than D. C# and Db are the same note.',
+    lessonId: 'musical-alphabet',
+    aliases: ['flats'],
+  },
+  enharmonic: {
+    simple: 'Two names for the same pitch — like C# and Db.',
+    lessonId: 'musical-alphabet',
+    aliases: ['enharmonic equivalent', 'enharmonic equivalents'],
+  },
+
+  // ─── Reading the staff ─────────────────────────────────────────────────────
+  staff: {
+    simple: 'The 5 horizontal lines that music is written on. Notes sit on lines or in the spaces between.',
+    lessonId: 'reading-the-staff',
+  },
+  'treble clef': {
+    simple: 'The curly symbol at the start of a staff. Tells you the lines and spaces are higher-pitched notes.',
+    lessonId: 'reading-the-staff',
+  },
+  'ledger line': {
+    simple: 'Tiny extra lines drawn above or below the staff for notes that don\'t fit on the regular 5 lines.',
+    lessonId: 'reading-the-staff',
+    aliases: ['ledger lines'],
+  },
+  'staff notation': {
+    simple: 'Traditional sheet music. Notes are dots on 5 lines. Higher on the lines = higher pitch.',
+    lessonId: 'reading-the-staff',
+  },
+
+  // ─── Major scale ───────────────────────────────────────────────────────────
+  scale: {
+    simple: 'A group of notes in a specific pattern, like a musical ladder you can climb up or down.',
+    lessonId: 'major-scale',
+    aliases: ['scales'],
+  },
+  'major scale': {
+    simple: 'The most common scale in pop music — sounds happy and bright. Pattern: W-W-H-W-W-W-H.',
+    lessonId: 'major-scale',
   },
   root: {
-    simple: 'The "home note" of a chord or scale. Everything else is built from this note.',
+    simple: 'The "home note" of a chord or scale. Everything else is built from it.',
+    lessonId: 'major-scale',
+    aliases: ['root note', 'tonic'],
+  },
+
+  // ─── Key signatures ────────────────────────────────────────────────────────
+  key: {
+    simple: 'The home note and scale a song is built around. A song "in G major" is built from the G major scale.',
+    lessonId: 'key-signatures',
+    aliases: ['keys'],
+  },
+  'key signature': {
+    simple: 'The sharps or flats shown at the start of a piece that tell you which key it\'s in.',
+    lessonId: 'key-signatures',
+    aliases: ['key signatures'],
+  },
+  'circle of fifths': {
+    simple: 'A circle showing all 12 keys arranged so neighbors share most of their notes — a map of how keys relate.',
+    lessonId: 'key-signatures',
+  },
+
+  // ─── Intervals ─────────────────────────────────────────────────────────────
+  interval: {
+    simple: 'The distance between two notes, measured in steps. A major 3rd is 4 half steps; a perfect 5th is 7.',
+    lessonId: 'intervals',
+    aliases: ['intervals'],
+  },
+  'perfect fifth': {
+    simple: 'Seven half steps between two notes. The strongest, most stable interval — used in power chords.',
+    lessonId: 'intervals',
+    aliases: ['perfect 5th'],
+  },
+  'major third': {
+    simple: 'Four half steps. Gives major chords their happy sound.',
+    lessonId: 'intervals',
+    aliases: ['major 3rd'],
+  },
+  'minor third': {
+    simple: 'Three half steps. Gives minor chords their sad/serious sound.',
+    lessonId: 'intervals',
+    aliases: ['minor 3rd'],
+  },
+
+  // ─── First chord / triads ──────────────────────────────────────────────────
+  chord: {
+    simple: 'Three or more notes played at the same time. C major = C + E + G.',
     lessonId: 'first-chord',
+    aliases: ['chords'],
+  },
+  triad: {
+    simple: 'A 3-note chord built by stacking 3rds — root, third, fifth. The basic building block of harmony.',
+    lessonId: 'major-minor-triads',
+    aliases: ['triads'],
+  },
+  'major chord': {
+    simple: 'Built from root + major 3rd + perfect 5th. Sounds happy and resolved.',
+    lessonId: 'major-minor-triads',
+    aliases: ['major chords'],
+  },
+  'minor chord': {
+    simple: 'Built from root + minor 3rd + perfect 5th. Sounds sad or serious.',
+    lessonId: 'major-minor-triads',
+    aliases: ['minor chords'],
+  },
+
+  // ─── Rhythm ────────────────────────────────────────────────────────────────
+  beat: {
+    simple: 'The steady pulse you tap your foot to. Most pop songs have 4 beats per measure.',
+    lessonId: 'rhythm-basics',
+    aliases: ['beats'],
+  },
+  tempo: {
+    simple: 'How fast a song goes, measured in BPM. 60 BPM = one beat per second.',
+    lessonId: 'rhythm-basics',
+  },
+  bpm: {
+    simple: 'Beats Per Minute — how fast the beat is. 120 BPM is medium-fast.',
+    lessonId: 'rhythm-basics',
+  },
+  measure: {
+    simple: 'A group of beats — usually 4. Music is divided into measures separated by bar lines.',
+    lessonId: 'rhythm-basics',
+    aliases: ['measures', 'bar', 'bars'],
+  },
+  metronome: {
+    simple: 'A tool that makes a clicking sound at a steady speed. Helps you keep time when you practice.',
+    lessonId: 'rhythm-basics',
+  },
+  'time signature': {
+    simple: 'The two stacked numbers at the start of music. Top = beats per measure. Bottom = which note value gets the beat.',
+    lessonId: 'three-four-six-eight',
+    aliases: ['time signatures'],
+  },
+
+  // ─── Note values ───────────────────────────────────────────────────────────
+  'quarter note': {
+    simple: 'One beat in 4/4 time. The most common rhythm.',
+    lessonId: 'quarter-eighth-notes',
+    aliases: ['quarter notes'],
+  },
+  'eighth note': {
+    simple: 'Half a beat — two of these fit in one beat.',
+    lessonId: 'quarter-eighth-notes',
+    aliases: ['eighth notes'],
+  },
+  rest: {
+    simple: 'Silence. Just as important as notes — rests give music its rhythm and breath.',
+    lessonId: 'rests-and-ties',
+    aliases: ['rests'],
+  },
+  tie: {
+    simple: 'A curved line that joins two notes into one longer sound.',
+    lessonId: 'rests-and-ties',
+    aliases: ['ties'],
+  },
+
+  // ─── Power & sus chords ────────────────────────────────────────────────────
+  'power chord': {
+    simple: 'Just root + 5th, no 3rd. Not major or minor — sounds neutral and aggressive. Heart of rock.',
+    lessonId: 'power-chords',
+    aliases: ['power chords'],
+  },
+  'suspended chord': {
+    simple: 'A chord where the 3rd is replaced with a 2nd or 4th. Sounds open and unresolved.',
+    lessonId: 'suspended-chords',
+    aliases: ['suspended chords', 'sus chord', 'sus chords'],
+  },
+
+  // ─── Progressions ──────────────────────────────────────────────────────────
+  progression: {
+    simple: 'A sequence of chords played in order — the backbone of every song.',
+    lessonId: 'one-four-five',
+    aliases: ['progressions', 'chord progression', 'chord progressions'],
+  },
+  'roman numeral': {
+    simple: 'A shorthand for chords in any key. I = first chord, IV = fourth chord, V = fifth chord. Capital = major, lowercase = minor.',
+    lessonId: 'one-four-five',
+    aliases: ['roman numerals'],
+  },
+
+  // ─── Minor keys ────────────────────────────────────────────────────────────
+  'minor key': {
+    simple: 'A key built on the minor scale. Sounds darker and more serious than a major key.',
+    lessonId: 'minor-keys',
+    aliases: ['minor keys'],
+  },
+  'relative minor': {
+    simple: 'Every major key has a relative minor that uses the same notes — like C major and A minor.',
+    lessonId: 'minor-keys',
+  },
+
+  // ─── Pentatonic & blues ────────────────────────────────────────────────────
+  pentatonic: {
+    simple: 'A 5-note scale that sounds good over almost anything. The most popular soloing scale.',
+    lessonId: 'pentatonic-scales',
+    aliases: ['pentatonic scale', 'pentatonic scales'],
+  },
+  'blues scale': {
+    simple: 'The minor pentatonic plus one extra "blue note" (b5) that gives blues its signature sound.',
+    lessonId: 'blues-scale',
+  },
+
+  // ─── 7th chords ────────────────────────────────────────────────────────────
+  'seventh chord': {
+    simple: 'A 4-note chord — a triad with an extra 7th on top. Sounds richer and more colorful.',
+    lessonId: 'seventh-chords',
+    aliases: ['seventh chords', '7th chord', '7th chords'],
+  },
+  inversion: {
+    simple: 'Playing a chord with a note other than the root on the bottom — same chord, different feel.',
+    lessonId: 'chord-inversions',
+    aliases: ['inversions', 'chord inversion', 'chord inversions'],
   },
   voicing: {
     simple: 'A different way to play the same chord. Same notes, different positions on the guitar or piano.',
     lessonId: 'chord-inversions',
   },
+
+  // ─── Modes ─────────────────────────────────────────────────────────────────
+  mode: {
+    simple: 'A scale built by starting on a different note of the major scale. There are 7 modes — each has its own mood.',
+    lessonId: 'intro-to-modes',
+    aliases: ['modes'],
+  },
+
+  // ─── Guitar physical reference (always available) ─────────────────────────
   fret: {
     simple: 'The metal bars on a guitar neck. Pressing a string behind a fret changes the note.',
-  },
-  'roman numeral': {
-    simple: 'A shorthand for chords in any key. I = first chord, IV = fourth chord, V = fifth chord. Capital = major, lowercase = minor.',
-    lessonId: 'chord-progressions-intro',
-  },
-  triad: {
-    simple: 'The simplest chord - just 3 notes: the 1st, 3rd, and 5th of a scale.',
-    lessonId: 'first-chord',
-  },
-  mode: {
-    simple: 'A scale that starts on a different note of the major scale. Each mode has its own mood - Dorian sounds jazzy, Phrygian sounds Spanish.',
-    lessonId: 'intro-to-modes',
-  },
-  metronome: {
-    simple: 'A tool that makes a clicking sound at a steady speed. It helps you keep time when you practice.',
-    lessonId: 'rhythm-basics',
+    aliases: ['frets'],
   },
   tab: {
-    simple: 'Guitar tablature - a way to write music for guitar using numbers. Each number tells you which fret to press on which string.',
-  },
-  'staff notation': {
-    simple: 'Traditional sheet music. Notes are dots on 5 lines. Higher on the lines = higher pitch.',
-  },
-  'time signature': {
-    simple: 'Tells you how many beats are in each bar. 4/4 = four beats per bar (the most common).',
-    lessonId: 'rhythm-basics',
-  },
-  combo: {
-    simple: 'Hitting notes in a row without missing. The longer your streak, the more points you earn!',
+    simple: 'Guitar tablature — a way to write music using numbers. Each number = which fret to press on which string.',
   },
   'open string': {
     simple: 'Playing a guitar string without pressing any fret. The 6 open strings are E, A, D, G, B, E.',
+    aliases: ['open strings'],
   },
 }
 
-export function getGlossaryEntry(term: string) {
-  return GLOSSARY[term.toLowerCase()] ?? null
+export function getGlossaryEntry(term: string): GlossaryEntry | null {
+  const key = term.toLowerCase()
+  if (GLOSSARY[key]) return GLOSSARY[key]
+  for (const entry of Object.values(GLOSSARY)) {
+    if (entry.aliases?.some((a) => a.toLowerCase() === key)) return entry
+  }
+  return null
+}
+
+/**
+ * Build a regex matching any unlocked glossary term (or alias).
+ * `unlockedIds` is the user's completed-lesson set. Terms with no `lessonId`
+ * are always considered taught (e.g. fret, tab, open string).
+ *
+ * Sort longest-first so multi-word terms ("perfect fifth") win over substrings.
+ */
+export function buildGlossaryRegex(
+  unlockedIds: Set<string>,
+  options: { assumeAllUnlocked?: boolean } = {},
+): {
+  regex: RegExp | null
+  entryFor: (match: string) => GlossaryEntry | null
+} {
+  const variantToEntry = new Map<string, GlossaryEntry>()
+  const variants: string[] = []
+
+  for (const [canonical, entry] of Object.entries(GLOSSARY)) {
+    const isTaught =
+      options.assumeAllUnlocked || !entry.lessonId || unlockedIds.has(entry.lessonId)
+    if (!isTaught) continue
+    const all = [canonical, ...(entry.aliases ?? [])]
+    for (const v of all) {
+      variantToEntry.set(v.toLowerCase(), entry)
+      variants.push(v)
+    }
+  }
+
+  if (variants.length === 0) {
+    return { regex: null, entryFor: () => null }
+  }
+
+  variants.sort((a, b) => b.length - a.length)
+  const escaped = variants.map((v) => v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+  const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi')
+
+  return {
+    regex,
+    entryFor: (match: string) => variantToEntry.get(match.toLowerCase()) ?? null,
+  }
 }
