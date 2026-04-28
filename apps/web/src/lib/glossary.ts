@@ -170,7 +170,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   },
   'time signature': {
     simple: 'The two stacked numbers at the start of music. Top = beats per measure. Bottom = which note value gets the beat.',
-    lessonId: 'three-four-six-eight',
+    lessonId: 'rhythm-basics',
     aliases: ['time signatures'],
   },
 
