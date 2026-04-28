@@ -302,42 +302,6 @@ export default function ChordExplorer() {
         </div>
       )}
 
-      {/* Piano */}
-      <div>
-        <h2 className="text-sm font-semibold text-surface-500 mb-3">Piano</h2>
-        {/* Full piano on desktop, compact 2-octave on mobile */}
-        <div className="overflow-x-auto pb-2 hidden sm:block">
-          <PianoKeyboard
-            startOctave={3}
-            octaves={3}
-            highlightedNotes={pianoHighlights}
-            activeNotes={activeNotes}
-            onNotePlay={handlePianoNote}
-            showLabels
-          />
-        </div>
-        <div className="overflow-x-auto pb-2 sm:hidden">
-          <PianoKeyboard
-            startOctave={3}
-            octaves={2}
-            highlightedNotes={pianoHighlights}
-            activeNotes={activeNotes}
-            onNotePlay={handlePianoNote}
-            showLabels
-            compact
-          />
-        </div>
-        {/* Legend */}
-        {mode === 'explore' && (
-          <div className="flex gap-4 mt-3 text-xs text-surface-500">
-            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-root" /> Root</span>
-            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-third" /> 3rd</span>
-            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-fifth" /> 5th</span>
-            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-seventh" /> 7th</span>
-          </div>
-        )}
-      </div>
-
       {/* Guitar */}
       {mode === 'explore' && (
         <div>
@@ -410,6 +374,42 @@ export default function ChordExplorer() {
           </div>
         </div>
       )}
+
+      {/* Piano */}
+      <div>
+        <h2 className="text-sm font-semibold text-surface-500 mb-3">Piano</h2>
+        {/* Full piano on desktop, compact 2-octave on mobile */}
+        <div className="overflow-x-auto pb-2 hidden sm:block">
+          <PianoKeyboard
+            startOctave={3}
+            octaves={3}
+            highlightedNotes={pianoHighlights}
+            activeNotes={activeNotes}
+            onNotePlay={handlePianoNote}
+            showLabels
+          />
+        </div>
+        <div className="overflow-x-auto pb-2 sm:hidden">
+          <PianoKeyboard
+            startOctave={3}
+            octaves={2}
+            highlightedNotes={pianoHighlights}
+            activeNotes={activeNotes}
+            onNotePlay={handlePianoNote}
+            showLabels
+            compact
+          />
+        </div>
+        {/* Legend */}
+        {mode === 'explore' && (
+          <div className="flex gap-4 mt-3 text-xs text-surface-500">
+            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-root" /> Root</span>
+            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-third" /> 3rd</span>
+            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-fifth" /> 5th</span>
+            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-seventh" /> 7th</span>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

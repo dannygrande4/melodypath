@@ -262,6 +262,20 @@ export default function ScaleExplorer() {
         </div>
       )}
 
+      {/* Guitar */}
+      <div>
+        <h2 className="text-sm font-semibold text-surface-500 mb-3">Guitar Fretboard</h2>
+        <div className="bg-white rounded-xl border border-surface-200 p-2 sm:p-4 overflow-x-auto">
+          <GuitarFretboard
+            frets={12}
+            notes={guitarNotes}
+            activeNotes={activeNotes}
+            onNotePlay={handleGuitarNote}
+            showLabels
+          />
+        </div>
+      </div>
+
       {/* Piano */}
       <div>
         <h2 className="text-sm font-semibold text-surface-500 mb-3">Piano</h2>
@@ -292,20 +306,6 @@ export default function ScaleExplorer() {
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-third" /> 3rd</span>
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-fifth" /> 5th</span>
           <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-note-seventh" /> 7th</span>
-        </div>
-      </div>
-
-      {/* Guitar */}
-      <div>
-        <h2 className="text-sm font-semibold text-surface-500 mb-3">Guitar Fretboard</h2>
-        <div className="bg-white rounded-xl border border-surface-200 p-2 sm:p-4 overflow-x-auto">
-          <GuitarFretboard
-            frets={12}
-            notes={guitarNotes}
-            activeNotes={activeNotes}
-            onNotePlay={handleGuitarNote}
-            showLabels
-          />
         </div>
       </div>
     </div>

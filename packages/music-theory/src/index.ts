@@ -11,10 +11,20 @@ const ENHARMONIC_MAP: Record<string, string> = {
   'B#': 'C',
   'Cb': 'B',
   'Fb': 'E',
+  'C##': 'D',
+  'D##': 'E',
   'E##': 'F#',
+  'F##': 'G',
+  'G##': 'A',
+  'A##': 'B',
   'B##': 'C#',
   'Cbb': 'Bb',
+  'Dbb': 'C',
+  'Ebb': 'D',
   'Fbb': 'Eb',
+  'Gbb': 'F',
+  'Abb': 'G',
+  'Bbb': 'A',
 }
 
 /** Normalize a pitch class, e.g. "E#" -> "F". Preserves octave suffix if present. */

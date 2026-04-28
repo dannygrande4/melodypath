@@ -92,13 +92,13 @@ export default function Onboarding() {
             <h2 className="text-2xl font-bold text-center text-surface-900 mb-2">Pick your instrument</h2>
             <p className="text-surface-500 text-center mb-8">You can change this later in Settings.</p>
             <div className="grid grid-cols-3 gap-4">
-              <button className={btnClass} onClick={() => handleInstrument('PIANO')}>
-                <span className="text-4xl">🎹</span>
-                <span className="font-bold">Piano</span>
-              </button>
               <button className={btnClass} onClick={() => handleInstrument('GUITAR')}>
                 <span className="text-4xl">🎸</span>
                 <span className="font-bold">Guitar</span>
+              </button>
+              <button className={btnClass} onClick={() => handleInstrument('PIANO')}>
+                <span className="text-4xl">🎹</span>
+                <span className="font-bold">Piano</span>
               </button>
               <button className={btnClass} onClick={() => handleInstrument('GENERAL')}>
                 <span className="text-4xl">🎼</span>

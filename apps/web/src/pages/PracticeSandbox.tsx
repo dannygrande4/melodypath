@@ -9,8 +9,8 @@ import InfoTooltip from '@/components/ui/InfoTooltip'
 import WhatIsThis from '@/components/ui/WhatIsThis'
 
 const INSTRUMENTS = [
-  { value: 'piano' as const, icon: '🎹', label: 'Piano' },
   { value: 'guitar' as const, icon: '🎸', label: 'Guitar' },
+  { value: 'piano' as const, icon: '🎹', label: 'Piano' },
   { value: 'synth' as const, icon: '🎵', label: 'Synth' },
 ]
 

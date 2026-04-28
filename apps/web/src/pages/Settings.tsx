@@ -11,8 +11,8 @@ const AGE_OPTIONS: { value: AgeGroup; label: string; desc: string }[] = [
 ]
 
 const INSTRUMENT_OPTIONS: { value: InstrumentType; icon: string; label: string }[] = [
-  { value: 'PIANO', icon: '🎹', label: 'Piano / Keyboard' },
   { value: 'GUITAR', icon: '🎸', label: 'Guitar' },
+  { value: 'PIANO', icon: '🎹', label: 'Piano / Keyboard' },
   { value: 'GENERAL', icon: '🎼', label: 'Other / General' },
 ]
 
