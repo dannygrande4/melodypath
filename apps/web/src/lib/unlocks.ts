@@ -2,9 +2,22 @@ import { getLessonById } from '@/lib/lessons/lessonData'
 
 // ─── Admin override ──────────────────────────────────────────────────────────
 // Emails listed here always see every section unlocked, regardless of progress.
-const ADMIN_EMAILS = ['danny@moniquemusic.com']
+// Also: setting localStorage["moniquemusic-admin"] = "true" forces admin on for
+// the local browser, useful when you aren't signed in or use a different email.
+const ADMIN_EMAILS = ['danny@moniquemusic.com', 'danny@grandes.ca']
+const ADMIN_LOCAL_KEY = 'moniquemusic-admin'
+
+function isLocalhost(): boolean {
+  if (typeof window === 'undefined') return false
+  const host = window.location?.hostname ?? ''
+  return host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local')
+}
 
 export function isAdminEmail(email: string | null | undefined): boolean {
+  if (typeof window !== 'undefined' && window.localStorage?.getItem(ADMIN_LOCAL_KEY) === 'true') {
+    return true
+  }
+  if (isLocalhost()) return true
   if (!email) return false
   return ADMIN_EMAILS.includes(email.toLowerCase())
 }
