@@ -81,7 +81,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Half Steps and Whole Steps',
-        content: `The distance between two adjacent notes is called a **half step** (also called a semitone). On a piano, a half step is the distance from any key to the very next key, whether black or white.\n\nA **whole step** (also called a whole tone) equals two half steps. For example, C to D is a whole step because there is a note (C#) in between. But E to F is a half step because there is nothing in between.\n\nThese building blocks — half steps and whole steps — are used to construct every scale, chord, and melody in Western music.`,
+        content: `The distance between two adjacent notes is called a **half step** (also called a semitone). On a piano, a half step is the distance from any key to the very next key, whether black or white.\n\nA **whole step** (also called a whole tone) equals two half steps. For example, C to D is a whole step because there is a note (C#) in between. But E to F is a half step because there is nothing in between.\n\n[staff-notes:C4,C#4,D4|Half step then whole step from C]\n\nThese building blocks — half steps and whole steps — are used to construct every scale, chord, and melody in Western music.`,
       },
       {
         type: 'exercise',
@@ -109,7 +109,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The Treble Clef',
-        content: `The most common clef is the **treble clef** (also called the G clef because it curls around the G line). In treble clef, the five lines from bottom to top are:\n\n**E  G  B  D  F** — remember with "**E**very **G**ood **B**oy **D**oes **F**ine"\n\nThe four spaces from bottom to top spell:\n\n**F  A  C  E** — which conveniently spells the word "FACE"\n\nTogether, the lines and spaces give you the notes from E4 up to F5 without any extra markings.`,
+        content: `The most common clef is the **treble clef** (also called the G clef because it curls around the G line). In treble clef, the five lines from bottom to top are:\n\n**E  G  B  D  F** — remember with "**E**very **G**ood **B**oy **D**oes **F**ine"\n\n[staff-notes:E4,G4,B4,D5,F5|Lines: every good boy does fine]\n\nThe four spaces from bottom to top spell:\n\n**F  A  C  E** — which conveniently spells the word "FACE"\n\n[staff-notes:F4,A4,C5,E5|Spaces spell FACE]\n\nTogether, the lines and spaces give you the notes from E4 up to F5 without any extra markings.`,
       },
       {
         type: 'quiz',
@@ -128,7 +128,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Ledger Lines',
-        content: `What happens when a note is too high or too low for the five-line staff? We add short extra lines called **ledger lines**.\n\nFor example, **Middle C** (C4) sits on a ledger line just below the treble clef staff. Notes can stack above or below the staff using as many ledger lines as needed, though more than three or four becomes hard to read.\n\nLedger lines are simply extensions of the staff, following the same pattern of lines and spaces.`,
+        content: `What happens when a note is too high or too low for the five-line staff? We add short extra lines called **ledger lines**.\n\nFor example, **Middle C** (C4) sits on a ledger line just below the treble clef staff.\n\n[staff-notes:C4,D4,E4,F4|Middle C and the notes just above]\n\nNotes can stack above or below the staff using as many ledger lines as needed, though more than three or four becomes hard to read.\n\nLedger lines are simply extensions of the staff, following the same pattern of lines and spaces.`,
       },
       {
         type: 'exercise',
@@ -156,7 +156,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'C Major: The Easiest Example',
-        content: `The easiest major scale is **C major** because it uses only the white keys on a piano:\n\n**C → D → E → F → G → A → B → C**\n\nLet us verify the pattern:\n- C to D = Whole step\n- D to E = Whole step\n- E to F = Half step\n- F to G = Whole step\n- G to A = Whole step\n- A to B = Whole step\n- B to C = Half step\n\nThat gives us W-W-H-W-W-W-H — the major scale formula. You can start on any note and apply this same pattern to build a major scale in any key.`,
+        content: `The easiest major scale is **C major** because it uses only the white keys on a piano:\n\n**C → D → E → F → G → A → B → C**\n\n[staff:c-major-scale]\n\nLet us verify the pattern:\n- C to D = Whole step\n- D to E = Whole step\n- E to F = Half step\n- F to G = Whole step\n- G to A = Whole step\n- A to B = Whole step\n- B to C = Half step\n\nThat gives us W-W-H-W-W-W-H — the major scale formula. You can start on any note and apply this same pattern to build a major scale in any key.`,
       },
       {
         type: 'quiz',
@@ -193,7 +193,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What is a Key Signature?',
-        content: `When you build a major scale starting on a note other than C, you need sharps or flats to maintain the W-W-H-W-W-W-H pattern.\n\nFor example, the G major scale is: G A B C D E **F#** G. That F# is needed to keep the correct pattern. Rather than writing a sharp on every F in the music, composers place one sharp at the beginning of the staff. This is the **key signature**.\n\nA key signature tells the performer: "Every time you see this note, play it sharp (or flat) unless told otherwise." It saves space and makes the music cleaner to read.`,
+        content: `When you build a major scale starting on a note other than C, you need sharps or flats to maintain the W-W-H-W-W-W-H pattern.\n\nFor example, the G major scale is: G A B C D E **F#** G. That F# is needed to keep the correct pattern.\n\n[staff:g-major-scale]\n\nRather than writing a sharp on every F in the music, composers place one sharp at the beginning of the staff. This is the **key signature**.\n\nA key signature tells the performer: "Every time you see this note, play it sharp (or flat) unless told otherwise." It saves space and makes the music cleaner to read.`,
       },
       {
         type: 'quiz',
@@ -240,7 +240,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Interval Qualities',
-        content: `There are two families of intervals:\n\n**Perfect intervals:** Unison (1st), 4th, 5th, and octave (8th). These sound very stable and consonant.\n\n**Major/minor intervals:** 2nd, 3rd, 6th, and 7th. The major version is one half step larger than the minor version.\n\nFrom C in the C major scale:\n- C to D = Major 2nd (2 half steps)\n- C to E = Major 3rd (4 half steps)\n- C to F = Perfect 4th (5 half steps)\n- C to G = Perfect 5th (7 half steps)\n- C to A = Major 6th (9 half steps)\n- C to B = Major 7th (11 half steps)\n- C to C = Perfect octave (12 half steps)`,
+        content: `There are two families of intervals:\n\n**Perfect intervals:** Unison (1st), 4th, 5th, and octave (8th). These sound very stable and consonant.\n\n**Major/minor intervals:** 2nd, 3rd, 6th, and 7th. The major version is one half step larger than the minor version.\n\n[staff-notes:C4,D4,E4,F4,G4,A4,B4,C5|Intervals from C up the major scale]\n\nFrom C in the C major scale:\n- C to D = Major 2nd (2 half steps)\n- C to E = Major 3rd (4 half steps)\n- C to F = Perfect 4th (5 half steps)\n- C to G = Perfect 5th (7 half steps)\n- C to A = Major 6th (9 half steps)\n- C to B = Major 7th (11 half steps)\n- C to C = Perfect octave (12 half steps)`,
       },
       {
         type: 'quiz',
@@ -806,7 +806,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Chords in a Minor Key',
-        content: `Just as major keys have a predictable set of chords, so do minor keys. In A minor (natural):\n\n- **i** = Am (minor)\n- **ii°** = Bdim (diminished)\n- **III** = C (major)\n- **iv** = Dm (minor)\n- **v** = Em (minor)\n- **VI** = F (major)\n- **VII** = G (major)\n\nNotice the pattern is different from major: the i, iv, and v are minor, while III, VI, and VII are major. The most common minor progression is **i - iv - v** or **i - VI - VII**.`,
+        content: `Just as major keys have a predictable set of chords, so do minor keys. In A minor (natural):\n\n- **i** = Am (minor)\n- **ii°** = Bdim (diminished)\n- **III** = C (major)\n- **iv** = Dm (minor)\n- **v** = Em (minor)\n- **VI** = F (major)\n- **VII** = G (major)\n\n[chords:Am,Dm,Em,F,G]\n\nNotice the pattern is different from major: the i, iv, and v are minor, while III, VI, and VII are major. The most common minor progression is **i - iv - v** or **i - VI - VII**.`,
       },
       {
         type: 'quiz',
@@ -841,7 +841,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The I-V-vi-IV Progression',
-        content: `The **I-V-vi-IV** progression (sometimes called the "axis progression" or the "four-chord song") is arguably the most used progression in modern pop music.\n\nIn C major: **C - G - Am - F**\n\nSongs that use it include "Let It Be" (Beatles), "No Woman No Cry" (Bob Marley), "With or Without You" (U2), "Someone Like You" (Adele), "Despacito," and hundreds more.\n\nIt works because it creates a perfect emotional arc: confidence (I) → lift (V) → vulnerability (vi) → warmth (IV) → back to confidence.`,
+        content: `The **I-V-vi-IV** progression (sometimes called the "axis progression" or the "four-chord song") is arguably the most used progression in modern pop music.\n\nIn C major: **C - G - Am - F**\n\n[chords:C,G,Am,F]\n\nSongs that use it include "Let It Be" (Beatles), "No Woman No Cry" (Bob Marley), "With or Without You" (U2), "Someone Like You" (Adele), "Despacito," and hundreds more.\n\nIt works because it creates a perfect emotional arc: confidence (I) → lift (V) → vulnerability (vi) → warmth (IV) → back to confidence.`,
       },
       {
         type: 'quiz',
@@ -924,7 +924,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The Natural Minor Formula',
-        content: `The **natural minor scale** uses the pattern: **W H W W H W W**\n\nCompare this to the major scale (W W H W W W H) — the half steps have shifted. This shift is what creates the darker, more somber sound.\n\nYou can build a natural minor scale from any root note using this formula. For A minor:\nA → B (W) → C (H) → D (W) → E (W) → F (H) → G (W) → A\n\nThe natural minor scale is the most commonly used minor scale in rock, pop, and folk music. It is also called the **Aeolian mode** — we will explore modes in detail later.`,
+        content: `The **natural minor scale** uses the pattern: **W H W W H W W**\n\nCompare this to the major scale (W W H W W W H) — the half steps have shifted. This shift is what creates the darker, more somber sound.\n\nYou can build a natural minor scale from any root note using this formula. For A minor:\nA → B (W) → C (H) → D (W) → E (W) → F (H) → G (W) → A\n\n[staff:a-minor-scale]\n\nThe natural minor scale is the most commonly used minor scale in rock, pop, and folk music. It is also called the **Aeolian mode** — we will explore modes in detail later.`,
       },
       {
         type: 'quiz',
@@ -966,7 +966,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Why Five Notes?',
-        content: `The **pentatonic scale** uses only 5 notes instead of the usual 7. By removing the two notes that create the most tension (the half steps), you get a scale that sounds good over almost anything.\n\nThe **major pentatonic** removes the 4th and 7th from the major scale:\nC major pentatonic: **C D E G A** (no F, no B)\n\nThe **minor pentatonic** removes the 2nd and 6th from the natural minor:\nA minor pentatonic: **A C D E G** (no B, no F)\n\nNotice these are the same five notes! C major pentatonic and A minor pentatonic are relatives, just like their full-scale counterparts.`,
+        content: `The **pentatonic scale** uses only 5 notes instead of the usual 7. By removing the two notes that create the most tension (the half steps), you get a scale that sounds good over almost anything.\n\nThe **major pentatonic** removes the 4th and 7th from the major scale:\nC major pentatonic: **C D E G A** (no F, no B)\n\n[staff:c-major-pentatonic]\n\nThe **minor pentatonic** removes the 2nd and 6th from the natural minor:\nA minor pentatonic: **A C D E G** (no B, no F)\n\n[staff:a-minor-pentatonic]\n\nNotice these are the same five notes! C major pentatonic and A minor pentatonic are relatives, just like their full-scale counterparts.`,
       },
       {
         type: 'quiz',
@@ -1008,7 +1008,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Adding the Blue Note',
-        content: `The **blues scale** is the minor pentatonic with one crucial addition — the **flat 5th**, also called the **blue note**.\n\nA blues scale: **A C D Eb E G A**\n\nFormula: 1 b3 4 **b5** 5 b7\n\nThat b5 (Eb in A blues) is the magic ingredient. It creates a gritty, expressive tension that immediately sounds "bluesy." This single note is arguably the most emotionally charged sound in American popular music.\n\nThe blue note sits right between the 4th and the 5th — an unstable, "in the cracks" place that begs to resolve.`,
+        content: `The **blues scale** is the minor pentatonic with one crucial addition — the **flat 5th**, also called the **blue note**.\n\nA blues scale: **A C D Eb E G A**\n\nFormula: 1 b3 4 **b5** 5 b7\n\n[staff-notes:A4,C5,D5,Eb5,E5,G5,A5|A blues scale — Eb is the blue note]\n\nThat b5 (Eb in A blues) is the magic ingredient. It creates a gritty, expressive tension that immediately sounds "bluesy." This single note is arguably the most emotionally charged sound in American popular music.\n\nThe blue note sits right between the 4th and the 5th — an unstable, "in the cracks" place that begs to resolve.`,
       },
       {
         type: 'quiz',
@@ -1353,7 +1353,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The Most Important Jazz Progression',
-        content: `The **ii-V-I** (two-five-one) is the backbone of jazz and appears constantly in pop, R&B, and film music.\n\nIn C major:\n- **ii** = Dm7 (D minor 7th)\n- **V** = G7 (G dominant 7th)\n- **I** = Cmaj7 (C major 7th)\n\nIt creates a beautiful arc: **preparation → tension → resolution**. The ii chord sets up the motion, the V chord creates maximum tension (the dominant wants to resolve), and the I chord brings it home with satisfaction.`,
+        content: `The **ii-V-I** (two-five-one) is the backbone of jazz and appears constantly in pop, R&B, and film music.\n\nIn C major:\n- **ii** = Dm7 (D minor 7th)\n- **V** = G7 (G dominant 7th)\n- **I** = Cmaj7 (C major 7th)\n\n[chords:Dm7,G7,Cmaj7]\n\nIt creates a beautiful arc: **preparation → tension → resolution**. The ii chord sets up the motion, the V chord creates maximum tension (the dominant wants to resolve), and the I chord brings it home with satisfaction.`,
       },
       {
         type: 'quiz',
@@ -1449,7 +1449,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Diminished 7th Chords and Passing Chords',
-        content: `A **diminished 7th chord** stacks another minor 3rd on top: root, m3, dim5, dim7. Every note is a minor 3rd apart.\n\nC dim7 = C, Eb, Gb, Bbb (A)\n\nA remarkable property: because the notes are equally spaced, there are only 3 distinct diminished 7th chords. C°7 = Eb°7 = Gb°7 = A°7 (same notes, different spellings).\n\nDiminished chords are often used as **passing chords** — connecting two diatonic chords by chromatic step. Example: C → C#dim → Dm. The diminished chord "passes" smoothly between C and Dm.`,
+        content: `A **diminished 7th chord** stacks another minor 3rd on top: root, m3, dim5, dim7. Every note is a minor 3rd apart.\n\nC dim7 = C, Eb, Gb, Bbb (A)\n\n[chords:Bdim,Adim]\n\nA remarkable property: because the notes are equally spaced, there are only 3 distinct diminished 7th chords. C°7 = Eb°7 = Gb°7 = A°7 (same notes, different spellings).\n\nDiminished chords are often used as **passing chords** — connecting two diatonic chords by chromatic step. Example: C → C#dim → Dm. The diminished chord "passes" smoothly between C and Dm.`,
       },
       {
         type: 'quiz',
@@ -1491,7 +1491,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Using Augmented Chords',
-        content: `Augmented chords appear in several musical contexts:\n\n- **As a dominant substitution:** C+ can resolve to F (the G# pulls up to A, the 3rd of F)\n- **In ascending bass lines:** C → C+ → F (the bass walks C → E → F)\n- **In the whole-tone scale:** The whole-tone scale (all whole steps) generates augmented chords naturally\n\nYou hear augmented chords in "Oh Darling" (Beatles), James Bond themes, and classical music by Debussy and Liszt. They are less common than diminished chords but add a unique, mysterious color.`,
+        content: `Augmented chords appear in several musical contexts:\n\n[chords:Caug,Eaug]\n\n- **As a dominant substitution:** C+ can resolve to F (the G# pulls up to A, the 3rd of F)\n- **In ascending bass lines:** C → C+ → F (the bass walks C → E → F)\n- **In the whole-tone scale:** The whole-tone scale (all whole steps) generates augmented chords naturally\n\nYou hear augmented chords in "Oh Darling" (Beatles), James Bond themes, and classical music by Debussy and Liszt. They are less common than diminished chords but add a unique, mysterious color.`,
       },
       {
         type: 'quiz',
@@ -1521,7 +1521,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Add Chords',
-        content: `**Add chords** include an extra note without adding the 7th. This is different from extended chords (9th, 11th, 13th) which imply the 7th is present.\n\n- **Cadd9** = C, E, G, D (adds the 9th/2nd, NO 7th)\n- **Cadd11** = C, E, G, F (adds the 11th/4th, NO 7th)\n\nCompare:\n- Cadd9 = C, E, G, D (no 7th — open, jangly)\n- C9 = C, E, G, Bb, D (includes dom7 — jazzy, bluesy)\n\nAdd9 chords are extremely popular in pop and rock. "Every Breath You Take" (The Police), "Wonderwall" (Oasis), and many acoustic songs use add9 chords for their sparkling, open quality.`,
+        content: `**Add chords** include an extra note without adding the 7th. This is different from extended chords (9th, 11th, 13th) which imply the 7th is present.\n\n- **Cadd9** = C, E, G, D (adds the 9th/2nd, NO 7th)\n- **Cadd11** = C, E, G, F (adds the 11th/4th, NO 7th)\n\n[chords:Cadd9,Gadd9,Dadd9]\n\nCompare:\n- Cadd9 = C, E, G, D (no 7th — open, jangly)\n- C9 = C, E, G, Bb, D (includes dom7 — jazzy, bluesy)\n\nAdd9 chords are extremely popular in pop and rock. "Every Breath You Take" (The Police), "Wonderwall" (Oasis), and many acoustic songs use add9 chords for their sparkling, open quality.`,
       },
       {
         type: 'quiz',
@@ -1575,7 +1575,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Walking Bass Lines',
-        content: `Slash chords are often used to create smooth, **stepwise bass lines** that move independently from the chords above.\n\n**Descending bass line:** C → C/B → Am → Am/G → F\nBass: C → B → A → G → F (smooth chromatic/stepwise descent)\n\nThis is one of the most beautiful sounds in music. You hear it in "A Whiter Shade of Pale," "Stairway to Heaven," and countless ballads.\n\n**Pedal tones** are the opposite concept: the bass note stays on one pitch while the chords change above. For example: C/G → Dm/G → G → G7 — the bass holds G throughout, creating harmonic tension that resolves dramatically.`,
+        content: `Slash chords are often used to create smooth, **stepwise bass lines** that move independently from the chords above.\n\n[chords:G/B,C/G,D/F#]\n\n**Descending bass line:** C → C/B → Am → Am/G → F\nBass: C → B → A → G → F (smooth chromatic/stepwise descent)\n\nThis is one of the most beautiful sounds in music. You hear it in "A Whiter Shade of Pale," "Stairway to Heaven," and countless ballads.\n\n**Pedal tones** are the opposite concept: the bass note stays on one pitch while the chords change above. For example: C/G → Dm/G → G → G7 — the bass holds G throughout, creating harmonic tension that resolves dramatically.`,
       },
       {
         type: 'quiz',

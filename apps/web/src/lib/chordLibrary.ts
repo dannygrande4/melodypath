@@ -141,6 +141,54 @@ export const CHORD_LIBRARY: Record<string, ChordShape> = {
     fingers: [1, 3, 4, 0, 0, 0],
     baseFret: 3,
   },
+
+  // ─── Diminished ───────────────────────────────────────────────────────────
+  Bdim: {
+    frets: [-1, 2, 3, 4, 3, -1],
+    fingers: [0, 1, 2, 4, 3, 0],
+  },
+  Adim: {
+    frets: [-1, 0, 1, 2, 1, -1],
+    fingers: [0, 0, 1, 3, 2, 0],
+  },
+
+  // ─── Augmented ────────────────────────────────────────────────────────────
+  Caug: {
+    frets: [-1, 3, 2, 1, 1, 0],
+    fingers: [0, 4, 3, 1, 2, 0],
+  },
+  Eaug: {
+    frets: [0, 3, 2, 1, 1, 0],
+    fingers: [0, 4, 3, 1, 2, 0],
+  },
+
+  // ─── Extended / add chords ────────────────────────────────────────────────
+  Cadd9: {
+    frets: [-1, 3, 2, 0, 3, 0],
+    fingers: [0, 2, 1, 0, 3, 0],
+  },
+  Gadd9: {
+    frets: [3, 2, 0, 2, 0, 3],
+    fingers: [3, 2, 0, 1, 0, 4],
+  },
+  Dadd9: {
+    frets: [-1, -1, 0, 2, 3, 0],
+    fingers: [0, 0, 0, 1, 2, 0],
+  },
+
+  // ─── Slash chords (root + bass on different string) ──────────────────────
+  'C/G': {
+    frets: [3, 3, 2, 0, 1, 0],
+    fingers: [3, 4, 2, 0, 1, 0],
+  },
+  'D/F#': {
+    frets: [2, -1, 0, 2, 3, 2],
+    fingers: [2, 0, 0, 3, 4, 1],
+  },
+  'G/B': {
+    frets: [-1, 2, 0, 0, 0, 3],
+    fingers: [0, 1, 0, 0, 0, 3],
+  },
 }
 
 export function getChordShape(name: string): ChordShape | undefined {

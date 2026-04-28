@@ -1,13 +1,16 @@
 import ChordDiagram from '@/components/Guitar/ChordDiagram'
 import { getChordShape } from '@/lib/chordLibrary'
 import GlossaryText from '@/components/Learn/GlossaryText'
+import StaffSnippet, { getStaffPreset } from '@/components/Learn/StaffSnippet'
 
 /**
  * Renders lesson text content with inline visual tokens.
  *
  * Supported tokens (placed on their own line):
- *   [chord:C]                Single chord diagram
- *   [chords:C,Am,F,G]        Row of chord diagrams
+ *   [chord:C]                          Single chord diagram
+ *   [chords:C,Am,F,G]                  Row of chord diagrams
+ *   [staff:c-major-scale]              Named preset on a staff
+ *   [staff-notes:C4,E4,G4|C major triad]  Arbitrary notes; optional |title
  */
 export default function LessonContent({ content }: { content: string }) {
   const blocks: { kind: 'text' | 'visual'; payload: string }[] = []
@@ -17,7 +20,7 @@ export default function LessonContent({ content }: { content: string }) {
     if (
       trimmed.startsWith('[') &&
       trimmed.endsWith(']') &&
-      /^\[(chord|chords):[^\]]+\]$/.test(trimmed)
+      /^\[(chord|chords|staff|staff-notes):[^\]]+\]$/.test(trimmed)
     ) {
       if (buffer.length) {
         blocks.push({ kind: 'text', payload: buffer.join('\n') })
@@ -79,6 +82,26 @@ function VisualBlock({ token }: { token: string }) {
           if (!shape) return null
           return <ChordDiagram key={name} name={name} {...shape} />
         })}
+      </div>
+    )
+  }
+
+  if (kind === 'staff') {
+    const preset = getStaffPreset(args)
+    if (!preset) return null
+    return (
+      <div className="flex justify-center py-2">
+        <StaffSnippet notes={preset.notes} title={preset.title} />
+      </div>
+    )
+  }
+
+  if (kind === 'staff-notes') {
+    const [notesPart, titlePart] = args.split('|')
+    const notes = notesPart.split(',').map((n) => n.trim()).filter(Boolean)
+    return (
+      <div className="flex justify-center py-2">
+        <StaffSnippet notes={notes} title={titlePart?.trim()} />
       </div>
     )
   }
