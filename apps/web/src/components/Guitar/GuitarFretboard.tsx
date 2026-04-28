@@ -105,12 +105,22 @@ export default function GuitarFretboard({
   const height = paddingTop + 5 * stringSpacing + paddingBottom
   const nutX = paddingLeft
 
+  // Visible viewport always shows 12 frets at full container width.
+  // For higher fret counts, the SVG grows proportionally so the rest scrolls.
+  const VISIBLE_FRETS = 12
+  const widthScale = frets / VISIBLE_FRETS
+  const minPxWidth = Math.max(400, VISIBLE_FRETS * 50) * widthScale
+
   return (
     <div className="overflow-x-auto pb-2 -mx-2 px-2">
     <svg
-      width={width}
-      height={height}
       viewBox={`0 0 ${width} ${height}`}
+      style={{
+        width: `${widthScale * 100}%`,
+        minWidth: `${minPxWidth}px`,
+        height: 'auto',
+        display: 'block',
+      }}
       role="img"
       aria-label="Guitar fretboard"
     >
