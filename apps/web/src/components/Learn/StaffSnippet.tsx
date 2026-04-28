@@ -55,14 +55,14 @@ export default function StaffSnippet({ notes, title }: StaffSnippetProps) {
   }
 
   return (
-    <div className="inline-flex flex-col items-center my-2">
+    <div className="inline-flex flex-col items-center my-2 text-surface-700 dark:text-surface-200">
       {title && <div className="text-xs font-medium text-surface-500 mb-1">{title}</div>}
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        className="bg-white rounded-lg border border-surface-100"
+        className="bg-white dark:bg-surface-900/40 rounded-lg border border-surface-200 dark:border-surface-700"
         style={{ width: Math.min(width, 600), maxWidth: '100%' }}
       >
-        {/* Staff lines */}
+        {/* Staff lines — currentColor adapts to theme */}
         {[0, 1, 2, 3, 4].map((i) => (
           <line
             key={`line-${i}`}
@@ -70,13 +70,14 @@ export default function StaffSnippet({ notes, title }: StaffSnippetProps) {
             y1={staffTop + i * lineSpacing}
             x2={width - padRight}
             y2={staffTop + i * lineSpacing}
-            stroke="#d4d4d8"
-            strokeWidth={0.9}
+            stroke="currentColor"
+            strokeOpacity={0.45}
+            strokeWidth={1}
           />
         ))}
 
         {/* Treble clef */}
-        <text x={padLeft - 30} y={staffTop + 3.4 * lineSpacing} fontSize={36} fill="#52525b" fontFamily="serif">
+        <text x={padLeft - 30} y={staffTop + 3.4 * lineSpacing} fontSize={36} fill="#2563eb" fontFamily="serif">
           𝄞
         </text>
 
@@ -105,34 +106,35 @@ export default function StaffSnippet({ notes, title }: StaffSnippetProps) {
           return (
             <g key={`note-${i}`}>
               {ledgerLines.map((ly, k) => (
-                <line key={k} x1={x - 9} y1={ly} x2={x + 9} y2={ly} stroke="#d4d4d8" strokeWidth={0.9} />
+                <line key={k} x1={x - 9} y1={ly} x2={x + 9} y2={ly} stroke="currentColor" strokeOpacity={0.45} strokeWidth={1} />
               ))}
               {isSharp(parsed.pc) && (
-                <text x={x - 13} y={y + 3} fontSize={12} fill="#52525b" fontFamily="serif" fontWeight="bold">
+                <text x={x - 13} y={y + 3} fontSize={12} fill="#2563eb" fontFamily="serif" fontWeight="bold">
                   ♯
                 </text>
               )}
               {isFlat(parsed.pc) && (
-                <text x={x - 13} y={y + 3} fontSize={12} fill="#52525b" fontFamily="serif" fontWeight="bold">
+                <text x={x - 13} y={y + 3} fontSize={12} fill="#2563eb" fontFamily="serif" fontWeight="bold">
                   ♭
                 </text>
               )}
-              <ellipse cx={x} cy={y} rx={noteRadius} ry={noteRadius * 0.78} fill="#18181b" />
+              <ellipse cx={x} cy={y} rx={noteRadius} ry={noteRadius * 0.78} fill="#2563eb" />
               {/* Stem (up if note is in lower half, down if upper) */}
               <line
                 x1={y > staffTop + 2 * lineSpacing ? x + noteRadius : x - noteRadius}
                 y1={y}
                 x2={y > staffTop + 2 * lineSpacing ? x + noteRadius : x - noteRadius}
                 y2={y > staffTop + 2 * lineSpacing ? y - 26 : y + 26}
-                stroke="#18181b"
-                strokeWidth={1.1}
+                stroke="#2563eb"
+                strokeWidth={1.4}
               />
               <text
                 x={x}
                 y={height - 8}
                 textAnchor="middle"
                 fontSize={9}
-                fill="#71717a"
+                fill="currentColor"
+                fillOpacity={0.7}
                 fontFamily="Inter, sans-serif"
                 fontWeight="500"
               >

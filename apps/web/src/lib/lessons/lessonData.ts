@@ -392,6 +392,13 @@ export const LESSONS: LessonDef[] = [
         correctIndex: 2,
         explanation: 'In 4/4 time there are 4 beats per measure, and a quarter note gets one beat, so 4 quarter notes fill one measure.',
       },
+      {
+        type: 'quiz',
+        question: `Read the rhythm. How many beats does this measure last in total?\n\n[rhythm-pattern:4/4|h,q,q|]`,
+        options: ['2 beats', '3 beats', '4 beats', '5 beats'],
+        correctIndex: 2,
+        explanation: 'A half note (2) plus two quarter notes (1 + 1) = 4 beats — a full measure of 4/4.',
+      },
     ],
   },
 
@@ -432,6 +439,13 @@ export const LESSONS: LessonDef[] = [
         options: ['two', 'and', 'rest', 'tap'],
         correctIndex: 1,
         explanation: 'We count eighth notes as "1 and 2 and 3 and 4 and." The "and" falls on the offbeat — between the main beats.',
+      },
+      {
+        type: 'quiz',
+        question: `Read the rhythm below. How many notes are played on beat 2?\n\n[rhythm-pattern:4/4|q,e,e,q,q|]`,
+        options: ['One note', 'Two notes', 'Three notes', 'No notes'],
+        correctIndex: 1,
+        explanation: 'Beat 2 contains two eighth notes — counted "2 and." Beats 1, 3, and 4 each have a single quarter note.',
       },
       {
         type: 'exercise',
@@ -476,6 +490,13 @@ export const LESSONS: LessonDef[] = [
         explanation: 'A tie means you play the first note and sustain it through the duration of the second — you do not re-strike.',
       },
       {
+        type: 'quiz',
+        question: `Read the rhythm. Which beat is silent?\n\n[rhythm-pattern:4/4|q,qr,q,q|]`,
+        options: ['Beat 1', 'Beat 2', 'Beat 3', 'Beat 4'],
+        correctIndex: 1,
+        explanation: 'The quarter rest falls on beat 2 — one beat of complete silence between the notes.',
+      },
+      {
         type: 'exercise',
         instruction: 'Play C4 followed by a rest (silence), then E4, then G4: C4, E4, G4',
         expectedNotes: ['C4', 'E4', 'G4'],
@@ -518,6 +539,13 @@ export const LESSONS: LessonDef[] = [
         explanation: 'A dotted quarter note = 1.5 beats = 3 eighth notes (since each eighth note is 0.5 beats).',
       },
       {
+        type: 'quiz',
+        question: `Read the rhythm. How many beats does the dotted note last?\n\n[rhythm-pattern:4/4|h.,q|]`,
+        options: ['2 beats', '2.5 beats', '3 beats', '4 beats'],
+        correctIndex: 2,
+        explanation: 'A dotted half note adds half its value (1 beat) to the original (2 beats), giving 3 beats total. The quarter that follows fills beat 4.',
+      },
+      {
         type: 'exercise',
         instruction: 'Play a dotted-half-note feel: hold C4, then play G4: C4, G4',
         expectedNotes: ['C4', 'G4'],
@@ -558,6 +586,13 @@ export const LESSONS: LessonDef[] = [
         options: ['2/4', '3/4', '4/4', '6/8'],
         correctIndex: 1,
         explanation: '3/4 time (three quarter-note beats per measure) is the classic waltz time signature.',
+      },
+      {
+        type: 'quiz',
+        question: `Read the rhythm. Which time signature is this?\n\n[rhythm-pattern:6/8|e,e,e,e,e,e|]`,
+        options: ['3/4', '4/4', '6/8', '12/8'],
+        correctIndex: 2,
+        explanation: 'Six eighth notes grouped into two sets of three — that is the hallmark of 6/8 time, a compound duple meter.',
       },
       {
         type: 'exercise',

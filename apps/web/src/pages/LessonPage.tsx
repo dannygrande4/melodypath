@@ -46,23 +46,39 @@ export default function LessonPage() {
     )
   }
 
-  const totalSteps = lesson.steps.length
-  const currentStep = lesson.steps[stepIdx] as LessonStep | undefined
+  // Dedup **bold** highlights across the whole lesson — only the first
+  // occurrence of each term keeps its emphasis, later ones render plain.
+  const effectiveSteps: LessonStep[] = useMemo(() => {
+    const seen = new Set<string>()
+    return lesson.steps.map((step): LessonStep => {
+      if (step.type !== 'text') return step
+      const newContent = step.content.replace(/\*\*([^*]+)\*\*/g, (_match: string, term: string) => {
+        const key = term.toLowerCase().trim()
+        if (seen.has(key)) return term
+        seen.add(key)
+        return `**${term}**`
+      })
+      return { ...step, content: newContent }
+    })
+  }, [lesson])
+
+  const totalSteps = effectiveSteps.length
+  const currentStep = effectiveSteps[stepIdx] as LessonStep | undefined
   const progress = ((stepIdx + 1) / totalSteps) * 100
 
   // Count correct quiz answers
   const quizScore = useMemo(() => {
     let correct = 0
     let total = 0
-    for (let i = 0; i < lesson.steps.length; i++) {
-      const step = lesson.steps[i]
+    for (let i = 0; i < effectiveSteps.length; i++) {
+      const step = effectiveSteps[i]
       if (step.type === 'quiz') {
         total++
         if (quizAnswers[i] === step.correctIndex) correct++
       }
     }
     return total > 0 ? Math.round((correct / total) * 100) : 100
-  }, [quizAnswers, lesson.steps])
+  }, [quizAnswers, effectiveSteps])
 
   // ─── Navigation ─────────────────────────────────────────────────────
 
@@ -235,7 +251,7 @@ export default function LessonPage() {
           return (
             <div>
               <h2 className="text-lg font-bold text-surface-900 mb-4">
-                <GlossaryText text={currentStep.question} />
+                <LessonContent content={currentStep.question} />
               </h2>
               <div className="space-y-2">
                 {currentStep.options.map((opt, i) => {

@@ -72,14 +72,14 @@ export default function RhythmSnippet({ pattern, timeSig, title, showCount = tru
   let beatCursor = 1
 
   return (
-    <div className="inline-flex flex-col items-center my-2">
+    <div className="inline-flex flex-col items-center my-2 text-surface-700 dark:text-surface-200">
       {title && <div className="text-xs font-medium text-surface-500 mb-1">{title}</div>}
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        className="bg-white rounded-lg border border-surface-100"
+        className="bg-white dark:bg-surface-900/40 rounded-lg border border-surface-200 dark:border-surface-700"
         style={{ width: Math.min(width, 600), maxWidth: '100%' }}
       >
-        {/* Staff lines */}
+        {/* Staff lines — currentColor so they work in light + dark */}
         {[0, 1, 2, 3, 4].map((i) => (
           <line
             key={`line-${i}`}
@@ -87,8 +87,9 @@ export default function RhythmSnippet({ pattern, timeSig, title, showCount = tru
             y1={staffTop + i * lineSpacing}
             x2={width - padRight}
             y2={staffTop + i * lineSpacing}
-            stroke="#d4d4d8"
-            strokeWidth={0.9}
+            stroke="currentColor"
+            strokeOpacity={0.45}
+            strokeWidth={1}
           />
         ))}
 
@@ -102,7 +103,7 @@ export default function RhythmSnippet({ pattern, timeSig, title, showCount = tru
                 y={staffTop + 1.5 * lineSpacing}
                 fontSize={20}
                 fontWeight="bold"
-                fill="#27272a"
+                fill="#2563eb"
                 fontFamily="Georgia, serif"
                 textAnchor="middle"
               >
@@ -113,7 +114,7 @@ export default function RhythmSnippet({ pattern, timeSig, title, showCount = tru
                 y={staffTop + 3.5 * lineSpacing}
                 fontSize={20}
                 fontWeight="bold"
-                fill="#27272a"
+                fill="#2563eb"
                 fontFamily="Georgia, serif"
                 textAnchor="middle"
               >
@@ -180,8 +181,8 @@ function renderGlyph(
   const noteY = midY
   const noteRx = 5.4
   const noteRy = 4.2
-  const stemColor = '#18181b'
-  const noteColor = '#18181b'
+  const stemColor = '#2563eb'
+  const noteColor = '#2563eb'
 
   const dotEl = n.dotted && !n.isRest ? (
     <circle cx={cx + noteRx + 4} cy={noteY} r={1.6} fill={stemColor} />
@@ -263,7 +264,7 @@ function renderGlyph(
 }
 
 function renderRest(kind: NoteSpec['kind'], cx: number, midY: number, lineSpacing: number) {
-  const color = '#18181b'
+  const color = '#dc2626'
 
   if (kind === 'w') {
     // Whole rest hangs from the 4th line (one above middle).
