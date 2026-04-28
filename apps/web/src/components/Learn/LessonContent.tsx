@@ -1,65 +1,92 @@
+import { useEffect, useRef, useState } from 'react'
 import ChordDiagram from '@/components/Guitar/ChordDiagram'
 import { getChordShape } from '@/lib/chordLibrary'
-import GlossaryText from '@/components/Learn/GlossaryText'
 import StaffSnippet, { getStaffPreset } from '@/components/Learn/StaffSnippet'
 import RhythmSnippet, { getRhythmPreset } from '@/components/Learn/RhythmSnippet'
+import type { ContentNode } from '@/lib/lessonRender'
+import type { GlossaryEntry } from '@/lib/glossary'
 
 /**
- * Renders lesson text content with inline visual tokens.
- *
- * Supported tokens (placed on their own line):
- *   [chord:C]                          Single chord diagram
- *   [chords:C,Am,F,G]                  Row of chord diagrams
- *   [staff:c-major-scale]              Named preset on a staff
- *   [staff-notes:C4,E4,G4|C major triad]  Arbitrary notes; optional |title
- *   [rhythm:four-quarter-notes]        Named rhythm preset
- *   [rhythm-pattern:4/4|q,q,q,q|Title] Arbitrary rhythm; timeSig optional
+ * Renders pre-tokenized lesson content. Tokenization (bold + glossary
+ * dedup) is done in `lib/lessonRender.ts` so dedup is deterministic and
+ * shared across an entire lesson — only the first mention of each term
+ * gets highlighted.
  */
-export default function LessonContent({ content }: { content: string }) {
-  const blocks: { kind: 'text' | 'visual'; payload: string }[] = []
-  let buffer: string[] = []
-  for (const line of content.split('\n')) {
-    const trimmed = line.trim()
-    if (
-      trimmed.startsWith('[') &&
-      trimmed.endsWith(']') &&
-      /^\[(chord|chords|staff|staff-notes|rhythm|rhythm-pattern):[^\]]+\]$/.test(trimmed)
-    ) {
-      if (buffer.length) {
-        blocks.push({ kind: 'text', payload: buffer.join('\n') })
-        buffer = []
-      }
-      blocks.push({ kind: 'visual', payload: trimmed.slice(1, -1) })
-    } else {
-      buffer.push(line)
-    }
-  }
-  if (buffer.length) blocks.push({ kind: 'text', payload: buffer.join('\n') })
-
+export default function LessonContent({ blocks }: { blocks: ContentNode[][] }) {
   return (
     <div className="space-y-4">
-      {blocks.map((b, i) =>
-        b.kind === 'text' ? <TextBlock key={i} text={b.payload} /> : <VisualBlock key={i} token={b.payload} />,
-      )}
+      {blocks.map((nodes, i) => {
+        if (nodes.length === 1 && nodes[0].kind === 'visual') {
+          return <VisualBlock key={i} token={nodes[0].token} />
+        }
+        return <TextBlock key={i} nodes={nodes} />
+      })}
     </div>
   )
 }
 
-function TextBlock({ text }: { text: string }) {
-  // Author-emphasis (**bold**) + glossary linking applied to plain segments.
+function TextBlock({ nodes }: { nodes: ContentNode[] }) {
   return (
     <div className="prose text-surface-700 leading-relaxed whitespace-pre-line">
-      {text.split(/(\*\*[^*]+\*\*)/).map((part, i) => {
-        if (part.startsWith('**') && part.endsWith('**')) {
-          return (
-            <strong key={i} className="text-surface-900">
-              <GlossaryText text={part.slice(2, -2)} />
-            </strong>
-          )
-        }
-        return <GlossaryText key={i} text={part} />
+      {nodes.map((n, i) => {
+        if (n.kind === 'text') return <span key={i}>{n.value}</span>
+        if (n.kind === 'bold') return <strong key={i} className="text-surface-900">{n.value}</strong>
+        if (n.kind === 'gloss') return <TermChip key={i} match={n.value} entry={n.entry} />
+        return null
       })}
     </div>
+  )
+}
+
+function TermChip({ match, entry }: { match: string; entry: GlossaryEntry }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLSpanElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const handle = (e: MouseEvent | TouchEvent) => {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handle)
+    document.addEventListener('touchstart', handle)
+    return () => {
+      document.removeEventListener('mousedown', handle)
+      document.removeEventListener('touchstart', handle)
+    }
+  }, [open])
+
+  return (
+    <span ref={ref} className="relative inline-block">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="font-bold underline decoration-primary-400 decoration-2 underline-offset-2 text-surface-900 hover:text-primary-700 transition-colors"
+      >
+        {match}
+      </button>
+      {open && (
+        <span
+          role="tooltip"
+          className="absolute z-30 left-1/2 -translate-x-1/2 top-full mt-1 w-64 max-w-[80vw] rounded-lg bg-surface-900 text-white text-xs shadow-xl p-3"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span className="block font-bold capitalize mb-1">{match}</span>
+          <span className="block leading-snug whitespace-normal">{entry.simple}</span>
+          {entry.detail && (
+            <span className="block leading-snug mt-1 text-surface-300 whitespace-normal">{entry.detail}</span>
+          )}
+          {entry.lessonId && (
+            <a
+              href={`/learn/${entry.lessonId}`}
+              className="inline-block mt-2 text-primary-300 hover:text-primary-200 font-medium"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Revisit lesson →
+            </a>
+          )}
+        </span>
+      )}
+    </span>
   )
 }
 
@@ -120,7 +147,6 @@ function VisualBlock({ token }: { token: string }) {
   }
 
   if (kind === 'rhythm-pattern') {
-    // Format: timeSig|pattern|title — timeSig may be empty.
     const parts = args.split('|')
     const timeSig = parts[0]?.trim() || undefined
     const pattern = parts[1]?.trim() ?? ''

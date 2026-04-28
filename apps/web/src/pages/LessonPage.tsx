@@ -7,10 +7,12 @@ import { useAudioInit } from '@/hooks/useAudioInit'
 import { useAudioStore } from '@/stores/audioStore'
 import PianoKeyboard from '@/components/Piano/PianoKeyboard'
 import LessonContent from '@/components/Learn/LessonContent'
-import GlossaryText from '@/components/Learn/GlossaryText'
 import Mascot from '@/components/ui/Mascot'
 import { useUIStore } from '@/stores/uiStore'
 import { kidsify } from '@/lib/kidsMode'
+import { buildGlossaryRegex } from '@/lib/glossary'
+import { makeTokenizer, tokenizeBlocks, type ContentNode } from '@/lib/lessonRender'
+import { useIsAdmin } from '@/hooks/useUnlocks'
 
 export default function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>()
@@ -46,39 +48,55 @@ export default function LessonPage() {
     )
   }
 
-  // Dedup **bold** highlights across the whole lesson — only the first
-  // occurrence of each term keeps its emphasis, later ones render plain.
-  const effectiveSteps: LessonStep[] = useMemo(() => {
-    const seen = new Set<string>()
-    return lesson.steps.map((step): LessonStep => {
-      if (step.type !== 'text') return step
-      const newContent = step.content.replace(/\*\*([^*]+)\*\*/g, (_match: string, term: string) => {
-        const key = term.toLowerCase().trim()
-        if (seen.has(key)) return term
-        seen.add(key)
-        return `**${term}**`
-      })
-      return { ...step, content: newContent }
-    })
-  }, [lesson])
+  const completedLessons = useLessonStore((s) => s.completedLessons)
+  const isAdmin = useIsAdmin()
 
-  const totalSteps = effectiveSteps.length
-  const currentStep = effectiveSteps[stepIdx] as LessonStep | undefined
+  // Pre-tokenize the lesson once — bold and glossary highlights are deduped
+  // across the whole lesson (first occurrence only), and any term whose
+  // teaching lesson IS this lesson is left plain (we're introducing it).
+  const renderedSteps = useMemo(() => {
+    const completed = new Set(Object.keys(completedLessons))
+    const { regex, entryFor } = buildGlossaryRegex(completed, { assumeAllUnlocked: isAdmin })
+    const tokenizer = makeTokenizer(regex, entryFor, { excludeLessonId: lesson.id })
+    return lesson.steps.map((step) => {
+      if (step.type === 'text') {
+        const content = isKids ? kidsify(step.content) : step.content
+        return { step, contentBlocks: tokenizeBlocks(content, tokenizer) }
+      }
+      if (step.type === 'quiz') {
+        return {
+          step,
+          questionBlocks: tokenizeBlocks(step.question, tokenizer),
+          explanationBlocks: tokenizeBlocks(step.explanation, tokenizer),
+        }
+      }
+      if (step.type === 'exercise') {
+        return { step, instructionBlocks: tokenizeBlocks(step.instruction, tokenizer) }
+      }
+      return { step }
+    })
+  }, [lesson, completedLessons, isAdmin, isKids])
+
+  const totalSteps = renderedSteps.length
+  const currentRendered = renderedSteps[stepIdx] as
+    | (typeof renderedSteps)[number]
+    | undefined
+  const currentStep = currentRendered?.step as LessonStep | undefined
   const progress = ((stepIdx + 1) / totalSteps) * 100
 
   // Count correct quiz answers
   const quizScore = useMemo(() => {
     let correct = 0
     let total = 0
-    for (let i = 0; i < effectiveSteps.length; i++) {
-      const step = effectiveSteps[i]
-      if (step.type === 'quiz') {
+    for (let i = 0; i < renderedSteps.length; i++) {
+      const r = renderedSteps[i]
+      if (r.step.type === 'quiz') {
         total++
-        if (quizAnswers[i] === step.correctIndex) correct++
+        if (quizAnswers[i] === r.step.correctIndex) correct++
       }
     }
     return total > 0 ? Math.round((correct / total) * 100) : 100
-  }, [quizAnswers, effectiveSteps])
+  }, [quizAnswers, renderedSteps])
 
   // ─── Navigation ─────────────────────────────────────────────────────
 
@@ -236,14 +254,14 @@ export default function LessonPage() {
 
       {/* Step content */}
       <div className="bg-white rounded-xl border border-surface-200 p-6 min-h-[300px]">
-        {currentStep?.type === 'text' && (
+        {currentStep?.type === 'text' && currentRendered && 'contentBlocks' in currentRendered && (
           <div>
             <h2 className="text-lg font-bold text-surface-900 mb-4">{currentStep.title}</h2>
-            <LessonContent content={isKids ? kidsify(currentStep.content) : currentStep.content} />
+            <LessonContent blocks={currentRendered.contentBlocks as ContentNode[][]} />
           </div>
         )}
 
-        {currentStep?.type === 'quiz' && (() => {
+        {currentStep?.type === 'quiz' && currentRendered && 'questionBlocks' in currentRendered && (() => {
           const answered = quizAnswers[stepIdx] !== undefined
           const selectedIdx = quizAnswers[stepIdx]
           const isCorrect = selectedIdx === currentStep.correctIndex
@@ -251,7 +269,7 @@ export default function LessonPage() {
           return (
             <div>
               <h2 className="text-lg font-bold text-surface-900 mb-4">
-                <LessonContent content={currentStep.question} />
+                <LessonContent blocks={currentRendered.questionBlocks as ContentNode[][]} />
               </h2>
               <div className="space-y-2">
                 {currentStep.options.map((opt, i) => {
@@ -275,20 +293,20 @@ export default function LessonPage() {
               </div>
               {answered && (
                 <div className={`mt-4 p-3 rounded-lg text-sm ${isCorrect ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
-                  {isCorrect ? 'Correct! ' : 'Not quite. '}
-                  <GlossaryText text={currentStep.explanation} />
+                  <span className="mr-1">{isCorrect ? 'Correct!' : 'Not quite.'}</span>
+                  <LessonContent blocks={(currentRendered as { explanationBlocks: ContentNode[][] }).explanationBlocks} />
                 </div>
               )}
             </div>
           )
         })()}
 
-        {currentStep?.type === 'exercise' && (
+        {currentStep?.type === 'exercise' && currentRendered && 'instructionBlocks' in currentRendered && (
           <div>
             <h2 className="text-lg font-bold text-surface-900 mb-2">Exercise</h2>
-            <p className="text-surface-600 mb-4">
-              <GlossaryText text={currentStep.instruction} />
-            </p>
+            <div className="text-surface-600 mb-4">
+              <LessonContent blocks={currentRendered.instructionBlocks as ContentNode[][]} />
+            </div>
 
             {/* Progress indicator */}
             <div className="flex gap-1 mb-4">
