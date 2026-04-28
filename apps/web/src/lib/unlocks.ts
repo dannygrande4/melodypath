@@ -2,7 +2,7 @@ import { getLessonById } from '@/lib/lessons/lessonData'
 
 // ─── Admin override ──────────────────────────────────────────────────────────
 // Emails listed here always see every section unlocked, regardless of progress.
-const ADMIN_EMAILS = ['danny@grandes.ca']
+const ADMIN_EMAILS = ['danny@moniquemusic.com']
 
 export function isAdminEmail(email: string | null | undefined): boolean {
   if (!email) return false
