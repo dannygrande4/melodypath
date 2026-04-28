@@ -42,6 +42,20 @@ const FRET_MARKERS = new Set([3, 5, 7, 9, 12, 15, 17, 19, 21])
 const DOUBLE_MARKERS = new Set([12])
 const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
+const FLAT_TO_SHARP: Record<string, string> = {
+  Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#',
+  Cb: 'B', Fb: 'E', 'E#': 'F', 'B#': 'C',
+}
+
+/** Normalize "Eb4" -> "D#4" so the activeSet matches positions stored in sharp form. */
+function toSharpForm(note: string): string {
+  const m = note.match(/^([A-G](?:#|b)?)(-?\d+)?$/)
+  if (!m) return note
+  const [, pc, oct] = m
+  const sharp = FLAT_TO_SHARP[pc] ?? pc
+  return oct !== undefined ? `${sharp}${oct}` : sharp
+}
+
 const ROLE_COLORS: Record<NoteRole, string> = {
   root: '#4f6ef7',
   third: '#22c55e',
@@ -76,7 +90,7 @@ export default function GuitarFretboard({
   freePlay = false,
   dimInactive = false,
 }: GuitarFretboardProps) {
-  const activeSet = useMemo(() => new Set(activeNotes), [activeNotes])
+  const activeSet = useMemo(() => new Set(activeNotes.map(toSharpForm)), [activeNotes])
 
   // Build a lookup: "string-fret" → FretNote
   const noteMap = useMemo(() => {
