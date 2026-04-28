@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { SCALE_REFERENCES, type ScaleReference } from '@/lib/scaleReference'
+import { GLOSSARY, type GlossaryEntry } from '@/lib/glossary'
 import InfoTooltip from '@/components/ui/InfoTooltip'
 
 // ─── Simple Staff Notation Renderer ──────────────────────────────────────────
@@ -267,6 +268,102 @@ export default function Resources() {
           <ScaleCard key={scale.name} scale={scale} />
         ))}
       </div>
+
+      <GlossarySection />
     </div>
+  )
+}
+
+// ─── Glossary Section (searchable music-theory dictionary) ──────────────────
+
+function GlossarySection() {
+  const [query, setQuery] = useState('')
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({})
+
+  const entries = useMemo(() => {
+    const all = Object.entries(GLOSSARY).map(([term, entry]) => ({ term, entry }))
+    const q = query.trim().toLowerCase()
+    if (!q) return all
+    return all.filter(({ term, entry }) => {
+      if (term.toLowerCase().includes(q)) return true
+      if (entry.simple.toLowerCase().includes(q)) return true
+      if (entry.detail?.toLowerCase().includes(q)) return true
+      return entry.aliases?.some((a) => a.toLowerCase().includes(q)) ?? false
+    })
+  }, [query])
+
+  return (
+    <section className="space-y-3 pt-4">
+      <div className="flex items-end justify-between gap-3 flex-wrap">
+        <div>
+          <h2 className="text-xl font-bold text-surface-900">Music Glossary</h2>
+          <p className="text-surface-500 text-sm mt-1">
+            Plain-language definitions for every term used in lessons.
+          </p>
+        </div>
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search terms…"
+          className="px-3 py-2 text-sm border border-surface-200 rounded-lg w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-primary-300"
+        />
+      </div>
+
+      {entries.length === 0 && (
+        <div className="text-sm text-surface-400 italic py-6 text-center">
+          No terms match "{query}".
+        </div>
+      )}
+
+      <ul className="divide-y divide-surface-100 bg-white rounded-xl border border-surface-200 overflow-hidden">
+        {entries.map(({ term, entry }) => (
+          <GlossaryItem
+            key={term}
+            term={term}
+            entry={entry}
+            isOpen={!!expanded[term]}
+            onToggle={() => setExpanded((s) => ({ ...s, [term]: !s[term] }))}
+          />
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+function GlossaryItem({
+  term,
+  entry,
+  isOpen,
+  onToggle,
+}: {
+  term: string
+  entry: GlossaryEntry
+  isOpen: boolean
+  onToggle: () => void
+}) {
+  const hasDetail = !!entry.detail
+  return (
+    <li>
+      <button
+        onClick={hasDetail ? onToggle : undefined}
+        className={`w-full text-left p-4 flex gap-4 items-start ${
+          hasDetail ? 'hover:bg-surface-50 cursor-pointer' : 'cursor-default'
+        }`}
+      >
+        <div className="min-w-[140px] sm:min-w-[180px] font-semibold text-surface-900 capitalize">
+          {term}
+        </div>
+        <div className="flex-1 text-sm text-surface-600">
+          <div>{entry.simple}</div>
+          {isOpen && entry.detail && (
+            <div className="mt-2 text-surface-500">{entry.detail}</div>
+          )}
+        </div>
+        {hasDetail && (
+          <span className="text-surface-300 text-xs flex-shrink-0">{isOpen ? '▲' : '▼'}</span>
+        )}
+      </button>
+    </li>
   )
 }

@@ -371,7 +371,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Note Values',
-        content: `Notes have different **durations** — how long they ring out:\n\n- **Whole note** = 4 beats\n- **Half note** = 2 beats\n- **Quarter note** = 1 beat (the most common)\n- **Eighth note** = 1/2 beat\n- **Sixteenth note** = 1/4 beat\n\nEach step cuts the duration in half. Every note value also has a corresponding **rest** — a silence of the same duration.`,
+        content: `Notes have different **durations** — how long they ring out:\n\n- **Whole note** = 4 beats\n- **Half note** = 2 beats\n- **Quarter note** = 1 beat (the most common)\n- **Eighth note** = 1/2 beat\n- **Sixteenth note** = 1/4 beat\n\n[rhythm-pattern:4/4|w|Whole note — held for all 4 beats]\n[rhythm-pattern:4/4|h,h|Two half notes fill the same measure]\n[rhythm-pattern:4/4|q,q,q,q|Four quarter notes — one per beat]\n\nEach step cuts the duration in half. Every note value also has a corresponding **rest** — a silence of the same duration.`,
       },
       {
         type: 'quiz',
@@ -383,7 +383,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Time Signatures',
-        content: `A **time signature** appears at the beginning of a piece and tells you two things:\n\n- **Top number:** how many beats per measure\n- **Bottom number:** which note value gets one beat\n\nThe most common is **4/4 time** (also called "common time"): 4 beats per measure, quarter note gets one beat. Most pop, rock, and jazz is in 4/4.\n\n**3/4 time** has 3 beats per measure — it is the time signature of waltzes. **2/4 time** has 2 beats per measure and is common in marches.`,
+        content: `A **time signature** appears at the beginning of a piece and tells you two things:\n\n- **Top number:** how many beats per measure\n- **Bottom number:** which note value gets one beat\n\n[rhythm:four-quarter-notes]\n\nThe most common is **4/4 time** (also called "common time"): 4 beats per measure, quarter note gets one beat. Most pop, rock, and jazz is in 4/4.\n\n[rhythm:three-four]\n\n**3/4 time** has 3 beats per measure — it is the time signature of waltzes. **2/4 time** has 2 beats per measure and is common in marches.`,
       },
       {
         type: 'quiz',
@@ -417,7 +417,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The Eighth Note',
-        content: `An **eighth note** is half the length of a quarter note — two eighth notes fit in one beat. Eighth notes have a flag on their stem (or are beamed together in groups).\n\nWe count eighth notes by adding "and" between the beats: **"1 and 2 and 3 and 4 and"**. The numbers fall on the beat (called the **downbeat**), and the "ands" fall between beats (called the **upbeat** or **offbeat**).\n\nThis subdivision doubles the rhythmic possibilities. Where quarter notes give you 4 attacks per measure in 4/4, eighth notes give you 8.`,
+        content: `An **eighth note** is half the length of a quarter note — two eighth notes fit in one beat. Eighth notes have a flag on their stem (or are beamed together in groups).\n\n[rhythm:eighth-notes]\n\nWe count eighth notes by adding "and" between the beats: **"1 and 2 and 3 and 4 and"**. The numbers fall on the beat (called the **downbeat**), and the "ands" fall between beats (called the **upbeat** or **offbeat**).\n\nThis subdivision doubles the rhythmic possibilities. Where quarter notes give you 4 attacks per measure in 4/4, eighth notes give you 8.`,
       },
       {
         type: 'quiz',
@@ -454,7 +454,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Rests: The Sound of Silence',
-        content: `**Rests** are just as important as notes — they tell you when NOT to play. Every note value has a matching rest:\n\n- **Whole rest** = 4 beats of silence\n- **Half rest** = 2 beats of silence\n- **Quarter rest** = 1 beat of silence\n- **Eighth rest** = 1/2 beat of silence\n\nSilence creates contrast, drama, and breathing room. A song made of all notes with no rests would feel suffocating. Great musicians pay as much attention to what they do not play as to what they do.`,
+        content: `**Rests** are just as important as notes — they tell you when NOT to play. Every note value has a matching rest:\n\n- **Whole rest** = 4 beats of silence\n- **Half rest** = 2 beats of silence\n- **Quarter rest** = 1 beat of silence\n- **Eighth rest** = 1/2 beat of silence\n\n[rhythm:quarter-rest]\n[rhythm:rests-mixed]\n\nSilence creates contrast, drama, and breathing room. A song made of all notes with no rests would feel suffocating. Great musicians pay as much attention to what they do not play as to what they do.`,
       },
       {
         type: 'text',
@@ -496,7 +496,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What Does the Dot Do?',
-        content: `A **dot** placed after a note increases its duration by **half its original value**.\n\n- Dotted half note = 2 beats + 1 beat = **3 beats**\n- Dotted quarter note = 1 beat + 1/2 beat = **1.5 beats**\n- Dotted eighth note = 1/2 beat + 1/4 beat = **3/4 beat**\n\nThe dot is a shorthand — instead of writing a half note tied to a quarter note, you simply write a dotted half note. It keeps the music cleaner and easier to read.`,
+        content: `A **dot** placed after a note increases its duration by **half its original value**.\n\n- Dotted half note = 2 beats + 1 beat = **3 beats**\n- Dotted quarter note = 1 beat + 1/2 beat = **1.5 beats**\n- Dotted eighth note = 1/2 beat + 1/4 beat = **3/4 beat**\n\n[rhythm:dotted-half]\n\nThe dot is a shorthand — instead of writing a half note tied to a quarter note, you simply write a dotted half note. It keeps the music cleaner and easier to read.`,
       },
       {
         type: 'quiz',
@@ -508,7 +508,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The Dotted Quarter Note',
-        content: `The **dotted quarter note** is extremely common in popular music. It lasts 1.5 beats — one beat plus half a beat.\n\nThis creates a lopsided, lilting rhythm. A very common pattern is: dotted quarter + eighth note, which fills exactly 2 beats (1.5 + 0.5). You hear this pattern constantly in folk music, pop ballads, and hymns.\n\nWhen you encounter dotted rhythms, it helps to subdivide into eighth notes mentally. A dotted quarter note spans 3 eighth notes, while a regular quarter note spans 2.`,
+        content: `The **dotted quarter note** is extremely common in popular music. It lasts 1.5 beats — one beat plus half a beat.\n\nThis creates a lopsided, lilting rhythm. A very common pattern is: dotted quarter + eighth note, which fills exactly 2 beats (1.5 + 0.5). You hear this pattern constantly in folk music, pop ballads, and hymns.\n\n[rhythm:dotted-quarter-eighth]\n\nWhen you encounter dotted rhythms, it helps to subdivide into eighth notes mentally. A dotted quarter note spans 3 eighth notes, while a regular quarter note spans 2.`,
       },
       {
         type: 'quiz',
@@ -538,12 +538,12 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: '3/4 Time: The Waltz',
-        content: `**3/4 time** has 3 beats per measure, with the quarter note getting one beat. This is the time signature of the waltz, and it creates a characteristic "ONE two three, ONE two three" feel.\n\nThe first beat (the downbeat) is the strongest, giving the music a graceful, swaying quality. Famous pieces in 3/4 include "The Blue Danube" by Strauss, "My Favorite Things" from The Sound of Music, and many folk songs.\n\nIn 3/4 time, a whole rest still fills the entire measure (3 beats), even though a whole note technically lasts 4 beats.`,
+        content: `**3/4 time** has 3 beats per measure, with the quarter note getting one beat. This is the time signature of the waltz, and it creates a characteristic "ONE two three, ONE two three" feel.\n\n[rhythm:three-four]\n\nThe first beat (the downbeat) is the strongest, giving the music a graceful, swaying quality. Famous pieces in 3/4 include "The Blue Danube" by Strauss, "My Favorite Things" from The Sound of Music, and many folk songs.\n\nIn 3/4 time, a whole rest still fills the entire measure (3 beats), even though a whole note technically lasts 4 beats.`,
       },
       {
         type: 'text',
         title: '6/8 Time: Compound Meter',
-        content: `**6/8 time** has 6 eighth notes per measure, but it is NOT just 3/4 time with eighth notes. The key difference is how the beats are grouped.\n\nIn 6/8, the six eighth notes are grouped into **two groups of three**: "ONE two three FOUR five six." This means 6/8 actually has **two main beats** per measure, each subdivided into three. This is called **compound duple** time.\n\nCompare: 3/4 = three beats divided in two (simple triple). 6/8 = two beats divided in three (compound duple). "House of the Rising Sun" and many jigs are in 6/8.`,
+        content: `**6/8 time** has 6 eighth notes per measure, but it is NOT just 3/4 time with eighth notes. The key difference is how the beats are grouped.\n\n[rhythm:six-eight]\n\nIn 6/8, the six eighth notes are grouped into **two groups of three**: "ONE two three FOUR five six." This means 6/8 actually has **two main beats** per measure, each subdivided into three. This is called **compound duple** time.\n\n[rhythm:six-eight-dotted]\n\nCompare: 3/4 = three beats divided in two (simple triple). 6/8 = two beats divided in three (compound duple). "House of the Rising Sun" and many jigs are in 6/8.`,
       },
       {
         type: 'quiz',

@@ -2,6 +2,7 @@ import ChordDiagram from '@/components/Guitar/ChordDiagram'
 import { getChordShape } from '@/lib/chordLibrary'
 import GlossaryText from '@/components/Learn/GlossaryText'
 import StaffSnippet, { getStaffPreset } from '@/components/Learn/StaffSnippet'
+import RhythmSnippet, { getRhythmPreset } from '@/components/Learn/RhythmSnippet'
 
 /**
  * Renders lesson text content with inline visual tokens.
@@ -11,6 +12,8 @@ import StaffSnippet, { getStaffPreset } from '@/components/Learn/StaffSnippet'
  *   [chords:C,Am,F,G]                  Row of chord diagrams
  *   [staff:c-major-scale]              Named preset on a staff
  *   [staff-notes:C4,E4,G4|C major triad]  Arbitrary notes; optional |title
+ *   [rhythm:four-quarter-notes]        Named rhythm preset
+ *   [rhythm-pattern:4/4|q,q,q,q|Title] Arbitrary rhythm; timeSig optional
  */
 export default function LessonContent({ content }: { content: string }) {
   const blocks: { kind: 'text' | 'visual'; payload: string }[] = []
@@ -20,7 +23,7 @@ export default function LessonContent({ content }: { content: string }) {
     if (
       trimmed.startsWith('[') &&
       trimmed.endsWith(']') &&
-      /^\[(chord|chords|staff|staff-notes):[^\]]+\]$/.test(trimmed)
+      /^\[(chord|chords|staff|staff-notes|rhythm|rhythm-pattern):[^\]]+\]$/.test(trimmed)
     ) {
       if (buffer.length) {
         blocks.push({ kind: 'text', payload: buffer.join('\n') })
@@ -102,6 +105,30 @@ function VisualBlock({ token }: { token: string }) {
     return (
       <div className="flex justify-center py-2">
         <StaffSnippet notes={notes} title={titlePart?.trim()} />
+      </div>
+    )
+  }
+
+  if (kind === 'rhythm') {
+    const preset = getRhythmPreset(args)
+    if (!preset) return null
+    return (
+      <div className="flex justify-center py-2">
+        <RhythmSnippet pattern={preset.pattern} timeSig={preset.timeSig} title={preset.title} />
+      </div>
+    )
+  }
+
+  if (kind === 'rhythm-pattern') {
+    // Format: timeSig|pattern|title — timeSig may be empty.
+    const parts = args.split('|')
+    const timeSig = parts[0]?.trim() || undefined
+    const pattern = parts[1]?.trim() ?? ''
+    const title = parts[2]?.trim()
+    if (!pattern) return null
+    return (
+      <div className="flex justify-center py-2">
+        <RhythmSnippet pattern={pattern} timeSig={timeSig} title={title} />
       </div>
     )
   }

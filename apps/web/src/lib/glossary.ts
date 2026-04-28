@@ -82,7 +82,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   root: {
     simple: 'The "home note" of a chord or scale. Everything else is built from it.',
     lessonId: 'major-scale',
-    aliases: ['root note', 'tonic'],
+    aliases: ['root note'],
   },
 
   // ─── Key signatures ────────────────────────────────────────────────────────
@@ -175,6 +175,16 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   },
 
   // ─── Note values ───────────────────────────────────────────────────────────
+  'whole note': {
+    simple: 'A note held for 4 beats in 4/4 time. Drawn as an open oval with no stem.',
+    lessonId: 'rhythm-basics',
+    aliases: ['whole notes'],
+  },
+  'half note': {
+    simple: 'A note held for 2 beats. Open oval with a stem.',
+    lessonId: 'rhythm-basics',
+    aliases: ['half notes'],
+  },
   'quarter note': {
     simple: 'One beat in 4/4 time. The most common rhythm.',
     lessonId: 'quarter-eighth-notes',
@@ -185,6 +195,26 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     lessonId: 'quarter-eighth-notes',
     aliases: ['eighth notes'],
   },
+  'sixteenth note': {
+    simple: 'A quarter of a beat — four of these fit in one beat. Used for fast subdivisions.',
+    lessonId: 'rhythm-basics',
+    aliases: ['sixteenth notes'],
+  },
+  downbeat: {
+    simple: 'The main numbered beats — 1, 2, 3, 4. Where the foot taps. The strongest pulse.',
+    lessonId: 'quarter-eighth-notes',
+    aliases: ['downbeats'],
+  },
+  upbeat: {
+    simple: 'The "and" between beats — the offbeat. Lighter than the downbeat.',
+    lessonId: 'quarter-eighth-notes',
+    aliases: ['upbeats', 'offbeat', 'offbeats'],
+  },
+  'dotted note': {
+    simple: 'A note with a dot after it — adds half its value. Dotted half = 3 beats; dotted quarter = 1.5 beats.',
+    lessonId: 'dotted-notes',
+    aliases: ['dotted notes', 'dotted half', 'dotted quarter', 'dotted eighth', 'dotted half note', 'dotted quarter note', 'dotted eighth note'],
+  },
   rest: {
     simple: 'Silence. Just as important as notes — rests give music its rhythm and breath.',
     lessonId: 'rests-and-ties',
@@ -194,6 +224,24 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     simple: 'A curved line that joins two notes into one longer sound.',
     lessonId: 'rests-and-ties',
     aliases: ['ties'],
+  },
+  slur: {
+    simple: 'A curved line connecting notes of DIFFERENT pitches — play them smoothly. Don\'t confuse with a tie.',
+    lessonId: 'rests-and-ties',
+    aliases: ['slurs'],
+  },
+  'common time': {
+    simple: 'Another name for 4/4 time — 4 beats per measure, quarter note gets the beat. Used in most pop and rock.',
+    lessonId: 'rhythm-basics',
+  },
+  'compound meter': {
+    simple: 'A time signature where each beat divides into 3 (like 6/8 or 12/8). Has a lilting, swung feel.',
+    lessonId: 'three-four-six-eight',
+    aliases: ['compound time', 'compound duple', 'compound triple'],
+  },
+  waltz: {
+    simple: 'A dance in 3/4 time with a strong "ONE two three" feel.',
+    lessonId: 'three-four-six-eight',
   },
 
   // ─── Power & sus chords ────────────────────────────────────────────────────
@@ -218,6 +266,20 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     simple: 'A shorthand for chords in any key. I = first chord, IV = fourth chord, V = fifth chord. Capital = major, lowercase = minor.',
     lessonId: 'one-four-five',
     aliases: ['roman numerals'],
+  },
+
+  // ─── Tonal functions (used widely from one-four-five onward) ──────────────
+  tonic: {
+    simple: 'The "home" chord (the I) — where a song feels resolved. In C major, the tonic is C.',
+    lessonId: 'one-four-five',
+  },
+  dominant: {
+    simple: 'The V chord — built on the 5th note of the scale. Pulls strongly back to the tonic. In C major, the dominant is G.',
+    lessonId: 'one-four-five',
+  },
+  subdominant: {
+    simple: 'The IV chord — built on the 4th note of the scale. Sounds open, "stepping away" from home. In C major, the subdominant is F.',
+    lessonId: 'one-four-five',
   },
 
   // ─── Minor keys ────────────────────────────────────────────────────────────
