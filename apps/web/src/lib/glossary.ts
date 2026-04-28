@@ -81,7 +81,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   },
   root: {
     simple: 'The "home note" of a chord or scale. Everything else is built from it.',
-    lessonId: 'major-scale',
+    lessonId: 'first-chord',
     aliases: ['root note'],
   },
 
@@ -109,17 +109,17 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   },
   'perfect fifth': {
     simple: 'Seven half steps between two notes. The strongest, most stable interval — used in power chords.',
-    lessonId: 'intervals',
+    lessonId: 'melodic-intervals',
     aliases: ['perfect 5th'],
   },
   'major third': {
     simple: 'Four half steps. Gives major chords their happy sound.',
-    lessonId: 'intervals',
+    lessonId: 'major-minor-triads',
     aliases: ['major 3rd'],
   },
   'minor third': {
     simple: 'Three half steps. Gives minor chords their sad/serious sound.',
-    lessonId: 'intervals',
+    lessonId: 'major-minor-triads',
     aliases: ['minor 3rd'],
   },
 
@@ -153,7 +153,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   },
   tempo: {
     simple: 'How fast a song goes, measured in BPM. 60 BPM = one beat per second.',
-    lessonId: 'rhythm-basics',
+    lessonId: 'tempo-markings',
   },
   bpm: {
     simple: 'Beats Per Minute — how fast the beat is. 120 BPM is medium-fast.',
@@ -271,15 +271,15 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   // ─── Tonal functions (used widely from one-four-five onward) ──────────────
   tonic: {
     simple: 'The "home" chord (the I) — where a song feels resolved. In C major, the tonic is C.',
-    lessonId: 'one-four-five',
+    lessonId: 'scale-degrees',
   },
   dominant: {
     simple: 'The V chord — built on the 5th note of the scale. Pulls strongly back to the tonic. In C major, the dominant is G.',
-    lessonId: 'one-four-five',
+    lessonId: 'scale-degrees',
   },
   subdominant: {
     simple: 'The IV chord — built on the 4th note of the scale. Sounds open, "stepping away" from home. In C major, the subdominant is F.',
-    lessonId: 'one-four-five',
+    lessonId: 'scale-degrees',
   },
 
   // ─── Minor keys ────────────────────────────────────────────────────────────
@@ -317,7 +317,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
   },
   voicing: {
     simple: 'A different way to play the same chord. Same notes, different positions on the guitar or piano.',
-    lessonId: 'chord-inversions',
+    lessonId: 'jazz-chord-voicings',
   },
 
   // ─── Modes ─────────────────────────────────────────────────────────────────
