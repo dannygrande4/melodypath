@@ -8,11 +8,8 @@ import InfoTooltip from '@/components/ui/InfoTooltip'
 import WhatIsThis from '@/components/ui/WhatIsThis'
 import { getScale, getScaleNotes } from '@moniquemusic/music-theory'
 
-const SPEED_PRESETS = [
-  { label: 'Slow', ms: 500 },
-  { label: 'Medium', ms: 300 },
-  { label: 'Fast', ms: 150 },
-]
+const SPEED_MIN = 80    // ms — fast end
+const SPEED_MAX = 2500  // ms — slow end (2.5s per note)
 
 const ROOTS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
@@ -38,7 +35,7 @@ export default function ScaleExplorer() {
   const [scaleType, setScaleType] = useState('major')
   const [activeNotes, setActiveNotes] = useState<string[]>([])
   const [isPlaying, setIsPlaying] = useState(false)
-  const [speed, setSpeed] = useState(300) // ms between notes
+  const [speed, setSpeed] = useState(500) // ms between notes
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
 
   // Get scale info
@@ -177,25 +174,27 @@ export default function ScaleExplorer() {
         </div>
 
         {/* Speed control */}
-        <div>
+        <div className="min-w-[260px]">
           <label className="flex items-center text-xs font-medium text-surface-500 mb-1.5">
             Playback Speed
             <InfoTooltip text="Controls how fast the scale notes play. Slow it down to hear each note clearly, or speed it up to hear the overall sound." />
+            <span className="ml-auto text-surface-400 font-normal tabular-nums">
+              {(speed / 1000).toFixed(2)}s / note
+            </span>
           </label>
-          <div className="flex gap-1">
-            {SPEED_PRESETS.map((preset) => (
-              <button
-                key={preset.label}
-                onClick={() => setSpeed(preset.ms)}
-                className={`px-3 h-9 text-sm font-medium rounded-lg transition-colors ${
-                  speed === preset.ms
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-white border border-surface-200 text-surface-700 hover:bg-surface-50'
-                }`}
-              >
-                {preset.label}
-              </button>
-            ))}
+          <div className="flex items-center gap-2 h-9">
+            <span className="text-[10px] text-surface-400 select-none">Fast</span>
+            <input
+              type="range"
+              min={SPEED_MIN}
+              max={SPEED_MAX}
+              step={20}
+              value={speed}
+              onChange={(e) => setSpeed(Number(e.target.value))}
+              className="flex-1 accent-primary-600"
+              aria-label="Playback speed"
+            />
+            <span className="text-[10px] text-surface-400 select-none">Slow</span>
           </div>
         </div>
 
@@ -272,6 +271,7 @@ export default function ScaleExplorer() {
             activeNotes={activeNotes}
             onNotePlay={handleGuitarNote}
             showLabels
+            dimInactive={isPlaying}
           />
         </div>
       </div>
@@ -287,6 +287,7 @@ export default function ScaleExplorer() {
             activeNotes={activeNotes}
             onNotePlay={handlePianoNote}
             showLabels
+            dimInactive={isPlaying}
           />
         </div>
         <div className="overflow-x-auto pb-2 sm:hidden">
@@ -298,6 +299,7 @@ export default function ScaleExplorer() {
             onNotePlay={handlePianoNote}
             showLabels
             compact
+            dimInactive={isPlaying}
           />
         </div>
         {/* Legend */}

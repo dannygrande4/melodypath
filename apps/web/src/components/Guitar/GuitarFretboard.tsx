@@ -31,6 +31,8 @@ interface GuitarFretboardProps {
   tuning?: string[]
   /** Free play mode: every fret position is clickable, no chord overlay */
   freePlay?: boolean
+  /** When true and there are active notes, dim non-active dots to spotlight the active one */
+  dimInactive?: boolean
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -72,6 +74,7 @@ export default function GuitarFretboard({
   labelMode = 'notes',
   tuning = STANDARD_TUNING,
   freePlay = false,
+  dimInactive = false,
 }: GuitarFretboardProps) {
   const activeSet = useMemo(() => new Set(activeNotes), [activeNotes])
 
@@ -244,6 +247,7 @@ export default function GuitarFretboard({
           const cy = paddingTop + (5 - stringIdx) * stringSpacing
           const fullNote = fretNote.fullNote
           const isActive = activeSet.has(fullNote)
+          const isDimmed = dimInactive && activeSet.size > 0 && !isActive
           const color = ROLE_COLORS[fretNote.role ?? 'other']
 
           return (
@@ -251,6 +255,7 @@ export default function GuitarFretboard({
               key={key}
               onClick={() => handleClick(stringNum, fret)}
               className="cursor-pointer"
+              style={{ opacity: isDimmed ? 0.18 : 1, transition: 'opacity 120ms' }}
             >
               {/* Active glow ring */}
               {isActive && (
@@ -284,7 +289,7 @@ export default function GuitarFretboard({
               <circle
                 cx={cx}
                 cy={cy}
-                r={isActive ? 12 : 10}
+                r={isActive ? 14 : 10}
                 fill={color}
                 opacity={1}
                 stroke="white"

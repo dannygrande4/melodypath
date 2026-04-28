@@ -19,6 +19,8 @@ interface PianoKeyboardProps {
   onNoteRelease?: (note: string) => void
   showLabels?: boolean
   compact?: boolean
+  /** When true and there are active notes, dim non-active highlights to spotlight the active one */
+  dimInactive?: boolean
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -65,6 +67,7 @@ export default function PianoKeyboard({
   onNoteRelease,
   showLabels = true,
   compact = false,
+  dimInactive = false,
 }: PianoKeyboardProps) {
   const highlightMap = useMemo(() => {
     const map = new Map<string, HighlightedNote>()
@@ -119,6 +122,7 @@ export default function PianoKeyboard({
         const wActive = activeSet.has(wNote)
         const wHighlight = highlightMap.get(wNote)
         const wPitchClass = wNote.replace(/\d/, '')
+        const dimWhite = dimInactive && activeSet.size > 0 && !wActive && !!wHighlight
 
         return (
           <div key={wNote} className="relative" style={{ width: wKeyW }}>
@@ -135,7 +139,7 @@ export default function PianoKeyboard({
                     ? `bg-white ring-2 ring-inset ${ROLE_RING_COLORS[wHighlight.role ?? 'other']}`
                     : 'bg-white hover:bg-surface-50',
               )}
-              style={{ height: wKeyH }}
+              style={{ height: wKeyH, opacity: dimWhite ? 0.25 : 1, transition: 'opacity 120ms' }}
               aria-label={wNote}
             >
               {/* Colored dot */}
@@ -164,6 +168,7 @@ export default function PianoKeyboard({
               const bNote = black.note
               const bActive = activeSet.has(bNote)
               const bHighlight = highlightMap.get(bNote)
+              const dimBlack = dimInactive && activeSet.size > 0 && !bActive && !!bHighlight
 
               return (
                 <button
@@ -183,6 +188,8 @@ export default function PianoKeyboard({
                     width: bKeyW,
                     height: bKeyH,
                     right: -(bKeyW / 2),
+                    opacity: dimBlack ? 0.25 : 1,
+                    transition: 'opacity 120ms',
                   }}
                   aria-label={bNote}
                 >
