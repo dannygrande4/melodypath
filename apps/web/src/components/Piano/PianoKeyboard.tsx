@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { cn } from '@/lib/cn'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -94,6 +94,78 @@ export default function PianoKeyboard({
   const handlePlay = useCallback((note: string) => onNotePlay?.(note), [onNotePlay])
   const handleRelease = useCallback((note: string) => onNoteRelease?.(note), [onNoteRelease])
 
+  // Touch gesture state — defers note play until pointer-up so vertical scrolls
+  // through the keyboard don't accidentally fire notes. Mouse input stays
+  // immediate so click-and-hold still works on desktop.
+  const TAP_THRESHOLD_PX = 8
+  const gestureRef = useRef<
+    | {
+        note: string
+        pointerType: string
+        startX: number
+        startY: number
+        firedDown: boolean
+      }
+    | null
+  >(null)
+
+  const handleKeyDown = useCallback(
+    (e: React.PointerEvent, note: string) => {
+      const isMouse = e.pointerType === 'mouse'
+      gestureRef.current = {
+        note,
+        pointerType: e.pointerType,
+        startX: e.clientX,
+        startY: e.clientY,
+        firedDown: isMouse,
+      }
+      if (isMouse) handlePlay(note)
+    },
+    [handlePlay],
+  )
+
+  const handleKeyMove = useCallback(
+    (e: React.PointerEvent) => {
+      const g = gestureRef.current
+      if (!g) return
+      const dx = e.clientX - g.startX
+      const dy = e.clientY - g.startY
+      if (Math.hypot(dx, dy) > TAP_THRESHOLD_PX) {
+        if (g.firedDown) handleRelease(g.note)
+        gestureRef.current = null
+      }
+    },
+    [handleRelease],
+  )
+
+  const handleKeyUp = useCallback(
+    (note: string) => {
+      const g = gestureRef.current
+      if (!g || g.note !== note) {
+        gestureRef.current = null
+        return
+      }
+      if (g.firedDown) {
+        handleRelease(note)
+      } else {
+        // Touch tap that didn't drift — fire and auto-release for percussive feel
+        handlePlay(note)
+        window.setTimeout(() => handleRelease(note), 220)
+      }
+      gestureRef.current = null
+    },
+    [handlePlay, handleRelease],
+  )
+
+  const handleKeyCancel = useCallback(
+    (note: string) => {
+      const g = gestureRef.current
+      if (g?.firedDown && g.note === note) handleRelease(note)
+      gestureRef.current = null
+    },
+    [handleRelease],
+  )
+
   // Sizing
   const wKeyW = compact ? 36 : 48   // px
   const wKeyH = compact ? 112 : 160
@@ -128,6 +200,7 @@ export default function PianoKeyboard({
   return (
     <div
       className="inline-flex relative select-none"
+      style={{ touchAction: 'pan-y' }}
       role="group"
       aria-label="Piano keyboard"
     >
@@ -142,9 +215,11 @@ export default function PianoKeyboard({
           <div key={wNote} className="relative" style={{ width: wKeyW }}>
             {/* White key */}
             <button
-              onPointerDown={() => handlePlay(wNote)}
-              onPointerUp={() => handleRelease(wNote)}
-              onPointerLeave={() => handleRelease(wNote)}
+              onPointerDown={(e) => handleKeyDown(e, wNote)}
+              onPointerMove={handleKeyMove}
+              onPointerUp={() => handleKeyUp(wNote)}
+              onPointerCancel={() => handleKeyCancel(wNote)}
+              onPointerLeave={() => handleKeyCancel(wNote)}
               className={cn(
                 'border border-surface-200 rounded-b-lg transition-all duration-75 select-none flex flex-col items-center justify-end pb-2 w-full',
                 wActive
@@ -187,9 +262,11 @@ export default function PianoKeyboard({
               return (
                 <button
                   key={bNote}
-                  onPointerDown={() => handlePlay(bNote)}
-                  onPointerUp={() => handleRelease(bNote)}
-                  onPointerLeave={() => handleRelease(bNote)}
+                  onPointerDown={(e) => handleKeyDown(e, bNote)}
+                  onPointerMove={handleKeyMove}
+                  onPointerUp={() => handleKeyUp(bNote)}
+                  onPointerCancel={() => handleKeyCancel(bNote)}
+                  onPointerLeave={() => handleKeyCancel(bNote)}
                   className={cn(
                     'absolute top-0 z-10 rounded-b-md border border-surface-900 transition-all duration-75 select-none flex flex-col items-center justify-end pb-1',
                     bActive

@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { getLessonById, LESSONS, isLessonUnlocked, type LessonStep } from '@/lib/lessons/lessonData'
 import { useLessonStore } from '@/stores/lessonStore'
@@ -25,6 +25,13 @@ export default function LessonPage() {
   const [stepIdx, setStepIdx] = useState(0)
   const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({}) // stepIdx → selected option
   const [exerciseNotes, setExerciseNotes] = useState<string[]>([])
+
+  const pianoScrollRef = useRef<HTMLDivElement>(null)
+  const scrollPiano = useCallback((direction: -1 | 1) => {
+    const el = pianoScrollRef.current
+    if (!el) return
+    el.scrollBy({ left: direction * 240, behavior: 'smooth' })
+  }, [])
   const [exerciseComplete, setExerciseComplete] = useState(false)
   const [finished, setFinished] = useState(false)
 
@@ -295,7 +302,7 @@ export default function LessonPage() {
             )}
 
             {/* Piano for exercise */}
-            <div className="overflow-x-auto pb-2">
+            <div ref={pianoScrollRef} className="overflow-x-auto pb-2">
               <PianoKeyboard
                 startOctave={3}
                 octaves={3}
@@ -307,6 +314,25 @@ export default function LessonPage() {
                 }))}
                 showLabels
               />
+            </div>
+            {/* Mobile scroll arrows — avoids accidentally hitting keys when navigating */}
+            <div className="flex justify-center gap-3 mt-2 sm:hidden">
+              <button
+                type="button"
+                onClick={() => scrollPiano(-1)}
+                className="w-12 h-10 rounded-lg bg-white border border-surface-200 text-surface-600 hover:bg-surface-50 active:bg-surface-100 font-bold text-lg"
+                aria-label="Scroll piano left"
+              >
+                ◀
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollPiano(1)}
+                className="w-12 h-10 rounded-lg bg-white border border-surface-200 text-surface-600 hover:bg-surface-50 active:bg-surface-100 font-bold text-lg"
+                aria-label="Scroll piano right"
+              >
+                ▶
+              </button>
             </div>
           </div>
         )}
