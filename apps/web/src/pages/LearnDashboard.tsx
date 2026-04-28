@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { LESSONS, isLessonUnlocked } from '@/lib/lessons/lessonData'
 import { useLessonStore } from '@/stores/lessonStore'
+import { useIsAdmin } from '@/hooks/useUnlocks'
 import WhatIsThis from '@/components/ui/WhatIsThis'
 
 const LEVEL_LABELS: Record<string, string> = {
@@ -14,8 +15,9 @@ const TIME_ESTIMATES: Record<number, string> = {
 }
 
 export default function LearnDashboard() {
-  const { completedLessons, completedIds, markComplete } = useLessonStore()
+  const { completedLessons, completedIds } = useLessonStore()
   const completed = completedIds()
+  const isAdmin = useIsAdmin()
 
   // Group by module
   const modules = new Map<string, typeof LESSONS>()
@@ -72,7 +74,7 @@ export default function LearnDashboard() {
             <div className="space-y-2">
               {lessons.map((lesson, i) => {
                 const isComplete = completed.has(lesson.id)
-                const unlocked = isLessonUnlocked(lesson.id, completed)
+                const unlocked = isAdmin || isLessonUnlocked(lesson.id, completed)
                 const score = completedLessons[lesson.id]?.score
                 const isNext = nextLesson?.id === lesson.id
                 const stepCount = lesson.steps.length
@@ -141,20 +143,7 @@ export default function LearnDashboard() {
                               {lesson.concepts.join(' · ')} · {timeEst}
                             </div>
                           </div>
-                          {/* Skip ahead button - test out of prerequisites */}
-                          <button
-                            onClick={() => {
-                              // Mark all prerequisites as complete so this lesson unlocks
-                              for (const preId of lesson.prerequisites) {
-                                if (!completed.has(preId)) {
-                                  markComplete(preId, 100)
-                                }
-                              }
-                            }}
-                            className="text-xs text-primary-600 font-medium hover:text-primary-700 px-3 py-1.5 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors flex-shrink-0"
-                          >
-                            I know this →
-                          </button>
+                          <span className="text-surface-300 text-lg flex-shrink-0">🔒</span>
                         </div>
                         <div className="text-[10px] text-surface-400 mt-1">
                           Requires: {LESSONS.find((l) => l.id === lesson.prerequisites[0])?.title}

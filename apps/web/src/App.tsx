@@ -5,6 +5,8 @@ import { useAuthStore } from '@/stores/authStore'
 import { useAuthSync } from '@/hooks/useAuthSync'
 import AppShell from '@/components/layout/AppShell'
 import LevelUpOverlay from '@/components/Gamification/LevelUpOverlay'
+import UnlockOverlay from '@/components/Gamification/UnlockOverlay'
+import RouteGuard from '@/components/RouteGuard'
 
 // ── Lazy-loaded pages (code-split per route) ─────────────────────────────────
 const Landing = lazy(() => import('@/pages/Landing'))
@@ -81,6 +83,7 @@ export default function App() {
   return (
     <>
     <LevelUpOverlay />
+    <UnlockOverlay />
     <Suspense fallback={<PageLoading />}>
     <Routes>
       {/* Public routes (no shell) */}
@@ -97,13 +100,13 @@ export default function App() {
         <Route path="/learn" element={<LearnDashboard />} />
         <Route path="/learn/:lessonId" element={<LessonPage />} />
         <Route path="/explore/chords" element={<ChordExplorer />} />
-        <Route path="/explore/scales" element={<ScaleExplorer />} />
-        <Route path="/ear-training" element={<EarTraining />} />
-        <Route path="/challenges" element={<Challenges />} />
-        <Route path="/progressions" element={<ProgressionBuilder />} />
-        <Route path="/resources" element={<Resources />} />
+        <Route path="/explore/scales" element={<RouteGuard><ScaleExplorer /></RouteGuard>} />
+        <Route path="/ear-training" element={<RouteGuard><EarTraining /></RouteGuard>} />
+        <Route path="/challenges" element={<RouteGuard><Challenges /></RouteGuard>} />
+        <Route path="/progressions" element={<RouteGuard><ProgressionBuilder /></RouteGuard>} />
+        <Route path="/resources" element={<RouteGuard><Resources /></RouteGuard>} />
         <Route path="/practice" element={<PracticeSandbox />} />
-        <Route path="/practice/fretboard-quiz" element={<FretboardQuiz />} />
+        <Route path="/practice/fretboard-quiz" element={<RouteGuard><FretboardQuiz /></RouteGuard>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
       </Route>

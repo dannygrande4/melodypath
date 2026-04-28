@@ -3,6 +3,8 @@ import { useAudioInit } from '@/hooks/useAudioInit'
 import { useAudioStore } from '@/stores/audioStore'
 import { getChordNotes, getProgressionChords } from '@moniquemusic/music-theory'
 import InfoTooltip from '@/components/ui/InfoTooltip'
+import { useUnlockChecks } from '@/hooks/useUnlocks'
+import { PROGRESSION_UNLOCKS, getLessonTitle } from '@/lib/unlocks'
 
 const MAJOR_KEYS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 const MINOR_KEYS = ['Am', 'A#m', 'Bm', 'Cm', 'C#m', 'Dm', 'D#m', 'Em', 'Fm', 'F#m', 'Gm', 'G#m']
@@ -48,6 +50,7 @@ const BPM_OPTIONS = [60, 80, 100, 120, 140, 160]
 export default function ProgressionBuilder() {
   const { ensureAudio } = useAudioInit()
   const engine = useAudioStore((s) => s.engine)
+  const checks = useUnlockChecks()
 
   const [keyMode, setKeyMode] = useState<'major' | 'minor'>('major')
   const [key, setKey] = useState('C')
@@ -222,15 +225,29 @@ export default function ProgressionBuilder() {
       <div>
         <label className="block text-xs font-medium text-surface-500 mb-1.5">Presets</label>
         <div className="flex flex-wrap gap-1.5">
-          {availablePresets.map((preset) => (
-            <button
-              key={preset.name}
-              onClick={() => loadPreset(preset)}
-              className="px-3 py-1.5 text-xs font-medium bg-white border border-surface-200 rounded-lg hover:bg-surface-50 text-surface-700 transition-colors"
-            >
-              {preset.name}
-            </button>
-          ))}
+          {availablePresets.map((preset) => {
+            const unlocked = checks.progression(preset.name)
+            const gateLesson = PROGRESSION_UNLOCKS[preset.name]
+            const tooltip = !unlocked && gateLesson
+              ? `Unlock by finishing "${getLessonTitle(gateLesson)}"`
+              : undefined
+            return (
+              <button
+                key={preset.name}
+                onClick={() => unlocked && loadPreset(preset)}
+                disabled={!unlocked}
+                title={tooltip}
+                className={`px-3 py-1.5 text-xs font-medium border border-surface-200 rounded-lg transition-colors flex items-center gap-1 ${
+                  unlocked
+                    ? 'bg-white hover:bg-surface-50 text-surface-700'
+                    : 'bg-surface-50 text-surface-400 cursor-not-allowed'
+                }`}
+              >
+                {preset.name}
+                {!unlocked && <span className="text-[10px]">🔒</span>}
+              </button>
+            )
+          })}
         </div>
       </div>
 

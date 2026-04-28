@@ -6,6 +6,8 @@ import { transposeNote, getChordNotes } from '@moniquemusic/music-theory'
 import InfoTooltip from '@/components/ui/InfoTooltip'
 import WhatIsThis from '@/components/ui/WhatIsThis'
 import { useEarTrainingStore } from '@/stores/earTrainingStore'
+import { useUnlockChecks } from '@/hooks/useUnlocks'
+import { EAR_TRAINING_UNLOCKS, getLessonTitle } from '@/lib/unlocks'
 
 // ─── Exercise types ──────────────────────────────────────────────────────────
 
@@ -62,6 +64,7 @@ export default function EarTraining() {
   const engine = useAudioStore((s) => s.engine)
   const addXP = useUserStore((s) => s.addXP)
   const { recordAnswer, getDifficulty } = useEarTrainingStore()
+  const checks = useUnlockChecks()
 
   const [exerciseType, setExerciseType] = useState<ExerciseType>('intervals')
   const [score, setScore] = useState({ correct: 0, total: 0 })
@@ -289,24 +292,37 @@ export default function EarTraining() {
       {/* Exercise type toggle */}
       <div className="flex items-center gap-3 flex-wrap">
         <div className="flex flex-wrap bg-surface-100 rounded-lg p-1 gap-0.5">
-        {(['intervals', 'chords', 'melody', 'rhythm'] as const).map((type) => (
-          <button
-            key={type}
-            onClick={() => {
-              setExerciseType(type)
-              setCurrentQ(null)
-              setFeedback(null)
-              setScore({ correct: 0, total: 0 })
-            }}
-            className={`px-3 sm:px-5 py-2 text-sm font-medium rounded-md transition-colors capitalize ${
-              exerciseType === type
-                ? 'bg-white text-surface-900 shadow-sm'
-                : 'text-surface-500'
-            }`}
-          >
-            {type}
-          </button>
-        ))}
+        {(['intervals', 'chords', 'melody', 'rhythm'] as const).map((type) => {
+          const unlocked = checks.earTraining(type)
+          const gateLesson = EAR_TRAINING_UNLOCKS[type]
+          const tooltip = !unlocked && gateLesson
+            ? `Unlock by finishing "${getLessonTitle(gateLesson)}"`
+            : undefined
+          return (
+            <button
+              key={type}
+              onClick={() => {
+                if (!unlocked) return
+                setExerciseType(type)
+                setCurrentQ(null)
+                setFeedback(null)
+                setScore({ correct: 0, total: 0 })
+              }}
+              disabled={!unlocked}
+              title={tooltip}
+              className={`px-3 sm:px-5 py-2 text-sm font-medium rounded-md transition-colors capitalize flex items-center gap-1 ${
+                exerciseType === type
+                  ? 'bg-white text-surface-900 shadow-sm'
+                  : unlocked
+                    ? 'text-surface-500'
+                    : 'text-surface-300 cursor-not-allowed'
+              }`}
+            >
+              {type}
+              {!unlocked && <span className="text-[10px]">🔒</span>}
+            </button>
+          )
+        })}
         </div>
         <InfoTooltip
           size="md"

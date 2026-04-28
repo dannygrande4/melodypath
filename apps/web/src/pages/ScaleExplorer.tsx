@@ -6,6 +6,8 @@ import { useAudioInit } from '@/hooks/useAudioInit'
 import { useAudioStore } from '@/stores/audioStore'
 import InfoTooltip from '@/components/ui/InfoTooltip'
 import WhatIsThis from '@/components/ui/WhatIsThis'
+import { useUnlockChecks } from '@/hooks/useUnlocks'
+import { SCALE_UNLOCKS, getLessonTitle } from '@/lib/unlocks'
 import { getScale, getScaleNotes } from '@moniquemusic/music-theory'
 
 const SPEED_MIN = 80    // ms — fast end
@@ -30,6 +32,7 @@ const SCALE_TYPES = [
 export default function ScaleExplorer() {
   const { ensureAudio } = useAudioInit()
   const engine = useAudioStore((s) => s.engine)
+  const checks = useUnlockChecks()
 
   const [root, setRoot] = useState('C')
   const [scaleType, setScaleType] = useState('major')
@@ -157,19 +160,31 @@ export default function ScaleExplorer() {
         <div>
           <label className="block text-xs font-medium text-surface-500 mb-1.5">Scale Type</label>
           <div className="flex flex-wrap gap-1">
-            {SCALE_TYPES.map((st) => (
-              <button
-                key={st.value}
-                onClick={() => setScaleType(st.value)}
-                className={`px-3 h-9 text-sm font-medium rounded-lg transition-colors ${
-                  st.value === scaleType
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-white border border-surface-200 text-surface-700 hover:bg-surface-50'
-                }`}
-              >
-                {st.label}
-              </button>
-            ))}
+            {SCALE_TYPES.map((st) => {
+              const unlocked = checks.scale(st.value)
+              const gateLesson = SCALE_UNLOCKS[st.value]
+              const tooltip = !unlocked && gateLesson
+                ? `Unlock by finishing "${getLessonTitle(gateLesson)}"`
+                : undefined
+              return (
+                <button
+                  key={st.value}
+                  onClick={() => unlocked && setScaleType(st.value)}
+                  disabled={!unlocked}
+                  title={tooltip}
+                  className={`px-3 h-9 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 ${
+                    st.value === scaleType
+                      ? 'bg-primary-600 text-white'
+                      : unlocked
+                        ? 'bg-white border border-surface-200 text-surface-700 hover:bg-surface-50'
+                        : 'bg-surface-50 border border-surface-200 text-surface-400 cursor-not-allowed'
+                  }`}
+                >
+                  {st.label}
+                  {!unlocked && <span className="text-[10px]">🔒</span>}
+                </button>
+              )
+            })}
           </div>
         </div>
 

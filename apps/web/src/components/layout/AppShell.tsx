@@ -3,6 +3,8 @@ import { Outlet, NavLink, Link } from 'react-router-dom'
 import { useUIStore } from '@/stores/uiStore'
 import { useUserStore } from '@/stores/userStore'
 import { useAuthStore } from '@/stores/authStore'
+import { useUnlockChecks } from '@/hooks/useUnlocks'
+import { TAB_UNLOCKS, getLessonTitle } from '@/lib/unlocks'
 
 const NAV_ITEMS = [
   { to: '/dashboard', icon: '🏠', label: 'Dashboard' },
@@ -29,9 +31,44 @@ export default function AppShell() {
   const { ageMode, sidebarOpen, toggleSidebar } = useUIStore()
   const { xp, level, streak_days } = useUserStore()
   const { user, signOut } = useAuthStore()
+  const checks = useUnlockChecks()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const navItems = ageMode === 'accessible' ? ACCESSIBLE_NAV : NAV_ITEMS
+
+  const renderNavItem = (item: { to: string; icon: string; label: string }, onClick?: () => void, showLabel = true) => {
+    const unlocked = checks.route(item.to)
+    const gate = TAB_UNLOCKS[item.to]
+    const tooltip = !unlocked && gate
+      ? `Unlock by finishing "${getLessonTitle(gate.unlockedBy)}"`
+      : undefined
+
+    return (
+      <NavLink
+        key={item.to}
+        to={item.to}
+        onClick={onClick}
+        title={tooltip}
+        className={({ isActive }) => `
+          flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors
+          ${isActive
+            ? 'bg-primary-50 text-primary-700'
+            : unlocked
+              ? 'text-surface-800 hover:bg-surface-100'
+              : 'text-surface-400 hover:bg-surface-50'
+          }
+        `}
+      >
+        <span className={`text-xl flex-shrink-0 ${unlocked ? '' : 'grayscale opacity-60'}`}>{item.icon}</span>
+        {showLabel && (
+          <span className="flex-1 flex items-center justify-between gap-2">
+            <span>{item.label}</span>
+            {!unlocked && <span className="text-[10px] opacity-70">🔒</span>}
+          </span>
+        )}
+      </NavLink>
+    )
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-surface-50">
@@ -72,23 +109,7 @@ export default function AppShell() {
           <span className="font-bold text-primary-600 text-lg tracking-tight">MoniqueMusic</span>
         </div>
         <nav className="flex-1 py-4 space-y-1 px-2">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              onClick={() => setMobileMenuOpen(false)}
-              className={({ isActive }) => `
-                flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors
-                ${isActive
-                  ? 'bg-primary-50 text-primary-700'
-                  : 'text-surface-800 hover:bg-surface-100'
-                }
-              `}
-            >
-              <span className="text-xl flex-shrink-0">{item.icon}</span>
-              <span>{item.label}</span>
-            </NavLink>
-          ))}
+          {navItems.map((item) => renderNavItem(item, () => setMobileMenuOpen(false), true))}
         </nav>
         <div className="px-4 py-3 border-t border-surface-200 space-y-1">
           <div className="text-xs text-surface-600">Level {level}</div>
@@ -115,22 +136,7 @@ export default function AppShell() {
 
         {/* Nav */}
         <nav className="flex-1 py-4 space-y-1 px-2">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) => `
-                flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors
-                ${isActive
-                  ? 'bg-primary-50 text-primary-700'
-                  : 'text-surface-800 hover:bg-surface-100'
-                }
-              `}
-            >
-              <span className="text-xl flex-shrink-0">{item.icon}</span>
-              {sidebarOpen && <span>{item.label}</span>}
-            </NavLink>
-          ))}
+          {navItems.map((item) => renderNavItem(item, undefined, sidebarOpen))}
         </nav>
 
         {/* Stats footer */}

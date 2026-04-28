@@ -6,6 +6,8 @@ import { useAudioInit } from '@/hooks/useAudioInit'
 import { useAudioStore } from '@/stores/audioStore'
 import InfoTooltip from '@/components/ui/InfoTooltip'
 import WhatIsThis from '@/components/ui/WhatIsThis'
+import { useUnlockChecks } from '@/hooks/useUnlocks'
+import { CHORD_UNLOCKS, getLessonTitle } from '@/lib/unlocks'
 import {
   getChord,
   getChordNotes,
@@ -32,6 +34,7 @@ type Mode = 'explore' | 'tryit'
 export default function ChordExplorer() {
   const { ensureAudio } = useAudioInit()
   const engine = useAudioStore((s) => s.engine)
+  const checks = useUnlockChecks()
 
   // Explore mode state
   const [root, setRoot] = useState('C')
@@ -202,19 +205,35 @@ export default function ChordExplorer() {
           <div>
             <label className="block text-xs font-medium text-surface-500 mb-1.5">Chord Type</label>
             <div className="flex flex-wrap gap-1">
-              {CHORD_TYPES.map((ct) => (
-                <button
-                  key={ct.value}
-                  onClick={() => { setChordType(ct.value); setVoicingIndex(0) }}
-                  className={`px-3 h-9 text-sm font-medium rounded-lg transition-colors ${
-                    ct.value === chordType
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-white border border-surface-200 text-surface-700 hover:bg-surface-50'
-                  }`}
-                >
-                  {ct.label}
-                </button>
-              ))}
+              {CHORD_TYPES.map((ct) => {
+                const unlocked = checks.chord(ct.value)
+                const gateLesson = CHORD_UNLOCKS[ct.value]
+                const tooltip = !unlocked && gateLesson
+                  ? `Unlock by finishing "${getLessonTitle(gateLesson)}"`
+                  : undefined
+                return (
+                  <button
+                    key={ct.value}
+                    onClick={() => {
+                      if (!unlocked) return
+                      setChordType(ct.value)
+                      setVoicingIndex(0)
+                    }}
+                    disabled={!unlocked}
+                    title={tooltip}
+                    className={`px-3 h-9 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 ${
+                      ct.value === chordType
+                        ? 'bg-primary-600 text-white'
+                        : unlocked
+                          ? 'bg-white border border-surface-200 text-surface-700 hover:bg-surface-50'
+                          : 'bg-surface-50 border border-surface-200 text-surface-400 cursor-not-allowed'
+                    }`}
+                  >
+                    {ct.label}
+                    {!unlocked && <span className="text-[10px]">🔒</span>}
+                  </button>
+                )
+              })}
             </div>
           </div>
 
