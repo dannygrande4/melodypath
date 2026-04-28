@@ -19,21 +19,26 @@ export interface Tokenizer {
   entryFor: (match: string) => GlossaryEntry | null
   seenBolds: Set<string>
   seenGloss: Set<string>
-  /** Terms taught BY this lesson are not highlighted — they're being introduced here. */
-  excludeLessonId?: string
+  /** Curriculum order of the lesson currently being rendered. Terms whose
+   *  teaching lesson order is >= this are NOT highlighted — they would be
+   *  forward-references to lessons the reader has not yet reached. */
+  currentLessonOrder?: number
+  /** lessonId → curriculum order, used to compare term provenance. */
+  lessonOrderById?: Record<string, number>
 }
 
 export function makeTokenizer(
   glossRegex: RegExp | null,
   entryFor: (match: string) => GlossaryEntry | null,
-  options: { excludeLessonId?: string } = {},
+  options: { currentLessonOrder?: number; lessonOrderById?: Record<string, number> } = {},
 ): Tokenizer {
   return {
     glossRegex,
     entryFor,
     seenBolds: new Set(),
     seenGloss: new Set(),
-    excludeLessonId: options.excludeLessonId,
+    currentLessonOrder: options.currentLessonOrder,
+    lessonOrderById: options.lessonOrderById,
   }
 }
 
@@ -100,8 +105,14 @@ function tokenizeGloss(text: string, t: Tokenizer): ContentNode[] {
       out.push({ kind: 'text', value: text.slice(lastIndex, match.index) })
     }
 
-    const isIntroducedByThisLesson = entry?.lessonId && entry.lessonId === t.excludeLessonId
-    if (entry && !isIntroducedByThisLesson && !t.seenGloss.has(lemma)) {
+    let isForwardOrCurrent = false
+    if (entry?.lessonId && t.currentLessonOrder !== undefined && t.lessonOrderById) {
+      const teachingOrder = t.lessonOrderById[entry.lessonId]
+      if (teachingOrder !== undefined && teachingOrder >= t.currentLessonOrder) {
+        isForwardOrCurrent = true
+      }
+    }
+    if (entry && !isForwardOrCurrent && !t.seenGloss.has(lemma)) {
       t.seenGloss.add(lemma)
       out.push({ kind: 'gloss', value: matched, entry })
     } else {

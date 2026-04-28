@@ -57,7 +57,12 @@ export default function LessonPage() {
   const renderedSteps = useMemo(() => {
     const completed = new Set(Object.keys(completedLessons))
     const { regex, entryFor } = buildGlossaryRegex(completed, { assumeAllUnlocked: isAdmin })
-    const tokenizer = makeTokenizer(regex, entryFor, { excludeLessonId: lesson.id })
+    const lessonOrderById: Record<string, number> = {}
+    for (const l of LESSONS) lessonOrderById[l.id] = l.order
+    const tokenizer = makeTokenizer(regex, entryFor, {
+      currentLessonOrder: lesson.order,
+      lessonOrderById,
+    })
     return lesson.steps.map((step) => {
       if (step.type === 'text') {
         const content = isKids ? kidsify(step.content) : step.content
