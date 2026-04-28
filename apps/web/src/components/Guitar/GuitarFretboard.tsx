@@ -105,15 +105,12 @@ export default function GuitarFretboard({
   const height = paddingTop + 5 * stringSpacing + paddingBottom
   const nutX = paddingLeft
 
-  // Minimum width so frets are always readable (don't shrink below this)
-  const minDisplayWidth = Math.max(400, frets * 50)
-
   return (
     <div className="overflow-x-auto pb-2 -mx-2 px-2">
     <svg
+      width={width}
+      height={height}
       viewBox={`0 0 ${width} ${height}`}
-      style={{ minWidth: minDisplayWidth }}
-      className="w-full"
       role="img"
       aria-label="Guitar fretboard"
     >
