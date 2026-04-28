@@ -4,6 +4,14 @@ const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 
 const STANDARD_TUNING = ['E', 'A', 'D', 'G', 'B', 'E']
 const STANDARD_OCTAVES = [2, 2, 3, 3, 3, 4]
 
+// Map flat / enharmonic pitch classes to the sharp form used by NOTE_NAMES
+// so flat-spelled scales (Eb, Ab, Bb, ...) match positions on the fretboard.
+const PITCH_CLASS_NORMALIZE: Record<string, string> = {
+  Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#',
+  Cb: 'B', Fb: 'E', 'E#': 'F', 'B#': 'C',
+}
+const toSharp = (pc: string) => PITCH_CLASS_NORMALIZE[pc] ?? pc
+
 /**
  * Given an array of scale note pitch classes and a root note,
  * generate FretNote positions across all strings up to maxFret.
@@ -13,7 +21,13 @@ export function scaleToFretNotes(
   root: string,
   maxFret = 12,
 ): FretNote[] {
-  const scaleSet = new Set(scaleNotes)
+  // Index scale notes by their sharp-form pitch class so flat spellings
+  // (Eb, Ab, Bb, ...) still match the chromatic NOTE_NAMES table. Preserve
+  // the original spelling for display.
+  const sharpToOriginal = new Map<string, string>()
+  scaleNotes.forEach((pc) => sharpToOriginal.set(toSharp(pc), pc))
+  const sharpRoot = toSharp(root)
+
   const result: FretNote[] = []
 
   for (let stringIdx = 0; stringIdx < 6; stringIdx++) {
@@ -23,24 +37,25 @@ export function scaleToFretNotes(
 
     for (let fret = 0; fret <= maxFret; fret++) {
       const totalSemitones = startSemitone + fret
-      const pitchClass = NOTE_NAMES[totalSemitones % 12]
+      const sharpPc = NOTE_NAMES[totalSemitones % 12]
       const octave = openOctave + Math.floor(totalSemitones / 12)
 
-      if (!scaleSet.has(pitchClass)) continue
+      const displayPc = sharpToOriginal.get(sharpPc)
+      if (!displayPc) continue
 
       // Determine role
       let role: NoteRole = 'other'
-      if (pitchClass === root) role = 'root'
+      if (sharpPc === sharpRoot) role = 'root'
       else {
-        const idx = scaleNotes.indexOf(pitchClass)
+        const idx = scaleNotes.indexOf(displayPc)
         if (idx === 2) role = 'third'
         else if (idx === 4) role = 'fifth'
         else if (idx === 6) role = 'seventh'
       }
 
       result.push({
-        note: pitchClass,
-        fullNote: `${pitchClass}${octave}`,
+        note: displayPc,
+        fullNote: `${sharpPc}${octave}`,
         string: 6 - stringIdx, // 6 = low E
         fret,
         role,
