@@ -615,7 +615,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What are Dynamics?',
-        content: `**Dynamics** are the volume levels in music. They tell performers how loudly or softly to play. Italian terms are used universally:\n\n- **pp** (pianissimo) = very soft\n- **p** (piano) = soft\n- **mp** (mezzo piano) = moderately soft\n- **mf** (mezzo forte) = moderately loud\n- **f** (forte) = loud\n- **ff** (fortissimo) = very loud\n\nDynamics bring music to life. A piece played at one constant volume sounds flat and robotic. Varying the volume creates drama, emotion, and narrative.`,
+        content: `**Dynamics** are the volume levels in music. They tell performers how loudly or softly to play. Italian terms are used universally:\n\n- **pp** (pianissimo) = very soft\n- **p** (piano) = soft\n- **mp** (mezzo piano) = moderately soft\n- **mf** (mezzo forte) = moderately loud\n- **f** (forte) = loud\n- **ff** (fortissimo) = very loud\n\n[staff-notes:C4,E4,G4,C5,G4,E4,C4|Imagine soft → loud → soft as you play this arc]\n\nDynamics bring music to life. A piece played at one constant volume sounds flat and robotic. Varying the volume creates drama, emotion, and narrative.`,
       },
       {
         type: 'quiz',
@@ -657,7 +657,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What is Tempo?',
-        content: `**Tempo** is the speed of the music — how fast or slow the beats go. Like dynamics, tempo uses Italian terms:\n\n- **Largo** = very slow (40-60 BPM)\n- **Adagio** = slow and stately (66-76 BPM)\n- **Andante** = walking pace (76-108 BPM)\n- **Moderato** = moderate (108-120 BPM)\n- **Allegro** = fast and lively (120-156 BPM)\n- **Vivace** = very fast (156-176 BPM)\n- **Presto** = extremely fast (168-200 BPM)\n\nModern scores often include a specific BPM marking for precision, such as a quarter note = 120.`,
+        content: `**Tempo** is the speed of the music — how fast or slow the beats go. Like dynamics, tempo uses Italian terms:\n\n- **Largo** = very slow (40-60 BPM)\n- **Adagio** = slow and stately (66-76 BPM)\n- **Andante** = walking pace (76-108 BPM)\n- **Moderato** = moderate (108-120 BPM)\n- **Allegro** = fast and lively (120-156 BPM)\n- **Vivace** = very fast (156-176 BPM)\n- **Presto** = extremely fast (168-200 BPM)\n\n[rhythm-pattern:4/4|q,q,q,q|At 60 BPM (Largo) — one beat per second]\n[rhythm-pattern:4/4|q,q,q,q|At 120 BPM (Allegro) — twice as fast]\n\nModern scores often include a specific BPM marking for precision, such as a quarter note = 120.`,
       },
       {
         type: 'quiz',
@@ -918,7 +918,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Common Strumming Patterns',
-        content: `Here are three essential patterns in 4/4 time:\n\n**Pattern 1 (Basic):** ↓ ↓ ↓ ↓ — all downstrokes, one per beat. Simple and strong.\n\n**Pattern 2 (Folk/Pop):** ↓ ↓ ↑ ↑ ↓ ↑ — this is the most versatile pattern in acoustic music. It has a natural, rolling feel.\n\n**Pattern 3 (Driving):** ↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑ — alternating down and up on every eighth note. Creates constant motion and energy.\n\nThe key to good strumming is keeping your hand moving in a constant down-up motion, even when you skip a strum. Your hand is the metronome.`,
+        content: `Here are three essential patterns in 4/4 time:\n\n**Pattern 1 (Basic):** ↓ ↓ ↓ ↓ — all downstrokes, one per beat. Simple and strong.\n\n**Pattern 2 (Folk/Pop):** ↓ ↓ ↑ ↑ ↓ ↑ — this is the most versatile pattern in acoustic music. It has a natural, rolling feel.\n\n**Pattern 3 (Driving):** ↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑ — alternating down and up on every eighth note. Creates constant motion and energy.\n\n[rhythm-pattern:4/4|q,q,q,q|Pattern 1 — straight downstrokes]\n[rhythm-pattern:4/4|e,e,e,e,e,e,e,e|Pattern 3 — constant eighth notes (down-up-down-up)]\n\nThe key to good strumming is keeping your hand moving in a constant down-up motion, even when you skip a strum. Your hand is the metronome.`,
       },
       {
         type: 'quiz',
@@ -1085,7 +1085,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Names for Every Degree',
-        content: `Each note in a scale has a name that describes its **function** — what role it plays in creating tension or stability:\n\n1. **Tonic** — Home base, the most stable note\n2. **Supertonic** — One step above the tonic\n3. **Mediant** — Halfway between tonic and dominant\n4. **Subdominant** — Below the dominant; has moderate pull\n5. **Dominant** — The second most important note; creates strong pull to tonic\n6. **Submediant** — Below the mediant (counting from the top)\n7. **Leading Tone** — One half step below tonic; has the strongest pull to resolve upward\n\nThese names apply in every key. The tonic is always "home" no matter what note it is.`,
+        content: `Each note in a scale has a name that describes its **function** — what role it plays in creating tension or stability:\n\n1. **Tonic** — Home base, the most stable note\n2. **Supertonic** — One step above the tonic\n3. **Mediant** — Halfway between tonic and dominant\n4. **Subdominant** — Below the dominant; has moderate pull\n5. **Dominant** — The second most important note; creates strong pull to tonic\n6. **Submediant** — Below the mediant (counting from the top)\n7. **Leading Tone** — One half step below tonic; has the strongest pull to resolve upward\n\n[staff:c-major-scale]\n\nThese names apply in every key. The tonic is always "home" no matter what note it is.`,
       },
       {
         type: 'quiz',
@@ -1127,7 +1127,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Hearing Intervals',
-        content: `Being able to **hear** intervals — not just calculate them on paper — is one of the most valuable skills a musician can develop. It is the foundation of ear training.\n\nThe trick is to associate each interval with the opening of a well-known song:\n\n- **Minor 2nd** (1 half step): "Jaws" theme\n- **Major 2nd** (2): "Happy Birthday"\n- **Minor 3rd** (3): "Greensleeves" / Smoke on the Water\n- **Major 3rd** (4): "Oh When the Saints"\n- **Perfect 4th** (5): "Here Comes the Bride"\n- **Tritone** (6): "The Simpsons" theme\n- **Perfect 5th** (7): "Star Wars" main theme\n- **Octave** (12): "Somewhere Over the Rainbow"`,
+        content: `Being able to **hear** intervals — not just calculate them on paper — is one of the most valuable skills a musician can develop. It is the foundation of ear training.\n\nThe trick is to associate each interval with the opening of a well-known song:\n\n- **Minor 2nd** (1 half step): "Jaws" theme\n- **Major 2nd** (2): "Happy Birthday"\n- **Minor 3rd** (3): "Greensleeves" / Smoke on the Water\n- **Major 3rd** (4): "Oh When the Saints"\n- **Perfect 4th** (5): "Here Comes the Bride"\n- **Tritone** (6): "The Simpsons" theme\n- **Perfect 5th** (7): "Star Wars" main theme\n- **Octave** (12): "Somewhere Over the Rainbow"\n\n[staff-notes:C4,E4,C4,G4,C4,C5|Major 3rd, Perfect 5th, Octave from C]`,
       },
       {
         type: 'quiz',
@@ -1169,12 +1169,12 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The Motif',
-        content: `A **motif** is a short musical idea — typically 2 to 5 notes — that serves as the seed for an entire melody. Think of Beethoven's 5th Symphony: that entire first movement grows from just four notes (da-da-da-DUM).\n\nGreat melodies do not use random notes. They take a small idea and develop it through **repetition** (playing it again), **variation** (playing it with changes), and **contrast** (introducing something new).\n\nThe balance of familiar and new is what makes a melody memorable. Too much repetition is boring. Too much new material is confusing. The sweet spot is in between.`,
+        content: `A **motif** is a short musical idea — typically 2 to 5 notes — that serves as the seed for an entire melody. Think of Beethoven's 5th Symphony: that entire first movement grows from just four notes (da-da-da-DUM).\n\nGreat melodies do not use random notes. They take a small idea and develop it through **repetition** (playing it again), **variation** (playing it with changes), and **contrast** (introducing something new).\n\nThe balance of familiar and new is what makes a melody memorable. Too much repetition is boring. Too much new material is confusing. The sweet spot is in between.\n\n[staff-notes:G4,E4,E4,F4,D4,D4|"Da-da-da-DUM" — Beethoven's 5th motif]`,
       },
       {
         type: 'text',
         title: 'Melodic Contour',
-        content: `**Contour** is the overall shape of a melody — its rises and falls. Common melodic shapes include:\n\n- **Arch:** rises to a peak then falls (the most common shape)\n- **Inverted arch:** dips down then comes back up\n- **Ascending:** builds energy by climbing upward\n- **Descending:** releases energy by stepping down\n\nMost effective melodies combine **stepwise motion** (moving to adjacent notes) with occasional **leaps** (jumping to a distant note) for drama. The rule of thumb: after a leap, return by step in the opposite direction.`,
+        content: `**Contour** is the overall shape of a melody — its rises and falls. Common melodic shapes include:\n\n- **Arch:** rises to a peak then falls (the most common shape)\n- **Inverted arch:** dips down then comes back up\n- **Ascending:** builds energy by climbing upward\n- **Descending:** releases energy by stepping down\n\nMost effective melodies combine **stepwise motion** (moving to adjacent notes) with occasional **leaps** (jumping to a distant note) for drama. The rule of thumb: after a leap, return by step in the opposite direction.\n\n[staff-notes:C4,D4,E4,F4,E4,D4,C4|Arch-shaped melodic contour]`,
       },
       {
         type: 'quiz',
@@ -1211,7 +1211,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Musical Sentences',
-        content: `A **phrase** is a musical sentence — a complete thought that feels like it has a beginning, middle, and end. Just as speech is divided into sentences, music is divided into phrases.\n\nMost phrases are **4 or 8 bars long** in popular music. They often come in pairs:\n\n- **Antecedent phrase** (the question): ends on an unstable note, feels incomplete\n- **Consequent phrase** (the answer): ends on a stable note, feels resolved\n\nThis question-and-answer structure is called a **period** and is one of the most fundamental structures in all of music.`,
+        content: `A **phrase** is a musical sentence — a complete thought that feels like it has a beginning, middle, and end. Just as speech is divided into sentences, music is divided into phrases.\n\nMost phrases are **4 or 8 bars long** in popular music. They often come in pairs:\n\n- **Antecedent phrase** (the question): ends on an unstable note, feels incomplete\n- **Consequent phrase** (the answer): ends on a stable note, feels resolved\n\nThis question-and-answer structure is called a **period** and is one of the most fundamental structures in all of music.\n\n[staff-notes:C4,D4,E4,G4,F4,E4,D4,C4|Antecedent ends on G (unresolved), consequent ends on C]`,
       },
       {
         type: 'text',
@@ -1253,7 +1253,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What is Transposition?',
-        content: `**Transposition** means moving a piece of music to a different key while keeping all the intervals (and therefore the melody) exactly the same. The song sounds the same — just higher or lower.\n\nWhy transpose? Common reasons include:\n- Matching a singer's vocal range\n- Making a piece easier to play on a particular instrument\n- Accommodating transposing instruments (like Bb trumpet or Eb alto sax)\n\nWhen you transpose, every note moves by the same interval. If you transpose up a whole step, C becomes D, E becomes F#, G becomes A, and so on.`,
+        content: `**Transposition** means moving a piece of music to a different key while keeping all the intervals (and therefore the melody) exactly the same. The song sounds the same — just higher or lower.\n\nWhy transpose? Common reasons include:\n- Matching a singer's vocal range\n- Making a piece easier to play on a particular instrument\n- Accommodating transposing instruments (like Bb trumpet or Eb alto sax)\n\nWhen you transpose, every note moves by the same interval. If you transpose up a whole step, C becomes D, E becomes F#, G becomes A, and so on.\n\n[staff-notes:C4,E4,G4|Original — C major triad in C]\n[staff-notes:G4,B4,D5|Transposed up a 5th — same shape, key of G]`,
       },
       {
         type: 'quiz',
@@ -1346,7 +1346,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Same Notes, Different Order',
-        content: `A **chord inversion** is the same chord with a different note on the bottom (the bass note).\n\nC major = C, E, G. All three of these arrangements are C major:\n\n- **Root position:** C-E-G (root on the bottom)\n- **1st inversion:** E-G-C (3rd on the bottom)\n- **2nd inversion:** G-C-E (5th on the bottom)\n\nWith 7th chords, there is also a **3rd inversion** with the 7th on the bottom. Each inversion has a different character — root position is strongest, 1st inversion is smooth, 2nd inversion has a suspended quality.`,
+        content: `A **chord inversion** is the same chord with a different note on the bottom (the bass note).\n\nC major = C, E, G. All three of these arrangements are C major:\n\n- **Root position:** C-E-G (root on the bottom)\n- **1st inversion:** E-G-C (3rd on the bottom)\n- **2nd inversion:** G-C-E (5th on the bottom)\n\nWith 7th chords, there is also a **3rd inversion** with the 7th on the bottom. Each inversion has a different character — root position is strongest, 1st inversion is smooth, 2nd inversion has a suspended quality.\n\n[staff:c-triad-root]\n[staff:c-triad-1st]\n[staff:c-triad-2nd]`,
       },
       {
         type: 'quiz',
@@ -1430,7 +1430,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Borrowing Tension',
-        content: `In the key of C major, G7 is the only naturally occurring dominant chord. But what if we could create that same urgent "pull" toward any chord in the key?\n\nA **secondary dominant** is a temporary dominant chord that resolves to a chord other than I. It is written as **V/x** — "five of x."\n\n- **V/V** = D7 → G (D7 pulls to G, just like G7 pulls to C)\n- **V/ii** = A7 → Dm\n- **V/vi** = E7 → Am\n\nEach one briefly **tonicizes** its target chord — making it feel momentarily like home.`,
+        content: `In the key of C major, G7 is the only naturally occurring dominant chord. But what if we could create that same urgent "pull" toward any chord in the key?\n\nA **secondary dominant** is a temporary dominant chord that resolves to a chord other than I. It is written as **V/x** — "five of x."\n\n- **V/V** = D7 → G (D7 pulls to G, just like G7 pulls to C)\n- **V/ii** = A7 → Dm\n- **V/vi** = E7 → Am\n\n[chords:D7,G7,Cmaj7]\n\nEach one briefly **tonicizes** its target chord — making it feel momentarily like home.`,
       },
       {
         type: 'quiz',
@@ -1686,7 +1686,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Straight vs Swing',
-        content: `In **straight** eighth notes, each eighth note is exactly half a beat — the downbeat and upbeat are evenly spaced.\n\nIn **swing** (also called **shuffle**), the eighth notes are played unevenly: the first one is longer and the second is shorter. It sounds like a "long-short, long-short" pattern.\n\nMathematically, swing eighth notes are closer to a triplet feel — the beat is divided into three, and the first eighth note takes about 2/3 of the beat while the second takes 1/3.\n\nSwing is the rhythmic foundation of jazz, blues, early rock and roll, and big band music. It is what makes jazz sound like jazz.`,
+        content: `In **straight** eighth notes, each eighth note is exactly half a beat — the downbeat and upbeat are evenly spaced.\n\nIn **swing** (also called **shuffle**), the eighth notes are played unevenly: the first one is longer and the second is shorter. It sounds like a "long-short, long-short" pattern.\n\n[rhythm-pattern:4/4|e,e,e,e,e,e,e,e|Straight eighths — perfectly even]\n[rhythm-pattern:4/4|q.,e,q.,e,q.,e,q.,e|Swing feel — long-short pulse]\n\nMathematically, swing eighth notes are closer to a triplet feel — the beat is divided into three, and the first eighth note takes about 2/3 of the beat while the second takes 1/3.\n\nSwing is the rhythmic foundation of jazz, blues, early rock and roll, and big band music. It is what makes jazz sound like jazz.`,
       },
       {
         type: 'quiz',
@@ -1817,7 +1817,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Laying Back and Pushing',
-        content: `Two key concepts in feel:\n\n**Laying back:** Playing notes very slightly after the beat. This creates a relaxed, heavy feel. Common in blues, reggae, hip-hop, and R&B. Think of the laid-back groove of a D'Angelo record.\n\n**Pushing (or playing on top):** Playing notes very slightly before the beat. This creates urgency and excitement. Common in punk, some rock, and high-energy jazz.\n\nThese are extremely subtle timing differences — often just 10-30 milliseconds. But they dramatically change how the music feels. Great rhythm sections develop a shared sense of where the pocket sits.`,
+        content: `Two key concepts in feel:\n\n**Laying back:** Playing notes very slightly after the beat. This creates a relaxed, heavy feel. Common in blues, reggae, hip-hop, and R&B. Think of the laid-back groove of a D'Angelo record.\n\n**Pushing (or playing on top):** Playing notes very slightly before the beat. This creates urgency and excitement. Common in punk, some rock, and high-energy jazz.\n\n[rhythm-pattern:4/4|q,q,q,q|The grid — exactly on the beat]\n\nThese are extremely subtle timing differences — often just 10-30 milliseconds. But they dramatically change how the music feels. Great rhythm sections develop a shared sense of where the pocket sits.`,
       },
       {
         type: 'quiz',
@@ -1900,7 +1900,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What Are Modes?',
-        content: `**Modes** are scales built by starting on different notes of the major scale. Take C major: C D E F G A B. Now play the same notes, but start on D:\n\n**D E F G A B C D** — this is **D Dorian**.\n\nSame notes as C major, but it sounds completely different because D is now "home." The intervals relative to the new root create a new mood.\n\nThere are 7 modes, one starting on each degree of the major scale. Each has a unique character and has been used for centuries in folk, classical, jazz, and popular music.`,
+        content: `**Modes** are scales built by starting on different notes of the major scale. Take C major: C D E F G A B. Now play the same notes, but start on D:\n\n**D E F G A B C D** — this is **D Dorian**.\n\n[staff-notes:C4,D4,E4,F4,G4,A4,B4,C5|C major scale]\n[staff-notes:D4,E4,F4,G4,A4,B4,C5,D5|Same notes, starting on D = D Dorian]\n\nSame notes as C major, but it sounds completely different because D is now "home." The intervals relative to the new root create a new mood.\n\nThere are 7 modes, one starting on each degree of the major scale. Each has a unique character and has been used for centuries in folk, classical, jazz, and popular music.`,
       },
       {
         type: 'text',
@@ -1947,7 +1947,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Mixolydian: The Dominant Mode',
-        content: `**Mixolydian mode** is the major scale with a **flat 7th** — that is the only difference from Ionian.\n\nFormula: 1 2 3 4 5 6 **b7**\n\nG Mixolydian: G A B C D E **F** G (same notes as C major, starting on G)\n\nMixolydian sounds major but with a bluesy, rock edge. It is the sound of dominant 7th chords and is the mode of choice for:\n- Classic rock ("Sweet Home Alabama," "Sympathy for the Devil")\n- Blues and blues-rock\n- Folk and Celtic music (fiddle tunes)\n- Funk guitar riffs\n\nIf a song uses a major chord with a flat 7th (like G7 or C7 as a tonic), it is likely Mixolydian.`,
+        content: `**Mixolydian mode** is the major scale with a **flat 7th** — that is the only difference from Ionian.\n\nFormula: 1 2 3 4 5 6 **b7**\n\nG Mixolydian: G A B C D E **F** G (same notes as C major, starting on G)\n\n[staff:c-ionian]\n[staff:c-mixolydian]\n\nMixolydian sounds major but with a bluesy, rock edge. It is the sound of dominant 7th chords and is the mode of choice for:\n- Classic rock ("Sweet Home Alabama," "Sympathy for the Devil")\n- Blues and blues-rock\n- Folk and Celtic music (fiddle tunes)\n- Funk guitar riffs\n\nIf a song uses a major chord with a flat 7th (like G7 or C7 as a tonic), it is likely Mixolydian.`,
       },
       {
         type: 'quiz',
@@ -1989,7 +1989,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Dorian: The Bright Minor',
-        content: `**Dorian mode** is a minor scale with a **natural 6th** (raised compared to Aeolian). It is the 2nd mode of the major scale.\n\nFormula: 1 2 **b3** 4 5 **6** b7\n\nD Dorian: D E F G A B C D\n\nThat natural 6th makes Dorian brighter and warmer than Aeolian. It sounds minor but not sad — more cool, groovy, and sophisticated.\n\nDorian is used heavily in:\n- Jazz ("So What" by Miles Davis — the quintessential Dorian piece)\n- Funk and soul ("Oye Como Va" by Santana)\n- Folk ("Scarborough Fair")\n- Video game music\n\nWhenever you hear a minor key that feels warm rather than bleak, it is likely Dorian.`,
+        content: `**Dorian mode** is a minor scale with a **natural 6th** (raised compared to Aeolian). It is the 2nd mode of the major scale.\n\nFormula: 1 2 **b3** 4 5 **6** b7\n\nD Dorian: D E F G A B C D\n\n[staff:c-aeolian]\n[staff:c-dorian]\n\nThat natural 6th makes Dorian brighter and warmer than Aeolian. It sounds minor but not sad — more cool, groovy, and sophisticated.\n\nDorian is used heavily in:\n- Jazz ("So What" by Miles Davis — the quintessential Dorian piece)\n- Funk and soul ("Oye Como Va" by Santana)\n- Folk ("Scarborough Fair")\n- Video game music\n\nWhenever you hear a minor key that feels warm rather than bleak, it is likely Dorian.`,
       },
       {
         type: 'quiz',
@@ -2031,7 +2031,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Locrian: The Unstable Mode',
-        content: `**Locrian mode** is the 7th mode — the darkest and most unstable of all. Its defining feature is the **flat 5th** (diminished 5th), which means the tonic chord is diminished.\n\nFormula: 1 **b2 b3** 4 **b5 b6 b7**\n\nB Locrian: B C D E F G A B\n\nLocrian is rarely used as a key center in traditional music because the diminished tonic chord is too unstable to feel like "home." However, it appears in:\n- Heavy metal riffs (briefly, for maximum darkness)\n- Jazz improvisation over half-diminished chords\n- Experimental and avant-garde music\n\nThink of Locrian as a theoretical endpoint — the darkest possible mode — rather than a practical key.`,
+        content: `**Locrian mode** is the 7th mode — the darkest and most unstable of all. Its defining feature is the **flat 5th** (diminished 5th), which means the tonic chord is diminished.\n\nFormula: 1 **b2 b3** 4 **b5 b6 b7**\n\nB Locrian: B C D E F G A B\n\n[staff:c-phrygian]\n[staff:c-locrian]\n\nLocrian is rarely used as a key center in traditional music because the diminished tonic chord is too unstable to feel like "home." However, it appears in:\n- Heavy metal riffs (briefly, for maximum darkness)\n- Jazz improvisation over half-diminished chords\n- Experimental and avant-garde music\n\nThink of Locrian as a theoretical endpoint — the darkest possible mode — rather than a practical key.`,
       },
       {
         type: 'quiz',
@@ -2068,7 +2068,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Lydian: The Dreamy Mode',
-        content: `**Lydian mode** is the 4th mode of the major scale. Its defining feature is the **raised 4th** (sharp 4th), which is a half step higher than the regular major scale.\n\nFormula: 1 2 3 **#4** 5 6 7\n\nF Lydian: F G A B C D E F (same notes as C major, starting on F)\n\nThat raised 4th eliminates the only "dark" interval in the major scale (the perfect 4th's slight tension), creating the brightest, most open-sounding mode. It sounds **dreamy, floating, ethereal, and magical**.\n\nLydian has been described as "more major than major" because every interval from the root is either major or augmented.`,
+        content: `**Lydian mode** is the 4th mode of the major scale. Its defining feature is the **raised 4th** (sharp 4th), which is a half step higher than the regular major scale.\n\nFormula: 1 2 3 **#4** 5 6 7\n\nF Lydian: F G A B C D E F (same notes as C major, starting on F)\n\n[staff:c-lydian]\n\nThat raised 4th eliminates the only "dark" interval in the major scale (the perfect 4th's slight tension), creating the brightest, most open-sounding mode. It sounds **dreamy, floating, ethereal, and magical**.\n\nLydian has been described as "more major than major" because every interval from the root is either major or augmented.`,
       },
       {
         type: 'text',
@@ -2110,7 +2110,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Harmonic Minor',
-        content: `The **harmonic minor** scale raises the 7th degree of the natural minor by one half step, creating a **leading tone** that strongly pulls up to the root.\n\nA harmonic minor: A B C D E F **G#** A\nFormula: 1 2 b3 4 5 b6 **7**\n\nThis raised 7th creates a distinctive 1.5-step gap between the 6th and 7th (F to G# = 3 half steps). This gap gives harmonic minor its exotic, classical, or Middle Eastern sound.\n\nThe name "harmonic" comes from the fact that this scale produces the harmonies (chords) used in minor key classical music — specifically the major V chord (E major in A minor) with its strong pull to the tonic.`,
+        content: `The **harmonic minor** scale raises the 7th degree of the natural minor by one half step, creating a **leading tone** that strongly pulls up to the root.\n\nA harmonic minor: A B C D E F **G#** A\nFormula: 1 2 b3 4 5 b6 **7**\n\n[staff:a-harmonic-minor]\n\nThis raised 7th creates a distinctive 1.5-step gap between the 6th and 7th (F to G# = 3 half steps). This gap gives harmonic minor its exotic, classical, or Middle Eastern sound.\n\nThe name "harmonic" comes from the fact that this scale produces the harmonies (chords) used in minor key classical music — specifically the major V chord (E major in A minor) with its strong pull to the tonic.`,
       },
       {
         type: 'quiz',
@@ -2122,7 +2122,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Melodic Minor',
-        content: `**Melodic minor** solves the awkward 1.5-step gap in harmonic minor by also raising the 6th:\n\nA melodic minor (ascending): A B C D E **F# G#** A\nA melodic minor (descending): A G F E D C B A (reverts to natural minor)\n\nFormula (ascending): 1 2 b3 4 5 **6 7**\n\nIn classical music, melodic minor changes direction — raised 6th and 7th ascending, natural descending. In jazz, the ascending form is used in both directions and is called the **jazz minor scale**.\n\nMelodic minor is incredibly important in jazz because it generates several useful modes, including the altered scale and the Lydian dominant scale.`,
+        content: `**Melodic minor** solves the awkward 1.5-step gap in harmonic minor by also raising the 6th:\n\nA melodic minor (ascending): A B C D E **F# G#** A\nA melodic minor (descending): A G F E D C B A (reverts to natural minor)\n\nFormula (ascending): 1 2 b3 4 5 **6 7**\n\n[staff:a-melodic-minor]\n\nIn classical music, melodic minor changes direction — raised 6th and 7th ascending, natural descending. In jazz, the ascending form is used in both directions and is called the **jazz minor scale**.\n\nMelodic minor is incredibly important in jazz because it generates several useful modes, including the altered scale and the Lydian dominant scale.`,
       },
       {
         type: 'quiz',
@@ -2161,7 +2161,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Shell Voicings',
-        content: `Jazz pianists do not play big block chords. They use **voicings** — specific arrangements of chord tones that are sparse but rich.\n\n**Shell voicings** use only 3 notes: **Root + 3rd + 7th**\n\nFor Cmaj7: C + E + B\nFor Dm7: D + F + C\nFor G7: G + B + F\n\nWhy skip the 5th? It does not add much harmonic character. The 3rd tells you major or minor, and the 7th tells you the chord quality. That is all you need.\n\nShell voicings sound clean, professional, and leave space for the bass player, horns, and other instruments.`,
+        content: `Jazz pianists do not play big block chords. They use **voicings** — specific arrangements of chord tones that are sparse but rich.\n\n**Shell voicings** use only 3 notes: **Root + 3rd + 7th**\n\nFor Cmaj7: C + E + B\nFor Dm7: D + F + C\nFor G7: G + B + F\n\n[staff-notes:C4,E4,B4|Cmaj7 shell — root + 3rd + 7th]\n[staff-notes:D4,F4,C5|Dm7 shell]\n[staff-notes:G3,B3,F4|G7 shell]\n\nWhy skip the 5th? It does not add much harmonic character. The 3rd tells you major or minor, and the 7th tells you the chord quality. That is all you need.\n\nShell voicings sound clean, professional, and leave space for the bass player, horns, and other instruments.`,
       },
       {
         type: 'quiz',
@@ -2213,7 +2213,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Guide Tone Lines',
-        content: `A **guide tone line** traces the movement of the 3rds and 7ths through a chord progression. It creates a smooth melody that outlines the harmony.\n\nii-V-I in C, guide tones:\n- Dm7: **F** (3rd) and **C** (7th)\n- G7: **B** (3rd) and **F** (7th) — the F stayed, the C moved to B\n- Cmaj7: **E** (3rd) and **B** (7th) — the B stayed, the F moved to E\n\nNotice how everything moves by step or stays put. If you play just these guide tones over a bass player walking through the changes, it sounds completely like jazz.\n\nPractice playing guide tone lines through jazz standards — it is one of the most efficient ways to learn jazz harmony.`,
+        content: `A **guide tone line** traces the movement of the 3rds and 7ths through a chord progression. It creates a smooth melody that outlines the harmony.\n\nii-V-I in C, guide tones:\n- Dm7: **F** (3rd) and **C** (7th)\n- G7: **B** (3rd) and **F** (7th) — the F stayed, the C moved to B\n- Cmaj7: **E** (3rd) and **B** (7th) — the B stayed, the F moved to E\n\n[staff-notes:F4,C5,F4,B4,E4,B4|Guide tones through Dm7 → G7 → Cmaj7 (3rd & 7th)]\n\nNotice how everything moves by step or stays put. If you play just these guide tones over a bass player walking through the changes, it sounds completely like jazz.\n\nPractice playing guide tone lines through jazz standards — it is one of the most efficient ways to learn jazz harmony.`,
       },
       {
         type: 'quiz',
@@ -2243,7 +2243,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The Bebop Scale',
-        content: `The **bebop scale** adds a chromatic passing tone to a 7-note scale, creating an 8-note scale where chord tones consistently land on downbeats.\n\nThe most common is the **bebop dominant scale** — a Mixolydian scale with an added natural 7th:\n\nC bebop dominant: C D E F G A **Bb B** C\n\nWith 8 notes per octave (in 4/4 time playing eighth notes), the chord tones (C, E, G, Bb) land on the strong beats. Without the extra note, they would alternate between strong and weak beats.\n\nThis was the insight of bebop pioneers like Charlie Parker and Dizzy Gillespie: adding one note solves a rhythmic alignment problem.`,
+        content: `The **bebop scale** adds a chromatic passing tone to a 7-note scale, creating an 8-note scale where chord tones consistently land on downbeats.\n\nThe most common is the **bebop dominant scale** — a Mixolydian scale with an added natural 7th:\n\nC bebop dominant: C D E F G A **Bb B** C\n\n[staff-notes:C4,D4,E4,F4,G4,A4,Bb4,B4,C5|C bebop dominant — 8 notes for rhythmic alignment]\n\nWith 8 notes per octave (in 4/4 time playing eighth notes), the chord tones (C, E, G, Bb) land on the strong beats. Without the extra note, they would alternate between strong and weak beats.\n\nThis was the insight of bebop pioneers like Charlie Parker and Dizzy Gillespie: adding one note solves a rhythmic alignment problem.`,
       },
       {
         type: 'quiz',
@@ -2285,7 +2285,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Matching Scales to Chords',
-        content: `**Chord-scale theory** assigns a scale to each chord, giving you a pool of notes to improvise with. The basic principle: use a scale that contains all the chord tones plus compatible extensions.\n\nIn a ii-V-I in C major:\n- **Dm7** → D Dorian (D E F G A B C)\n- **G7** → G Mixolydian (G A B C D E F)\n- **Cmaj7** → C Ionian or C Lydian (C D E F G A B or C D E F# G A B)\n\nIn a ii-V-i in C minor:\n- **Dm7b5** → D Locrian or D Locrian #2\n- **G7alt** → G Altered scale\n- **Cm(maj7)** → C Melodic minor\n\nThis system gives you a systematic approach to improvisation over any chord.`,
+        content: `**Chord-scale theory** assigns a scale to each chord, giving you a pool of notes to improvise with. The basic principle: use a scale that contains all the chord tones plus compatible extensions.\n\nIn a ii-V-I in C major:\n- **Dm7** → D Dorian (D E F G A B C)\n- **G7** → G Mixolydian (G A B C D E F)\n- **Cmaj7** → C Ionian or C Lydian (C D E F G A B or C D E F# G A B)\n\n[staff:c-ionian]\n[staff:c-lydian]\n\nIn a ii-V-i in C minor:\n- **Dm7b5** → D Locrian or D Locrian #2\n- **G7alt** → G Altered scale\n- **Cm(maj7)** → C Melodic minor\n\nThis system gives you a systematic approach to improvisation over any chord.`,
       },
       {
         type: 'quiz',
@@ -2327,7 +2327,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What is a Tritone Substitution?',
-        content: `A **tritone substitution** replaces a dominant 7th chord with another dominant 7th chord whose root is a **tritone** (6 half steps) away.\n\nG7 can be replaced by **Db7** (G to Db = tritone).\n\nWhy does this work? Because G7 and Db7 share the same guide tones (the 3rd and 7th are swapped):\n- G7: B (3rd) and F (7th)\n- Db7: F (3rd) and B/Cb (7th)\n\nThe same two notes that create the tension and resolution are present in both chords. The resolution to Cmaj7 works equally well from either one.`,
+        content: `A **tritone substitution** replaces a dominant 7th chord with another dominant 7th chord whose root is a **tritone** (6 half steps) away.\n\nG7 can be replaced by **Db7** (G to Db = tritone).\n\n[staff:tritone-sub]\n\nWhy does this work? Because G7 and Db7 share the same guide tones (the 3rd and 7th are swapped):\n- G7: B (3rd) and F (7th)\n- Db7: F (3rd) and B/Cb (7th)\n\nThe same two notes that create the tension and resolution are present in both chords. The resolution to Cmaj7 works equally well from either one.`,
       },
       {
         type: 'quiz',
@@ -2369,7 +2369,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What is Modal Jazz?',
-        content: `**Modal jazz** emerged in the late 1950s as a reaction to the rapid chord changes of bebop. Instead of navigating a new chord every beat or two, modal jazz stays on one chord (or mode) for extended periods — sometimes 8 or 16 bars.\n\nThe landmark album was **"Kind of Blue"** (1959) by Miles Davis, featuring the tune "So What" — 16 bars of D Dorian, then 8 bars of Eb Dorian, then 8 bars of D Dorian.\n\nThis approach shifts the improviser's focus from playing changes (negotiating rapid chord movements) to exploring **color, texture, and melodic development** within a single harmonic environment.`,
+        content: `**Modal jazz** emerged in the late 1950s as a reaction to the rapid chord changes of bebop. Instead of navigating a new chord every beat or two, modal jazz stays on one chord (or mode) for extended periods — sometimes 8 or 16 bars.\n\nThe landmark album was **"Kind of Blue"** (1959) by Miles Davis, featuring the tune "So What" — 16 bars of D Dorian, then 8 bars of Eb Dorian, then 8 bars of D Dorian.\n\n[staff-notes:D4,E4,F4,G4,A4,B4,C5,D5|D Dorian — the foundation of "So What"]\n\nThis approach shifts the improviser's focus from playing changes (negotiating rapid chord movements) to exploring **color, texture, and melodic development** within a single harmonic environment.`,
       },
       {
         type: 'quiz',
@@ -2415,7 +2415,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'What Are Borrowed Chords?',
-        content: `**Borrowed chords** (also called **modal interchange**) are chords taken from the parallel minor (or another parallel mode) and used in a major key context.\n\nIn C major, the parallel minor is C minor. We can "borrow" chords from C minor:\n- **bVII:** Bb major (from C natural minor)\n- **iv:** F minor (from C minor)\n- **bVI:** Ab major (from C minor)\n- **bIII:** Eb major (from C minor)\n\nThese chords sound surprising but not wrong — they add darkness, drama, or bittersweetness to an otherwise bright major key.`,
+        content: `**Borrowed chords** (also called **modal interchange**) are chords taken from the parallel minor (or another parallel mode) and used in a major key context.\n\nIn C major, the parallel minor is C minor. We can "borrow" chords from C minor:\n- **bVII:** Bb major (from C natural minor)\n- **iv:** F minor (from C minor)\n- **bVI:** Ab major (from C minor)\n- **bIII:** Eb major (from C minor)\n\n[staff-notes:F4,Ab4,C5|Fm — borrowed iv chord]\n[staff-notes:Bb3,D4,F4|Bb — borrowed bVII chord]\n\nThese chords sound surprising but not wrong — they add darkness, drama, or bittersweetness to an otherwise bright major key.`,
       },
       {
         type: 'quiz',
@@ -2457,7 +2457,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'The Neapolitan Chord',
-        content: `The **Neapolitan chord** (abbreviated N or bII) is a major triad built on the **lowered 2nd degree** of the scale, almost always in **first inversion**.\n\nIn C minor: the Neapolitan is **Db major** (Db, F, Ab), typically voiced as F-Ab-Db.\n\nIt typically resolves to the V chord: N6 → V → i (Db/F → G → Cm)\n\nThe Neapolitan sounds dramatic, dark, and unexpected. It was a favorite of Baroque and Classical composers (Beethoven, Mozart, Schubert), but also appears in film music and even some rock (Radiohead uses bII frequently).\n\nThe name comes from its association with the Neapolitan opera school of the 18th century.`,
+        content: `The **Neapolitan chord** (abbreviated N or bII) is a major triad built on the **lowered 2nd degree** of the scale, almost always in **first inversion**.\n\nIn C minor: the Neapolitan is **Db major** (Db, F, Ab), typically voiced as F-Ab-Db.\n\n[staff-notes:F4,Ab4,Db5|Neapolitan in C minor (1st inversion)]\n\nIt typically resolves to the V chord: N6 → V → i (Db/F → G → Cm)\n\nThe Neapolitan sounds dramatic, dark, and unexpected. It was a favorite of Baroque and Classical composers (Beethoven, Mozart, Schubert), but also appears in film music and even some rock (Radiohead uses bII frequently).\n\nThe name comes from its association with the Neapolitan opera school of the 18th century.`,
       },
       {
         type: 'quiz',
@@ -2499,7 +2499,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Chromatic Mediants',
-        content: `A **chromatic mediant** is a chord whose root is a major or minor 3rd away from the current chord, but it is not the expected diatonic chord at that distance.\n\nFrom C major, the diatonic mediants are Em (iii) and Am (vi). The **chromatic** mediants are the unexpected ones:\n- **E major** (a major 3rd up, but major instead of minor)\n- **Ab major** (a minor 3rd down, from the parallel minor)\n- **Eb major** (a minor 3rd up)\n- **A major** (a major 3rd down)\n\nChromatic mediants share one common tone with the original chord but change quality. C major to E major: the note E is shared, but everything else shifts. The effect is dramatic, cinematic, and colorful.`,
+        content: `A **chromatic mediant** is a chord whose root is a major or minor 3rd away from the current chord, but it is not the expected diatonic chord at that distance.\n\nFrom C major, the diatonic mediants are Em (iii) and Am (vi). The **chromatic** mediants are the unexpected ones:\n- **E major** (a major 3rd up, but major instead of minor)\n- **Ab major** (a minor 3rd down, from the parallel minor)\n- **Eb major** (a minor 3rd up)\n- **A major** (a major 3rd down)\n\n[staff-notes:C4,E4,G4|C major]\n[staff-notes:E4,G#4,B4|E major — chromatic mediant]\n\nChromatic mediants share one common tone with the original chord but change quality. C major to E major: the note E is shared, but everything else shifts. The effect is dramatic, cinematic, and colorful.`,
       },
       {
         type: 'quiz',
@@ -2546,7 +2546,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Reharmonization Techniques',
-        content: `Key techniques:\n\n**1. Substitution:** Replace a chord with one that shares common tones (tritone subs, diatonic subs, chromatic mediants).\n\n**2. Interpolation:** Insert extra chords between existing ones. Turn C → G into C → Em → Dm → G.\n\n**3. Tonicization:** Add a ii-V before any target chord. Going to Am? Insert Bm7b5 → E7 before it.\n\n**4. Pedal point reharmonization:** Keep the bass on one note while changing upper harmonies.\n\n**5. Quality change:** Change a major chord to minor (or vice versa), a dominant to diminished, etc.\n\n**6. Coltrane changes:** Substitute a single chord with a cycle of major thirds (explored by John Coltrane in "Giant Steps").`,
+        content: `Key techniques:\n\n**1. Substitution:** Replace a chord with one that shares common tones (tritone subs, diatonic subs, chromatic mediants).\n\n**2. Interpolation:** Insert extra chords between existing ones. Turn C → G into C → Em → Dm → G.\n\n**3. Tonicization:** Add a ii-V before any target chord. Going to Am? Insert Bm7b5 → E7 before it.\n\n**4. Pedal point reharmonization:** Keep the bass on one note while changing upper harmonies.\n\n**5. Quality change:** Change a major chord to minor (or vice versa), a dominant to diminished, etc.\n\n**6. Coltrane changes:** Substitute a single chord with a cycle of major thirds (explored by John Coltrane in "Giant Steps").\n\n[chords:Dm7,G7,Cmaj7]`,
       },
       {
         type: 'quiz',
@@ -2583,7 +2583,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Changing Keys',
-        content: `**Modulation** is the process of moving from one key to another within a piece. Unlike a brief tonicization, a modulation establishes the new key as the home base — you stay there.\n\nThere are several types of modulation:\n\n- **Pivot chord modulation:** Uses a chord common to both keys as a bridge\n- **Direct modulation:** Changes key abruptly without preparation\n- **Chromatic modulation:** Uses chromatic voice leading to slide into the new key\n- **Common tone modulation:** Holds one note while shifting the harmony around it\n\nModulation is used to create large-scale contrast and energy. A key change can inject new life into a song, raise excitement, or shift the emotional landscape.`,
+        content: `**Modulation** is the process of moving from one key to another within a piece. Unlike a brief tonicization, a modulation establishes the new key as the home base — you stay there.\n\nThere are several types of modulation:\n\n- **Pivot chord modulation:** Uses a chord common to both keys as a bridge\n- **Direct modulation:** Changes key abruptly without preparation\n- **Chromatic modulation:** Uses chromatic voice leading to slide into the new key\n- **Common tone modulation:** Holds one note while shifting the harmony around it\n\n[staff-notes:C4,E4,G4,Db4,F4,Ab4|Direct modulation up a half step (C → Db)]\n\nModulation is used to create large-scale contrast and energy. A key change can inject new life into a song, raise excitement, or shift the emotional landscape.`,
       },
       {
         type: 'quiz',
@@ -2630,7 +2630,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Basic Rules of Counterpoint',
-        content: `The fundamental guidelines for two-part counterpoint:\n\n**1. Motion types:**\n- **Contrary motion:** Lines move in opposite directions (most desirable)\n- **Oblique motion:** One line stays still while the other moves\n- **Similar motion:** Both move in the same direction (use with care)\n- **Parallel motion:** Both move by the same interval (avoid with 5ths and octaves)\n\n**2. Consonant intervals:** 3rds, 6ths, 5ths, and octaves on strong beats.\n\n**3. Independence:** Each line should be interesting on its own — different rhythms, different contours.\n\n**4. No parallel 5ths or octaves:** This rule prevents the lines from losing independence.`,
+        content: `The fundamental guidelines for two-part counterpoint:\n\n**1. Motion types:**\n- **Contrary motion:** Lines move in opposite directions (most desirable)\n- **Oblique motion:** One line stays still while the other moves\n- **Similar motion:** Both move in the same direction (use with care)\n- **Parallel motion:** Both move by the same interval (avoid with 5ths and octaves)\n\n**2. Consonant intervals:** 3rds, 6ths, 5ths, and octaves on strong beats.\n\n**3. Independence:** Each line should be interesting on its own — different rhythms, different contours.\n\n**4. No parallel 5ths or octaves:** This rule prevents the lines from losing independence.\n\n[staff-notes:C4,G4,D4,F4,E4,E4|Two-voice contrary motion — top rises, bottom falls]`,
       },
       {
         type: 'quiz',
@@ -2671,7 +2671,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Common Song Forms',
-        content: `Most songs follow one of several established structures:\n\n**Verse-Chorus (ABAB):** Verse → Chorus → Verse → Chorus. The simplest and most common pop structure.\n\n**Verse-Chorus-Bridge (ABABCB):** Verse → Chorus → Verse → Chorus → Bridge → Chorus. The bridge provides contrast.\n\n**AABA (32-bar form):** A (8 bars) → A (8) → B (8, the bridge) → A (8). The form of jazz standards like "Over the Rainbow" and "I Got Rhythm."\n\n**Through-composed:** No repeating sections — the music continuously develops. Common in classical art songs and some progressive rock.\n\nThe **verse** tells the story (lyrics change each time). The **chorus** is the hook (lyrics stay the same). The **bridge** provides contrast and fresh energy.`,
+        content: `Most songs follow one of several established structures:\n\n**Verse-Chorus (ABAB):** Verse → Chorus → Verse → Chorus. The simplest and most common pop structure.\n\n**Verse-Chorus-Bridge (ABABCB):** Verse → Chorus → Verse → Chorus → Bridge → Chorus. The bridge provides contrast.\n\n**AABA (32-bar form):** A (8 bars) → A (8) → B (8, the bridge) → A (8). The form of jazz standards like "Over the Rainbow" and "I Got Rhythm."\n\n**Through-composed:** No repeating sections — the music continuously develops. Common in classical art songs and some progressive rock.\n\n[chords:C,Am,F,G]\n\nThe **verse** tells the story (lyrics change each time). The **chorus** is the hook (lyrics stay the same). The **bridge** provides contrast and fresh energy.`,
       },
       {
         type: 'quiz',
@@ -2718,7 +2718,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Voicing for Ensembles',
-        content: `When spreading a chord across multiple instruments, consider these voicing techniques:\n\n**Close voicing:** All notes within one octave. Sounds tight and punchy. Good for guitar, small combos.\n\n**Open voicing:** Notes spread across 2+ octaves. Sounds spacious and orchestral. Good for strings, full band.\n\n**Drop voicings:** Take a close voicing and drop one note down an octave. Drop 2, drop 3, and drop 2+4 are standard in jazz and big band arranging.\n\n**Unison and octaves:** Sometimes the most powerful arrangement choice is everyone playing the same melody in unison or octaves. Think of the horn hits in "Uptown Funk" or the opening of Beethoven's 5th.`,
+        content: `When spreading a chord across multiple instruments, consider these voicing techniques:\n\n**Close voicing:** All notes within one octave. Sounds tight and punchy. Good for guitar, small combos.\n\n**Open voicing:** Notes spread across 2+ octaves. Sounds spacious and orchestral. Good for strings, full band.\n\n**Drop voicings:** Take a close voicing and drop one note down an octave. Drop 2, drop 3, and drop 2+4 are standard in jazz and big band arranging.\n\n[staff-notes:C4,E4,G4,B4|Cmaj7 close voicing]\n[staff-notes:C3,G4,E4,B4|Cmaj7 drop 2 — wider, balanced]\n\n**Unison and octaves:** Sometimes the most powerful arrangement choice is everyone playing the same melody in unison or octaves. Think of the horn hits in "Uptown Funk" or the opening of Beethoven's 5th.`,
       },
       {
         type: 'quiz',
@@ -2760,7 +2760,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Analysis Example: "Let It Be"',
-        content: `**Key:** C major\n\n**Chord progression (verse + chorus):** C - G - Am - F | C - G - F - C\n\n**Roman numerals:** I - V - vi - IV | I - V - IV - I\n\nThis is the "axis progression" (I-V-vi-IV) — one of the most common in pop music. The second half reverses the direction: I-V-IV-I.\n\n**Form:** Intro → Verse → Verse → Chorus → Verse → Chorus → Solo → Verse → Chorus → Outro\n\n**Observations:**\n- The melody primarily uses chord tones and stepwise motion\n- The highest note appears at the emotional peak of the chorus\n- The harmonic rhythm is 2 beats per chord\n- Borrowed chords: none — the harmony stays entirely diatonic, which contributes to its timeless simplicity`,
+        content: `**Key:** C major\n\n**Chord progression (verse + chorus):** C - G - Am - F | C - G - F - C\n\n**Roman numerals:** I - V - vi - IV | I - V - IV - I\n\n[chords:C,G,Am,F]\n\nThis is the "axis progression" (I-V-vi-IV) — one of the most common in pop music. The second half reverses the direction: I-V-IV-I.\n\n**Form:** Intro → Verse → Verse → Chorus → Verse → Chorus → Solo → Verse → Chorus → Outro\n\n**Observations:**\n- The melody primarily uses chord tones and stepwise motion\n- The highest note appears at the emotional peak of the chorus\n- The harmonic rhythm is 2 beats per chord\n- Borrowed chords: none — the harmony stays entirely diatonic, which contributes to its timeless simplicity`,
       },
       {
         type: 'quiz',
@@ -2797,7 +2797,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Starting Your Song',
-        content: `There is no single "right" way to write a song, but here are proven starting points:\n\n**Chords first:** Pick a progression (I-V-vi-IV, ii-V-I, or something more adventurous). Play it on loop and hum melodies until something sticks. This is how most pop and rock songs are written.\n\n**Melody first:** Sing or play a melodic idea — even just a few notes. Then find chords that support it. This often produces more original, memorable melodies.\n\n**Lyrics first:** Start with words, a story, or an emotion. Find the natural rhythm of the words, then build a melody around them.\n\n**Riff first:** Write a catchy instrumental hook (guitar riff, bass line, synth pattern) and build the song around it.`,
+        content: `There is no single "right" way to write a song, but here are proven starting points:\n\n**Chords first:** Pick a progression (I-V-vi-IV, ii-V-I, or something more adventurous). Play it on loop and hum melodies until something sticks. This is how most pop and rock songs are written.\n\n**Melody first:** Sing or play a melodic idea — even just a few notes. Then find chords that support it. This often produces more original, memorable melodies.\n\n**Lyrics first:** Start with words, a story, or an emotion. Find the natural rhythm of the words, then build a melody around them.\n\n**Riff first:** Write a catchy instrumental hook (guitar riff, bass line, synth pattern) and build the song around it.\n\n[chords:C,G,Am,F]`,
       },
       {
         type: 'text',
@@ -2844,7 +2844,7 @@ export const LESSONS: LessonDef[] = [
       {
         type: 'text',
         title: 'Enclosures and Chromaticism',
-        content: `**Enclosures** approach a target note from both above and below before landing on it. They add chromaticism and sophistication:\n\n- **Diatonic enclosure:** Target C → approach from D above and B below: D, B, **C**\n- **Chromatic enclosure:** Target C → approach from Db above and B below: Db, B, **C**\n- **Double enclosure:** Two notes from each side: D, Db, B, **C**\n\nEnclosures are a hallmark of bebop and modern jazz. Charlie Parker, Dizzy Gillespie, and John Coltrane all used them extensively.\n\nOther advanced concepts:\n- **Digital patterns:** Sequences like 1-2-3-5 through chord changes\n- **Superimposition:** Implying a different chord over what the band is playing\n- **Rhythmic displacement:** Shifting a melodic pattern to start on a different beat`,
+        content: `**Enclosures** approach a target note from both above and below before landing on it. They add chromaticism and sophistication:\n\n- **Diatonic enclosure:** Target C → approach from D above and B below: D, B, **C**\n- **Chromatic enclosure:** Target C → approach from Db above and B below: Db, B, **C**\n- **Double enclosure:** Two notes from each side: D, Db, B, **C**\n\n[staff-notes:Db5,B4,C5|Chromatic enclosure landing on C]\n\nEnclosures are a hallmark of bebop and modern jazz. Charlie Parker, Dizzy Gillespie, and John Coltrane all used them extensively.\n\nOther advanced concepts:\n- **Digital patterns:** Sequences like 1-2-3-5 through chord changes\n- **Superimposition:** Implying a different chord over what the band is playing\n- **Rhythmic displacement:** Shifting a melodic pattern to start on a different beat`,
       },
       {
         type: 'quiz',

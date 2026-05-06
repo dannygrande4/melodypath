@@ -158,6 +158,35 @@ const PRESETS: Record<string, { notes: string[]; title: string }> = {
   'c-blues-scale': { notes: ['C4', 'Eb4', 'F4', 'F#4', 'G4', 'Bb4', 'C5'], title: 'C blues scale' },
   'c-major-triad': { notes: ['C4', 'E4', 'G4'], title: 'C major triad' },
   'c-minor-triad': { notes: ['C4', 'Eb4', 'G4'], title: 'C minor triad' },
+
+  // Modes — all rooted on C for easy comparison.
+  'c-ionian': { notes: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'], title: 'C Ionian (major)' },
+  'c-dorian': { notes: ['C4', 'D4', 'Eb4', 'F4', 'G4', 'A4', 'Bb4', 'C5'], title: 'C Dorian — minor with raised 6th' },
+  'c-phrygian': { notes: ['C4', 'Db4', 'Eb4', 'F4', 'G4', 'Ab4', 'Bb4', 'C5'], title: 'C Phrygian — minor with lowered 2nd' },
+  'c-lydian': { notes: ['C4', 'D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C5'], title: 'C Lydian — major with raised 4th' },
+  'c-mixolydian': { notes: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'Bb4', 'C5'], title: 'C Mixolydian — major with lowered 7th' },
+  'c-aeolian': { notes: ['C4', 'D4', 'Eb4', 'F4', 'G4', 'Ab4', 'Bb4', 'C5'], title: 'C Aeolian (natural minor)' },
+  'c-locrian': { notes: ['C4', 'Db4', 'Eb4', 'F4', 'Gb4', 'Ab4', 'Bb4', 'C5'], title: 'C Locrian — minor with lowered 2nd & 5th' },
+
+  // Other scales used in modal/jazz/advanced content.
+  'a-harmonic-minor': { notes: ['A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G#5', 'A5'], title: 'A harmonic minor (raised 7th)' },
+  'a-melodic-minor': { notes: ['A4', 'B4', 'C5', 'D5', 'E5', 'F#5', 'G#5', 'A5'], title: 'A melodic minor (raised 6th & 7th)' },
+  'c-whole-tone': { notes: ['C4', 'D4', 'E4', 'F#4', 'G#4', 'A#4', 'C5'], title: 'C whole-tone scale' },
+  'c-chromatic': { notes: ['C4', 'C#4', 'D4', 'D#4', 'E4', 'F4', 'F#4', 'G4', 'G#4', 'A4', 'A#4', 'B4', 'C5'], title: 'C chromatic scale' },
+
+  // Triad inversions on C major (root, 1st, 2nd).
+  'c-triad-root': { notes: ['C4', 'E4', 'G4'], title: 'C major — root position' },
+  'c-triad-1st': { notes: ['E4', 'G4', 'C5'], title: 'C major — 1st inversion (E in bass)' },
+  'c-triad-2nd': { notes: ['G4', 'C5', 'E5'], title: 'C major — 2nd inversion (G in bass)' },
+
+  // 7th chord stacks on C.
+  'c-maj7': { notes: ['C4', 'E4', 'G4', 'B4'], title: 'Cmaj7 — C, E, G, B' },
+  'c-dom7': { notes: ['C4', 'E4', 'G4', 'Bb4'], title: 'C7 (dominant) — C, E, G, Bb' },
+  'c-min7': { notes: ['C4', 'Eb4', 'G4', 'Bb4'], title: 'Cm7 — C, Eb, G, Bb' },
+
+  // ii-V-I voicings for jazz reference.
+  'ii-v-i-bass': { notes: ['D3', 'G3', 'C4'], title: 'ii–V–I bass roots in C major' },
+  'tritone-sub': { notes: ['G3', 'Db4'], title: 'V (G7) and its tritone sub (Db7)' },
 }
 
 export function getStaffPreset(key: string) {
