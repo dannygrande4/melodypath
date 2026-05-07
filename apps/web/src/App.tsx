@@ -3,6 +3,7 @@ import { useEffect, lazy, Suspense } from 'react'
 import { useUIStore } from '@/stores/uiStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useAuthSync } from '@/hooks/useAuthSync'
+import { useAdminSync } from '@/hooks/useAdminSync'
 import AppShell from '@/components/layout/AppShell'
 import LevelUpOverlay from '@/components/Gamification/LevelUpOverlay'
 import UnlockOverlay from '@/components/Gamification/UnlockOverlay'
@@ -63,6 +64,9 @@ export default function App() {
 
   // Sync stores with authenticated user (reset on logout, load on login)
   useAuthSync()
+
+  // Force admin emails into a fully unlocked, max-level profile.
+  useAdminSync()
 
   // Apply theme
   useEffect(() => {

@@ -4,8 +4,17 @@ import { getLessonById } from '@/lib/lessons/lessonData'
 // Emails listed here always see every section unlocked, regardless of progress.
 // Also: setting localStorage["moniquemusic-admin"] = "true" forces admin on for
 // the local browser, useful when you aren't signed in or use a different email.
-const ADMIN_EMAILS = ['danny@moniquemusic.com', 'danny@grandes.ca']
-const ADMIN_LOCAL_KEY = 'moniquemusic-admin'
+export const ADMIN_EMAILS = [
+  'danny@moniquemusic.com',
+  'danny@moniquemusic.local',
+  'danny@grandes.ca',
+]
+export const ADMIN_LOCAL_KEY = 'moniquemusic-admin'
+
+export function isAdminEmailExact(email: string | null | undefined): boolean {
+  if (!email) return false
+  return ADMIN_EMAILS.includes(email.toLowerCase())
+}
 
 function isLocalhost(): boolean {
   if (typeof window === 'undefined') return false
