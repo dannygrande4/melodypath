@@ -65,7 +65,7 @@ export default function ScaleExplorer() {
   // Guitar positions
   const guitarNotes = useMemo(() => {
     if (!scaleInfo) return []
-    return scaleToFretNotes(scaleInfo.notes, root, 12)
+    return scaleToFretNotes(scaleInfo.notes, root, 24)
   }, [scaleInfo, root])
 
   // ─── Handlers ───────────────────────────────────────────────────────────
