@@ -45,22 +45,33 @@ export default function ScaleExplorer() {
   const scaleInfo = useMemo(() => getScale(root, scaleType), [root, scaleType])
   const scaleNotesOctave = useMemo(() => getScaleNotes(root, scaleType, 4), [root, scaleType])
 
-  // Piano highlights - spread across octaves 3–5
+  // Piano highlights - spread across octaves 3–5. Role is derived from the
+  // semitone interval against the root so pentatonic / modal scales colour
+  // the actual 3rd/5th/7th instead of whatever sits at array index 2/4/6.
   const pianoHighlights: HighlightedNote[] = useMemo(() => {
     if (!scaleInfo) return []
+    const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+    const FLATS: Record<string, string> = {
+      Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#',
+      Cb: 'B', Fb: 'E', 'E#': 'F', 'B#': 'C',
+    }
+    const toSharp = (pc: string) => FLATS[pc] ?? pc
+    const rootSemi = NOTE_NAMES.indexOf(toSharp(root))
     const highlights: HighlightedNote[] = []
     for (let octave = 3; octave <= 5; octave++) {
-      scaleInfo.notes.forEach((pc, i) => {
+      scaleInfo.notes.forEach((pc) => {
+        const semi = NOTE_NAMES.indexOf(toSharp(pc))
+        const interval = (semi - rootSemi + 12) % 12
         let role: NoteRole = 'other'
-        if (i === 0) role = 'root'
-        else if (i === 2) role = 'third'
-        else if (i === 4) role = 'fifth'
-        else if (i === 6) role = 'seventh'
+        if (interval === 0) role = 'root'
+        else if (interval === 3 || interval === 4) role = 'third'
+        else if (interval === 7) role = 'fifth'
+        else if (interval === 10 || interval === 11) role = 'seventh'
         highlights.push({ note: `${pc}${octave}`, role })
       })
     }
     return highlights
-  }, [scaleInfo])
+  }, [scaleInfo, root])
 
   // Guitar positions
   const guitarNotes = useMemo(() => {

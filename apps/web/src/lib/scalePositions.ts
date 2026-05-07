@@ -43,15 +43,16 @@ export function scaleToFretNotes(
       const displayPc = sharpToOriginal.get(sharpPc)
       if (!displayPc) continue
 
-      // Determine role
+      // Determine role from the semitone interval against the root, so
+      // pentatonic / blues / modal scales colour the actual 3rd/5th/7th
+      // (not whatever happens to land at array index 2/4/6).
+      const rootSemi = NOTE_NAMES.indexOf(sharpRoot)
+      const interval = (NOTE_NAMES.indexOf(sharpPc) - rootSemi + 12) % 12
       let role: NoteRole = 'other'
-      if (sharpPc === sharpRoot) role = 'root'
-      else {
-        const idx = scaleNotes.indexOf(displayPc)
-        if (idx === 2) role = 'third'
-        else if (idx === 4) role = 'fifth'
-        else if (idx === 6) role = 'seventh'
-      }
+      if (interval === 0) role = 'root'
+      else if (interval === 3 || interval === 4) role = 'third'
+      else if (interval === 7) role = 'fifth'
+      else if (interval === 10 || interval === 11) role = 'seventh'
 
       result.push({
         note: displayPc,
